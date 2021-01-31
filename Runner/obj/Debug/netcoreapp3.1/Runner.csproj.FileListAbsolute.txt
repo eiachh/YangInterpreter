@@ -1,0 +1,16 @@
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\Runner.exe
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\Runner.deps.json
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\Runner.runtimeconfig.json
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\Runner.runtimeconfig.dev.json
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\Runner.dll
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\Runner.pdb
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\YangInterpreter.dll
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\bin\Debug\netcoreapp3.1\YangInterpreter.pdb
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.csprojAssemblyReference.cache
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.AssemblyInfoInputs.cache
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.AssemblyInfo.cs
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.csproj.CoreCompileInputs.cache
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.csproj.CopyComplete
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.dll
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.pdb
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\Runner\obj\Debug\netcoreapp3.1\Runner.genruntimeconfig.cache

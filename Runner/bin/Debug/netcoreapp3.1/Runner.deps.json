@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Runner/1.0.0": {
+        "dependencies": {
+          "YangInterpreter": "1.0.0"
+        },
+        "runtime": {
+          "Runner.dll": {}
+        }
+      },
+      "YangInterpreter/1.0.0": {
+        "runtime": {
+          "YangInterpreter.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Runner/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "YangInterpreter/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

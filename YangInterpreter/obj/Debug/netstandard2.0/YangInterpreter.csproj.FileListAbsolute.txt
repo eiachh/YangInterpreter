@@ -1,0 +1,9 @@
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\obj\Debug\netstandard2.0\YangInterpreter.csprojAssemblyReference.cache
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\obj\Debug\netstandard2.0\YangInterpreter.AssemblyInfoInputs.cache
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\obj\Debug\netstandard2.0\YangInterpreter.AssemblyInfo.cs
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\obj\Debug\netstandard2.0\YangInterpreter.csproj.CoreCompileInputs.cache
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\bin\Debug\netstandard2.0\YangInterpreter.deps.json
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\bin\Debug\netstandard2.0\YangInterpreter.dll
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\bin\Debug\netstandard2.0\YangInterpreter.pdb
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\obj\Debug\netstandard2.0\YangInterpreter.dll
+C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\YangInterpreter\YangInterpreter\obj\Debug\netstandard2.0\YangInterpreter.pdb
