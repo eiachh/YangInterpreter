@@ -170,7 +170,7 @@ namespace YangInterpreter.Interpreter
         private YangNode AddNewYangNode(Type type, Token InputToken, YangAddingOption opt = YangAddingOption.None)
         {
             var instantiatedobj = (YangNode)Activator.CreateInstance(type, InputToken.TokenName);
-            ((ContainerCapability)TracerCurrentNode).AddChild(instantiatedobj);
+            instantiatedobj = ((ContainerCapability)TracerCurrentNode).AddChild(instantiatedobj);
             if (opt == YangAddingOption.None)
             {
                 TracerCurrentNode = instantiatedobj;
@@ -226,7 +226,7 @@ namespace YangInterpreter.Interpreter
 
         #region Interpreter State Machine
         private void ProcessToken(Token InputToken, List<string> metadata)
-        {
+        {      
             ///Reachable Statuses from Start status
             if (InterpreterStatus == TokenTypes.Start && InputToken.TokenType == TokenTypes.Module)
             {
@@ -234,6 +234,14 @@ namespace YangInterpreter.Interpreter
                 TracerCurrentNode = InterpreterTracer;
                 NewInterpreterStatus(TokenTypes.Module);
             }
+            
+            ///EMPTY LINE FORMATTING
+            else if (InputToken.TokenType == TokenTypes.Skip && TracerCurrentNode.GetType().BaseType == typeof(ContainerCapability) 
+                                                             && ((ContainerCapability)TracerCurrentNode).Count() > 1) 
+            {
+                AddNewYangNode(typeof(EmptyLineNode), InputToken, YangAddingOption.ChildAndStatusless);
+            }
+
             else if (InputToken.TokenType == TokenTypes.Skip) { }
 
             ///NODE END 

@@ -9,10 +9,17 @@ namespace YangInterpreter.Nodes.BaseNodes
     {
         protected List<YangNode> Children = new List<YangNode>();
         protected ContainerCapability(string name) : base(name) { }
-        public virtual void AddChild(YangNode Node)
+
+        /// <summary>
+        /// Adds the given Node as child to this node returns the added Node.
+        /// </summary>
+        /// <param name="Node"></param>
+        /// <returns>Returns the added Node can be used to check if adding changed any value</returns>
+        public virtual YangNode AddChild(YangNode Node)
         {
             Children.Add(Node);
             Node.Parent = this;
+            return Node;
         }
 
         /// <summary>
@@ -39,6 +46,15 @@ namespace YangInterpreter.Nodes.BaseNodes
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Returns the amount of children immadiately after this node.
+        /// </summary>
+        /// <returns></returns>
+        public int Count()
+        {
+            return Children.Count;
         }
 
         public override XElement[] NodeAsXML()

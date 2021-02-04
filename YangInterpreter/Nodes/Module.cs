@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Linq;
 using YangInterpreter.Nodes.BaseNodes;
+using YangInterpreter.Nodes;
 
 namespace YangInterpreter
 {
@@ -14,13 +15,13 @@ namespace YangInterpreter
         /// </summary>
         public string Namespace { get; internal set; }
         /// <summary>
-        /// The prefix for SELF namespace.
+        /// The prefix for SELF namespace.faddchil
         /// </summary>
         public string Prefix { get; set; }
         public string Organization { get; set; }
         public string Contact { get; set; }
 
-        public Module(string name) : base(name) { }
+        public Module(string name) : base(name) { AddChild(new YangVersionNode("1")); }
 
         /// <summary>
         /// Namespace dictionary of imported modules. Keys are the prefixes, values are the full namespace.
@@ -50,6 +51,17 @@ namespace YangInterpreter
             return outvalue;
         }
 
+        public override YangNode AddChild(YangNode Node)
+        {
+            if(Node.GetType() == typeof(YangVersionNode))
+            {
+                var version = DescendantsNode("yang-version")?.Single();
+                if(version != null )
+                    return version;
+            }
+            base.AddChild(Node);
+            return Node;
+        }
         public override string NodeAsYangString()
         {
             return NodeAsYangString(0);

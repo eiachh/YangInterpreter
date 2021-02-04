@@ -21,7 +21,8 @@ namespace YangInterpreter.Nodes.Property
         public override string PropertyAsYangText(int indentationlevel)
         {
             string indent = GetIdentation(indentationlevel);
-            string PropAsTextBasic = PropertyAsYangText();
+            string PropAsTextBasic = PropertyAsYangText().Trim();
+
 
             PropAsTextBasic = indent + PropAsTextBasic;
             return PropAsTextBasic.Replace("\r\n", "\r\n" + indent);

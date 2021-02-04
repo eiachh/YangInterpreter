@@ -8,7 +8,7 @@ namespace YangInterpreter.Nodes.BaseNodes
     public abstract class SingleItemContainer : ContainerCapability
     {
         protected SingleItemContainer(string name) : base(name) { }
-        public override void AddChild(YangNode Node)
+        public override YangNode AddChild(YangNode Node)
         {
             if (Children.Count == 0)
             {
@@ -19,6 +19,7 @@ namespace YangInterpreter.Nodes.BaseNodes
             {
                 throw new OverflownContainer("Container cannot contain more than 1 child. Container overflown.");
             }
+            return Node;
         }
         public void SetChild(YangNode Node)
         {

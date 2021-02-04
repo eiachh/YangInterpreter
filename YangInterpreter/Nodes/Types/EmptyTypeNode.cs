@@ -13,7 +13,7 @@ namespace YangInterpreter.Nodes.Types
         public override string NodeAsYangString(int indentationlevel)
         {
             var indent = GetIndentation(indentationlevel);
-            return indent + "type empty;" + Environment.NewLine;
+            return indent + "type empty;";
         }
     }
 }

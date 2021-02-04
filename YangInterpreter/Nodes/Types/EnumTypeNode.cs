@@ -22,7 +22,7 @@ namespace YangInterpreter.Nodes.Types
         }
         public override string NodeAsYangString(int indentationlevel)
         {
-            return GetIndentation(indentationlevel) + "type enumeration {\r\n" + GetPropertyListAsYangText(indentationlevel);
+            return GetIndentation(indentationlevel) + "type enumeration {"+ Environment.NewLine + EnumPropGroup.PropertyAsYangText(indentationlevel);
         }
 
         public override string NodeAsYangString()

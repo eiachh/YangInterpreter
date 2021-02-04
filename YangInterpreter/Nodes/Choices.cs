@@ -10,7 +10,7 @@ namespace YangInterpreter.Nodes
     public class Choices : ContainerCapability
     { 
         public Choices(string name) : base(name){ }
-        public override void AddChild(YangNode cases)
+        public override YangNode AddChild(YangNode cases)
         {
             if (cases.GetType() != typeof(ChoiceCase))
             {
@@ -20,6 +20,7 @@ namespace YangInterpreter.Nodes
             {
                 base.AddChild(cases);
             }
+            return cases;
         }
 
         public override string NodeAsYangString(int indentationlevel)
