@@ -16,7 +16,7 @@ namespace YangInterpreter
     /// </summary>
     public class YangInterpreterTool
     {
-        public YangNode Root { get; set; }
+        public Module Root { get; set; }
 
         /// <summary>
         /// Parses the yang file from the given text.
@@ -56,7 +56,7 @@ namespace YangInterpreter
                 YangAsRawText = File.ReadAllText(InputStr);
             }
             Interpreter.Interpreter interpreter = new Interpreter.Interpreter(opt);
-            Root = interpreter.ConvertText(YangAsRawText);
+            Root = interpreter.ConvertText(YangAsRawText) as Module;
         }
         /*private void ProcessYang(string InputStr, bool IsPath)
         {

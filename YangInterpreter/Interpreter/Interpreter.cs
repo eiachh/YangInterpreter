@@ -30,6 +30,7 @@ namespace YangInterpreter.Interpreter
         private Token PreviousToken;
 
         int LineNumber = 0;
+        private bool ModulEnded = false;
 
         public Interpreter(InterpreterOption opt = InterpreterOption.Normal)
         {
@@ -72,6 +73,7 @@ namespace YangInterpreter.Interpreter
         internal YangNode ConvertText(string YangAsRawText)
         {
             var YangAsRawTextRowByRow = Regex.Split(YangAsRawText, "\r\n|\r|\n");
+            var PreviousState = TokenTypes.Start;
 
             foreach (var RowOfYangText in YangAsRawTextRowByRow)
             {
@@ -81,6 +83,9 @@ namespace YangInterpreter.Interpreter
                 {
                     if (MultiLineToken(TokenForCurrentRow))
                     {
+                        if (TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline && PreviousState != TokenTypes.ValueForPreviousLineBeg)
+                            NodeProcessionFail();
+                        PreviousState = TokenForCurrentRow.TokenType;
                         SetPreviousToken(TokenForCurrentRow);
                         continue;
                     }
@@ -200,9 +205,12 @@ namespace YangInterpreter.Interpreter
                 InterpreterStatus = InterpreterStatusStack.Pop();
                 InterpreterStatusStack.Push(InterpreterStatus);
             }
+            if (InterpreterStatus == TokenTypes.Start)
+                ModulEnded = true;
 
             return InterpreterStatus;
         }
+
 
         /// <summary>
         /// Creates new metadata with the given input list.
@@ -237,7 +245,8 @@ namespace YangInterpreter.Interpreter
             
             ///EMPTY LINE FORMATTING
             else if (InputToken.TokenType == TokenTypes.Skip && TracerCurrentNode.GetType().BaseType == typeof(ContainerCapability) 
-                                                             && ((ContainerCapability)TracerCurrentNode).Count() > 1) 
+                                                             && ((ContainerCapability)TracerCurrentNode).Count() > 1
+                                                             && !ModulEnded) 
             {
                 AddNewYangNode(typeof(EmptyLineNode), InputToken, YangAddingOption.ChildAndStatusless);
             }
@@ -248,6 +257,12 @@ namespace YangInterpreter.Interpreter
             else if (InputToken.TokenType == TokenTypes.NodeEndingBracket)
             {
                 FallbackToPreviousInterpreterStatus();
+            }
+
+            ///MODULE ENDED AND THERE ARE UNPROCESSED NOT EMPTY ROWS
+            else if (InputToken.TokenType != TokenTypes.Skip && ModulEnded)
+            {
+                NodeProcessionFail();
             }
 
             ///MODULE
@@ -595,6 +610,7 @@ namespace YangInterpreter.Interpreter
         {
             
             var notProcessableToken = 23232;
+            throw new Exception();
         }
     }
 }

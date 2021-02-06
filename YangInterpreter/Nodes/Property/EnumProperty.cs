@@ -11,5 +11,22 @@ namespace YangInterpreter.Nodes.Property
         {
             Value = value;
         }
+
+        /// <summary>
+        /// Converts Name + value into string as: Name "Value";
+        /// </summary>
+        /// <returns></returns>
+        public override string PropertyAsYangText()
+        {
+            return Name.ToLower() +" "+ Value + ";";
+        }
+        /// <summary>
+        /// Converts Name + value with indentation into string as: \t Name "Value";
+        /// </summary>
+        /// <returns></returns>
+        public override string PropertyAsYangText(int indentationlevel)
+        {
+            return GetIdentation(indentationlevel) + PropertyAsYangText();
+        }
     }
 }

@@ -1,0 +1,43 @@
+module cc1-fi-lA {
+	yang-version 1asd;
+	namespace
+		"http://nokia.com/nokia-tas/cc1fil"
+
+	prefix cc1fil;
+
+	import nokia-tas-structure { prefix "ntas"; }
+	import nokia-extensions { prefix "nok-ext"; }
+	import profiles { prefix "profiles"; }
+
+	organization
+		"Nokia Networks"
+
+	contact
+		"QLOAD     <mailto:I_NTAS_QLOAD@internal.nsn.com>"
+
+	description
+		"The Generic Session Control parameter file contains Session Control
+		specific configurable parameters"
+
+	reference
+		"cc1fil_t - 0x0033A0000"
+
+revision 2019-09-11 {
+		description "Generic Session Control parameter file.";
+
+	}
+
+	container food {
+choice snack {
+case sports-arena {
+leaf pretzel {
+type empty;				}
+				leaf beer {
+type empty;				}			}
+			case late-night {
+leaf chocolate {
+type enumeration {
+						enum dark;
+						enum milk;
+						enum first-available;
+					}				}			}		}	}}

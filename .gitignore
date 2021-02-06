@@ -1,0 +1,5 @@
+﻿.vs
+Runner/bin
+Runner/obj
+YangInterpreter/bin
+InterpreterNUnitTester/obj

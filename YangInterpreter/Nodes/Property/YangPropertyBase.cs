@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YangInterpreter.Nodes.BaseNodes;
 
 namespace YangInterpreter.Nodes.Property
 {
@@ -52,7 +53,7 @@ namespace YangInterpreter.Nodes.Property
         /// <returns></returns>
         public virtual string PropertyAsYangText(int indentationlevel)
         {
-            return GetIdentation(indentationlevel) + PropertyAsYangText();
+            return GetIdentation(indentationlevel) + Name.ToLower() + " \"" + YangNode.MultilineIndentFixer(indentationlevel,Value) + "\"" + ";";
         }
 
         /// <summary>

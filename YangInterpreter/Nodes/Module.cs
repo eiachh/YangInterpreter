@@ -26,7 +26,7 @@ namespace YangInterpreter
         /// <summary>
         /// Namespace dictionary of imported modules. Keys are the prefixes, values are the full namespace.
         /// </summary>
-        private Dictionary<string, string> NamespaceDictionary = new Dictionary<string, string>();
+        public Dictionary<string, string> NamespaceDictionary = new Dictionary<string, string>();
 
         /// <summary>
         /// Adds the namespace to the dictionary. ( Prefix,  Namespace)

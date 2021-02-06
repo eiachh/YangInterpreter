@@ -67,7 +67,7 @@ namespace YangInterpreter.Nodes.BaseNodes
                 return matchingProps;
         }
 
-        protected string GetIndentation(int n)
+        protected static string GetIndentation(int n)
         {
             return new String('\t', n);
         }
@@ -93,7 +93,7 @@ namespace YangInterpreter.Nodes.BaseNodes
         /// <param name="indentationLevel"></param>
         /// <param name="valueToFix"></param>
         /// <returns></returns>
-        internal string MultilineIndentFixer(int indentationLevel,string valueToFix)
+        internal static string MultilineIndentFixer(int indentationLevel,string valueToFix)
         {
             var indent = GetIndentation(indentationLevel);
             valueToFix = Regex.Replace(valueToFix, "(?<!\r)\n", "\r\n");

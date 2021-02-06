@@ -49,7 +49,7 @@ namespace YangInterpreter.Nodes.BaseNodes
         }
 
         /// <summary>
-        /// Returns the amount of children immadiately after this node.
+        /// Returns the amount of children immadiately under this node.
         /// </summary>
         /// <returns></returns>
         public int Count()
