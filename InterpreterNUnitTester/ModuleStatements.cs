@@ -11,16 +11,10 @@ namespace InterpreterNUnitTester
     public class ModuleStatements
     {
         YangInterpreterTool InterpreterCorrect;
-        YangInterpreterTool InterpreterInproperYangVersion;
-        YangInterpreterTool InterpreterMissingSemicolonInValue;
-        YangInterpreterTool InterpreterInproperMalformedImport;
         [SetUp]
         public void Setup()
         {
             InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/ModuleStatementsCorrect1.yang");
-            InterpreterInproperYangVersion = YangInterpreterTool.Load("TestFiles/ModuleTests/ModuleStatementsInproperYangVer.yang");
-            InterpreterMissingSemicolonInValue = YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMissingSemicolonInValue.yang");
-            InterpreterInproperMalformedImport = YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterInproperMalformedImport.yang");
         }
 
         /// <summary>
@@ -101,16 +95,55 @@ namespace InterpreterNUnitTester
             Assert.AreEqual("Description of correctly formatted\r\n\t\tmodule,\r\nwith multiline value.", InterpreterCorrect.Root.GetPropertyByName("description").Single().GetValue());
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////INPROPER FORMATION TESTS/////////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///
-
-
+        /// <summary>
+        /// Checks if the reference was parsed correctly.
+        /// </summary>
         [Test]
-        public void ModulBadYangversionException()
+        public void ModuleReferenceParsedCorrectlyTest()
+        {
+            
+            Assert.AreEqual("", InterpreterCorrect.Root.GetPropertyByName("description").Single().GetValue());
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////IMPROPER FORMATION TESTS/////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        /// <summary>
+        /// Interpreter has to give InvalidYangVersion exception if  the version value is anything but 1.
+        /// </summary>
+        [Test]
+        public void ModuleBadYangversionException()
         {
             Assert.Throws<InvalidYangVersion>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/ModuleStatementsInproperYangVer.yang"));
+        }
+
+        /// <summary>
+        /// Interpreter has to supress InvalidYangVersion exception if  the version value is not 1 but InterpreterOption.Force is given.
+        /// </summary>
+        [Test]
+        public void ModuleBadYangversionExceptionSupression()
+        {
+           YangInterpreterTool.Load("TestFiles/ModuleTests/ModuleStatementsInproperYangVer.yang",InterpreterOption.Force);
+        }
+
+        /// <summary>
+        /// Interpreter has to give error in worngly formatted import line.
+        /// </summary>
+        [Test]
+        public void ModuleInterpreterFailExceptionImproperImport()
+        {
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterInproperMalformedImport.yang"));
+        }
+
+        /// <summary>
+        /// Interpreter has to give error if a value is not finished with a ; symbol.
+        /// </summary>
+        [Test]
+        public void ModuleInterpreterMissingRowEndSymbol()
+        {
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMissingSemicolonInValue.yang"));
         }
     }
 }

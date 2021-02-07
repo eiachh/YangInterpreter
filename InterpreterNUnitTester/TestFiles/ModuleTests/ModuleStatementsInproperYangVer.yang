@@ -1,5 +1,5 @@
 module InProperTestModule1 {
-	yang-version 1asd;
+	yang-version 1notsovalid;
 	namespace
 		"NamespaceInproperTestModule1";
 
@@ -25,6 +25,5 @@ module InProperTestModule1 {
 
 	revision 2019-09-11 {
 		description "Generic Session Control parameter file.";
-
 	}
 }

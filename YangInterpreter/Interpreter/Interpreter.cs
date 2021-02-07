@@ -30,6 +30,7 @@ namespace YangInterpreter.Interpreter
         private Token PreviousToken;
 
         int LineNumber = 0;
+        string CurrentRow = string.Empty;
         private bool ModulEnded = false;
 
         public Interpreter(InterpreterOption opt = InterpreterOption.Normal)
@@ -77,6 +78,7 @@ namespace YangInterpreter.Interpreter
 
             foreach (var RowOfYangText in YangAsRawTextRowByRow)
             {
+                CurrentRow = RowOfYangText;
                 LineNumber++;
                 var TokenForCurrentRow = TokenCreator.GetTokenForRow(RowOfYangText);
                 if (TokenForCurrentRow != null)
@@ -84,7 +86,7 @@ namespace YangInterpreter.Interpreter
                     if (MultiLineToken(TokenForCurrentRow))
                     {
                         if (TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline && PreviousState != TokenTypes.ValueForPreviousLineBeg)
-                            NodeProcessionFail();
+                            NodeProcessionFail(TokenForCurrentRow,LineNumber);
                         PreviousState = TokenForCurrentRow.TokenType;
                         SetPreviousToken(TokenForCurrentRow);
                         continue;
@@ -262,7 +264,7 @@ namespace YangInterpreter.Interpreter
             ///MODULE ENDED AND THERE ARE UNPROCESSED NOT EMPTY ROWS
             else if (InputToken.TokenType != TokenTypes.Skip && ModulEnded)
             {
-                NodeProcessionFail();
+                NodeProcessionFail(InputToken, LineNumber);
             }
 
             ///MODULE
@@ -328,7 +330,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -361,7 +363,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -386,7 +388,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -407,7 +409,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -424,7 +426,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -442,7 +444,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
             ///TYPE
@@ -471,7 +473,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -501,7 +503,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -526,7 +528,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -540,7 +542,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -573,7 +575,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else
                 {
-                    NodeProcessionFail();
+                    NodeProcessionFail(InputToken, LineNumber);
                 }
             }
 
@@ -597,20 +599,23 @@ namespace YangInterpreter.Interpreter
             ///No search scheme match => Incorrect inputline;
             else
             {
-                NodeProcessionFail();
-                /*InterpretationErrorHandler interpreterr = new InterpretationErrorHandler("Invalid value in node",
-                                                                                        "Interpreter read: " + InputToken.TokenType + " which is not possible in current interpreter status: " + InterpreterStatus,
-                                                                                        LineNumber,
-                                                                                        InterpreterTracer);*/
+                NodeProcessionFail(InputToken, LineNumber);
             }
         }
         #endregion
 
-    private void NodeProcessionFail()
+    private void NodeProcessionFail(Token tokenAtError,int rowNumber)
         {
-            
-            var notProcessableToken = 23232;
-            throw new Exception();
+
+            var asdasd = TracerCurrentNode;
+            ErrorLogger erLogger = new ErrorLogger(rowNumber,CurrentRow,LoggingOptions.TextLog);
+           var LogResult = erLogger.CreateLog(TracerCurrentNode, InterpreterStatusStack,tokenAtError);
+
+            string ErrorExtraText = string.Empty;
+            if (erLogger.LoggingOption == LoggingOptions.TextLog && LogResult)
+                ErrorExtraText = "Check logfile for extra info." + Environment.NewLine + erLogger.LoggingPath;
+
+            throw new InterpreterParseFail("Interpreter failed to parse row: "+ rowNumber + " " +ErrorExtraText);
         }
     }
 }

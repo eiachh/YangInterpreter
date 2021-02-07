@@ -45,7 +45,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*revision ([a-z0-9A-Z-]*)\s*{$",RegexOptions.IgnoreCase),TokenTypes.Revision, 1,-1),
                 new SearchScheme(new Regex("^\\s*description \"([^\"]*)\";$",RegexOptions.IgnoreCase),TokenTypes.Description,-1,1),
                 new SearchScheme(new Regex("^\\s*description\\s*$",RegexOptions.IgnoreCase),TokenTypes.DescriptionWithValueNextLine,-1,-1,TokenTypes.Description),
-                new SearchScheme(new Regex("^\\s*\"([^\"]*)\";$"),TokenTypes.ValueForPreviousLine,-1,1),
+                new SearchScheme(new Regex("^\\s*\"([^\"]*)\";\\s*$"),TokenTypes.ValueForPreviousLine,-1,1),
                 new SearchScheme(new Regex("^\\s*\"([^\"]*)$"),TokenTypes.ValueForPreviousLineBeg,-1,1,TokenTypes.Empty),
                 new SearchScheme(new Regex("^\\s*([^\"]*)\";$"),TokenTypes.ValueForPreviousLineEnd,-1,1,TokenTypes.Empty),
                 new SearchScheme(new Regex(@"^\s*config (true|false);$"),TokenTypes.ConfigStatement,-1, 1),
@@ -58,7 +58,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*}$"),TokenTypes.NodeEndingBracket,-1,-1),
 
                 //Multiline of value or error based on previous state
-                new SearchScheme(new Regex("(.*)"),TokenTypes.ValueForPreviousLineMultiline,-1,1,TokenTypes.ValueForPreviousLineBeg),
+                new SearchScheme(new Regex("([^\"]*)"),TokenTypes.ValueForPreviousLineMultiline,-1,1,TokenTypes.ValueForPreviousLineBeg),
             };
         }
 

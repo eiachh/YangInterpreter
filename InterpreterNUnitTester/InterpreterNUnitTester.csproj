@@ -14,12 +14,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YangInterpreter\YangInterpreter.csproj" />
-    <Content Include="TestFiles\*">
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="TestFiles\ModuleTests\InterpreterInproperMalformedImport.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestFiles\Modules\*.*">
+    </None>
+    <None Update="TestFiles\ModuleTests\InterpreterMissingSemicolonInValue.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <None Update="TestFiles\ModuleTests\ModuleStatementsCorrect1.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\ModuleStatementsInproperYangVer.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
