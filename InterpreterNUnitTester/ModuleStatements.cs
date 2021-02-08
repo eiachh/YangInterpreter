@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using YangInterpreter;
-using YangInterpreter.Nodes;
-using YangInterpreter.Nodes.BaseNodes;
+using YangInterpreter.Statements;
+using YangInterpreter.Statements.BaseStatements;
 using System.Collections.Generic;
 using System.Linq;
 using YangInterpreter.Interpreter;
@@ -44,7 +44,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleNameSpaceParsedCorrectlyTest()
         {
-            Assert.AreEqual("NamespaceCorrectTestModule1", InterpreterCorrect.Root.Namespace);
+            Assert.AreEqual("NamespaceCorrectTestModule1", InterpreterCorrect.Root.DescendantsNode("namespace").Single().Value);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModulePrefixParsedCorrectlyTest()
         {
-            Assert.AreEqual("nctm", InterpreterCorrect.Root.Prefix);
+            Assert.AreEqual("nctm", InterpreterCorrect.Root.DescendantsNode("prefix").Single().Value);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleOrganizationParsedCorrectlyTest()
         {
-            Assert.AreEqual("My diplomwork corp", InterpreterCorrect.Root.Organization);
+            Assert.AreEqual("My diplomwork corp", InterpreterCorrect.Root.DescendantsNode("organization").Single().Value);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleContactParsedCorrectlyTest()
         {
-            Assert.AreEqual("Adam Sranko srankoadam@gmail.com", InterpreterCorrect.Root.Contact);
+            Assert.AreEqual("Adam Sranko srankoadam@gmail.com", InterpreterCorrect.Root.DescendantsNode("contact").Single().Value);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleDescriptionParsedCorrectlyTest()
         {
-            Assert.AreEqual("Description of correctly formatted\r\n\t\tmodule,\r\nwith multiline value.", InterpreterCorrect.Root.GetPropertyByName("description").Single().GetValue());
+            Assert.AreEqual("Description of correctly formatted\r\n\t\tmodule,\r\nwith multiline value.", InterpreterCorrect.Root.DescendantsNode("description").Single().Value);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace InterpreterNUnitTester
         public void ModuleReferenceParsedCorrectlyTest()
         {
             
-            Assert.AreEqual("", InterpreterCorrect.Root.GetPropertyByName("description").Single().GetValue());
+            Assert.AreEqual("Reference1102-2323", InterpreterCorrect.Root.DescendantsNode("reference").Single().Value);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

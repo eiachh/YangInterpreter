@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 
-namespace YangInterpreter.Nodes.BaseNodes
+namespace YangInterpreter.Statements.BaseStatements
 {
-    public class EmptyLineNode : YangNode
+    public class EmptyLineNode : Statement
     {
         public EmptyLineNode() : base("") { }
         public EmptyLineNode(string empty) : this() { }
@@ -14,7 +14,7 @@ namespace YangInterpreter.Nodes.BaseNodes
             return new XElement[] { new XElement(" ") };
         }
 
-        public override string NodeAsYangString(int indentationlevel)
+        public override string StatementAsYangString(int indentationlevel)
         {
             return "";
         }

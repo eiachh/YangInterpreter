@@ -24,29 +24,42 @@ namespace YangInterpreter.Interpreter
         TypeMultiline,
         TypeWithRange,
         Key,
-        Description,
-        DescriptionWithValueNextLine,
+
+        ContactSameLineStart,
+        ContactNextLineStart,
+        ContactMultiLine,
+
+        NamespaceSameLineStart,
+        NamespaceNextLineStart,
+        NamespaceMultiLine,
+
+        OrganizationSameLineStart,
+        OrganizationNextLineStart,
+        OrganizationMultiLine,
+
+        DescriptionSameLineStart,
+        DescriptionNextLineStart,
+        DescriptionMultiLine,
+
+        ReferenceSameLineStart,
+        ReferenceNextLineStart,
+        ReferenceMultiline,
+
         ValueForPreviousLine,
         ValueForPreviousLineMultiline,
         ValueForPreviousLineBeg,
         ValueForPreviousLineEnd,
+
         ConfigStatement,
         Typedef,
         Range,
         NodeEndingBracket,
         Module,
-        Namespace,
-        NamespaceMultiline,
         Prefix,
-        Organization,
-        OrganizationMultiline,
-        Contact,
-        ContactMultiline,
         Revision,
         Value,
         Import,
-        Reference,
-        ReferenceMultiline,
+
 
         Empty
     }

@@ -15,15 +15,16 @@ module CorrectTestModule1 {
 	contact
 		"Adam Sranko srankoadam@gmail.com";
 
-	description
+	description 
 		"Description of correctly formatted
 		module,
 		with multiline value.";
 
 	reference
-		"cc1fil_t - 0x0033A0000";
+		"Reference1102-2323";
 
 	revision 2019-09-11 {
-		description "Generic Session Control parameter file.";
+		description "Generic Session 
+		Control parameter file.";
 	}
 }

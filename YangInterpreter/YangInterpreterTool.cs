@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using YangInterpreter.Nodes.BaseNodes;
+using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
 
 namespace YangInterpreter

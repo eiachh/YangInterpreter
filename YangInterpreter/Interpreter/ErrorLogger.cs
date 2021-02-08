@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using YangInterpreter.Nodes.BaseNodes;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Interpreter
 {
@@ -39,11 +39,24 @@ namespace YangInterpreter.Interpreter
         /// </summary>
         /// <param name="StatementWithParseError"></param>
         /// <returns></returns>
-        public bool CreateLog(YangNode StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken)
+        public bool CreateLog(Statement StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken)
         {
             try
             {
                 string LogText = BuildOutputString(StatementWithParseError, StatusStack, ParsedToken);
+                return LogOnExpectedOutput(LogText);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool CreateLog(Statement StatementWithParseError, Stack<TokenTypes> StatusStack)
+        {
+            try
+            {
+                string LogText = BuildOutputString(StatementWithParseError, StatusStack);
                 return LogOnExpectedOutput(LogText);
             }
             catch (Exception)
@@ -65,14 +78,26 @@ namespace YangInterpreter.Interpreter
             return strBuilder;
         }
 
-        private string BuildOutputString(YangNode StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken) 
+        private string BuildOutputString(Statement StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken) 
         {
             string strBuilder = string.Empty;
             strBuilder += "Error at row: " + RowNumber + Environment.NewLine;
             strBuilder += "Row content: " + Row + Environment.NewLine;
             strBuilder +="The interpreter parsed the previously mentioned line as: " + ParsedToken.TokenType + Environment.NewLine;
             strBuilder += "The last yang statement was parsed as: " + Environment.NewLine;
-            strBuilder += StatementWithParseError.NodeAsYangString() + Environment.NewLine;
+            strBuilder += StatementWithParseError.StatementAsYangString() + Environment.NewLine;
+            strBuilder += "Stack trace: " + MakeStatusStackIntoString(StatusStack);
+            return strBuilder;
+        }
+
+        private string BuildOutputString(Statement StatementWithParseError, Stack<TokenTypes> StatusStack)
+        {
+            string strBuilder = string.Empty;
+            strBuilder += "Error at row: " + RowNumber + Environment.NewLine;
+            strBuilder += "Row content: " + Row + Environment.NewLine;
+            strBuilder += "The interpreter could not parse the mentioned row." + Environment.NewLine;
+            strBuilder += "The last yang statement was parsed as: " + Environment.NewLine;
+            strBuilder += StatementWithParseError.StatementAsYangString() + Environment.NewLine;
             strBuilder += "Stack trace: " + MakeStatusStackIntoString(StatusStack);
             return strBuilder;
         }
