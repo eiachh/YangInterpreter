@@ -23,5 +23,10 @@ namespace YangInterpreter.Statements.Property
         {
             throw new NotImplementedException();
         }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

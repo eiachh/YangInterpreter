@@ -23,5 +23,10 @@ namespace YangInterpreter.Statements
             strBuilder += indent + "}";
             return strBuilder;
         }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
+        }
     }
 }

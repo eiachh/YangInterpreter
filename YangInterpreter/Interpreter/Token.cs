@@ -78,6 +78,11 @@ namespace YangInterpreter.Interpreter
         /// </summary>
         public string TokenValue { get; set; }
         public TokenTypes TokenAsSingleLine { get; set; }
+
+        /// <summary>
+        /// Inner block contains the inner string from a new block { } e.g: "import yang-interpreter { prefix "yani"; }"
+        /// </summary>
+        public string InnerBlock { get; set; } = string.Empty;
         public Token(TokenTypes _TokenType, string _TokenName,string _TokenValue)
         {
             TokenType = _TokenType;

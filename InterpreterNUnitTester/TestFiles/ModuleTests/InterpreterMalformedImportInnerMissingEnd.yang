@@ -1,11 +1,11 @@
-module CorrectTestModule1 {
+module InterpreterMalformedImportInner {
 	yang-version 1;
 	namespace
-		"NamespaceCorrectTestModule1";
+		"NamespaceInproperTestModule1";
 
 	prefix nctm;
 
-	import yang-interpreter { prefix "yani"; }
+	import yang-interpreter { pregix "yani"; }
 	import interpreter-files { prefix "in-fi"; }
 	import profiles { prefix "profiles"; }
 
@@ -15,16 +15,15 @@ module CorrectTestModule1 {
 	contact
 		"Adam Sranko srankoadam@gmail.com";
 
-	description 
+	description
 		"Description of correctly formatted
 		module,
 		with multiline value.";
 
 	reference
-		"Reference1102-2323";
+		"cc1fil_t - 0x0033A0000";
 
-	revision 2039-09-11 {
-		description "Generic Session 
-		Control parameter file.";
+	revision 2019-09-11 {
+		description "Generic Session Control parameter file.";
 	}
 }

@@ -82,8 +82,8 @@ namespace YangInterpreter.Interpreter
         {
             string strBuilder = string.Empty;
             strBuilder += "Error at row: " + RowNumber + Environment.NewLine;
-            strBuilder += "Row content: " + Row + Environment.NewLine;
-            strBuilder +="The interpreter parsed the previously mentioned line as: " + ParsedToken.TokenType + Environment.NewLine;
+            strBuilder += "Row content:-->" + Row+ "<--" + Environment.NewLine;
+            strBuilder += "The interpreter parsed the previously mentioned line as:-->" + ParsedToken.TokenType+ "<--" + Environment.NewLine;
             strBuilder += "The last yang statement was parsed as: " + Environment.NewLine;
             strBuilder += StatementWithParseError.StatementAsYangString() + Environment.NewLine;
             strBuilder += "Stack trace: " + MakeStatusStackIntoString(StatusStack);

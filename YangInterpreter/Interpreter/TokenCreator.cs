@@ -11,6 +11,8 @@ namespace YangInterpreter.Interpreter
     internal static class TokenCreator
     {
         private static List<SearchScheme> InterpreterSearchSchemeList;
+        private static SearchScheme InnerBlockParser = new SearchScheme(new Regex("\\s*{\\s*([^}]*\\s*})\\s*$"), TokenTypes.Empty, -1, 1);
+        private static SearchScheme InnerEndlineParser = new SearchScheme(new Regex(@".(})\s*$"), TokenTypes.NodeEndingBracket, -1, -1);
 
         internal static void Init()
         {
@@ -24,7 +26,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*uses ([a-z0-9A-Z-]*);\s*$"),TokenTypes.Uses,1,-1),
                 new SearchScheme(new Regex(@"^\s*choice ([a-z0-9A-Z-]*) {\s*$"),TokenTypes.Choice,1,-1),
                 new SearchScheme(new Regex(@"^\s*case ([a-z0-9A-Z-]*) {\s*$"),TokenTypes.ChoiceCase,1,-1),
-                new SearchScheme(new Regex("^\\s*prefix \"?([^;]*)\"?;\\s*$",RegexOptions.IgnoreCase),TokenTypes.Prefix,-1,1),
+                new SearchScheme(new Regex("^\\s*prefix \"?([^;|^\"]*)\"?;\\s*$",RegexOptions.IgnoreCase),TokenTypes.Prefix,-1,1),
                 new SearchScheme(new Regex(@"^\s*container ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.Container,1,-1),
                 new SearchScheme(new Regex(@"^\s*leaf ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.Leaf,1,-1),
                 new SearchScheme(new Regex(@"^\s*leaf-list ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.LeafList,1,-1),
@@ -33,7 +35,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*type enumeration {\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEnum,1,-1),
                 new SearchScheme(new Regex(@"^\s*type empty;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEmpty,1,-1),
                 new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,-1,1),
-                new SearchScheme(new Regex(@"^\s*revision ([a-z0-9A-Z-]*)\s*{$",RegexOptions.IgnoreCase),TokenTypes.Revision, 1,-1),
+                new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*)\s*{$",RegexOptions.IgnoreCase),TokenTypes.Revision, 1,-1),
 
                 new SearchScheme(new Regex("^\\s*contact \"([^;]*)\";\\s*$",RegexOptions.IgnoreCase),TokenTypes.ContactSameLineStart,-1,1),
                 new SearchScheme(new Regex("^\\s*contact \"([^;]*)\\s*$",RegexOptions.IgnoreCase),TokenTypes.ContactMultiLine,-1,1,TokenTypes.ContactSameLineStart),
@@ -59,7 +61,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*typedef ([a-z0-9A-Z-]*) {\s*$"),TokenTypes.Typedef,1,-1),
                 new SearchScheme(new Regex("^\\s*range \"([0-9]* ?.. ?[0-9]*)\";\\s*$"),TokenTypes.Range,-1,1),
                 new SearchScheme(new Regex(@"^\s*yang-version ([a-z0-9A-Z-]*);\s*$"),TokenTypes.YangVersion,-1,1),
-                new SearchScheme(new Regex("^\\s*import ([a-z0-9A-Z-]*) { prefix\\s*\"([^;]*)\";\\s*}\\s*$"),TokenTypes.Import,1,2),
+                new SearchScheme(new Regex("^\\s*import\\s*([a-z0-9A-Z-]*)\\s*{\\s*$"),TokenTypes.Import,1,-1),
 
                 new SearchScheme(new Regex(@"^\s* *$"),TokenTypes.Skip,-1,-1),
                 new SearchScheme(new Regex(@"^\s*}\s*$"),TokenTypes.NodeEndingBracket,-1,-1),
@@ -76,16 +78,15 @@ namespace YangInterpreter.Interpreter
         /// <returns></returns>
         internal static Token GetTokenForRow(string row)
         {
+            Token MatchResultToken = new Token(TokenTypes.Empty, "", "", TokenTypes.Empty);
+            row = InnerBlockTryParse(MatchResultToken, row);
             foreach (var scheme in InterpreterSearchSchemeList)
             {
                 Match match = scheme.Reg.Match(row);
                 if (match.Success)
                 {
-                    Token MatchResultToken = new Token(scheme.TokenType, "", "", scheme.TokenAsSingleLine);
-                    //if ()
-                    {
-
-                    }
+                    MatchResultToken.TokenType = scheme.TokenType;
+                    MatchResultToken.TokenAsSingleLine = scheme.TokenAsSingleLine;
                     if (scheme.IndexOfTokenName != -1)
                     {
                         MatchResultToken.TokenName = match.Groups[scheme.IndexOfTokenName].Value;
@@ -94,7 +95,7 @@ namespace YangInterpreter.Interpreter
                     {
                         MatchResultToken.TokenValue = match.Groups[scheme.IndexOfTokenValue].Value;
                     }
-
+                    //InnerBlockTryParse(MatchResultToken, row);
                     return MatchResultToken;
                 }
             }
@@ -103,6 +104,24 @@ namespace YangInterpreter.Interpreter
                                                                                          LineNumber,
                                                                                          InterpreterTracer);*/
             return null;
+        }
+
+        private static string InnerBlockTryParse(Token MatchResult,string row)
+        {
+            Match match = InnerBlockParser.Reg.Match(row);
+            if (match.Success)
+            {
+                MatchResult.InnerBlock = match.Groups[1].Value;
+                return row.Replace(match.Groups[1].Value, "");
+            }
+
+            match = InnerEndlineParser.Reg.Match(row);
+            if (match.Success)
+            {
+                MatchResult.InnerBlock = match.Groups[1].Value;
+                return InnerEndlineParser.Reg.Replace(row, "", 1);
+            }
+            return row;
         }
     }
 }

@@ -17,13 +17,28 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="TestFiles\ModuleTests\InterpreterInproperMalformedImport.yang">
+    <None Update="TestFiles\ModuleTests\RevisionStatementImproperValue.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\RevisionStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\InterpreterMalformedImportInnerMissingEnd.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\InterpreterMalformedImportOutter.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\InterpreterMalformedImportInner.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\InterpreterMissingSemicolonInValue.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\ModuleStatementsCorrect1.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\ModuleStatementsMalformedYangVer.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\ModuleStatementsInproperYangVer.yang">

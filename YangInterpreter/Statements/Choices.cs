@@ -7,7 +7,7 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Choices : ContainerCapability
+    public class Choices : Statement
     { 
         public Choices(string name) : base(name){ }
 
@@ -38,6 +38,11 @@ namespace YangInterpreter.Statements
         public override XElement[] NodeAsXML()
         {
             throw new NotImplementedException();
+        }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
         }
     }
 }

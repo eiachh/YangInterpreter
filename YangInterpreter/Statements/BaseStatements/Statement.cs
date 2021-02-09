@@ -25,8 +25,9 @@ namespace YangInterpreter.Statements.BaseStatements
         private string _value;
         internal TokenTypes GeneratedFrom;
         public string Name { get; set; }
-        public string Value { get => _value; set => _value = value; }
+        public virtual string Value { get => _value; set => _value = value; }
         public virtual Statement Parent { get; set; }
+        public virtual Statement Root { get; set; }
 
         internal bool BuildIntoOutput = true;
 
@@ -37,6 +38,8 @@ namespace YangInterpreter.Statements.BaseStatements
         {
             return StatementAsYangString(0);
         }
+
+        internal abstract bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd);
 
         /// <summary>
         /// This is here to force YangNode constructor with Name parameter.
@@ -51,7 +54,9 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <returns></returns>
         public virtual Statement AddStatement(Statement item)
         {
+            item.Root = Root;
             StatementList.Add(item);
+            item.Parent = this;
             return item;
         }
         /// <summary>
@@ -176,9 +181,9 @@ namespace YangInterpreter.Statements.BaseStatements
             bool hasAny = false;
             foreach (var child in StatementList)
             {
-                if (child.GetType().IsInstanceOfType(typeof(ContainerCapability)))
+                if (child.GetType().IsInstanceOfType(typeof(Statement)))
                 {
-                    var Descendants = ((ContainerCapability)child).DescendantsNode(Name);
+                    var Descendants = child.DescendantsNode(Name);
                     if (Descendants != null)
                     {
                         hasAny = true;

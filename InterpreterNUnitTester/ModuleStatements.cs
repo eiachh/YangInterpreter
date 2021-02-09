@@ -8,7 +8,7 @@ using YangInterpreter.Interpreter;
 
 namespace InterpreterNUnitTester
 {
-    public class ModuleStatements
+    class ModuleStatements
     {
         YangInterpreterTool InterpreterCorrect;
         [SetUp]
@@ -62,10 +62,15 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleImportWithPrefixParsedCorrectlyTest()
         {
-            Assert.IsTrue(InterpreterCorrect.Root.NamespaceDictionary.Count == 3);
-            Assert.AreEqual("yang-interpreter", InterpreterCorrect.Root.NamespaceDictionary["yani"]);
-            Assert.AreEqual("interpreter-files", InterpreterCorrect.Root.NamespaceDictionary["in-fi"]);
-            Assert.AreEqual("profiles", InterpreterCorrect.Root.NamespaceDictionary["profiles"]);
+            Assert.AreEqual("nctm", InterpreterCorrect.Root.GetPrefixByNamespace("CorrectTestModule1"));
+            Assert.AreEqual("yani", InterpreterCorrect.Root.GetPrefixByNamespace("yang-interpreter"));
+            Assert.AreEqual("in-fi", InterpreterCorrect.Root.GetPrefixByNamespace("interpreter-files"));
+            Assert.AreEqual("profiles", InterpreterCorrect.Root.GetPrefixByNamespace("profiles"));
+
+            Assert.AreEqual("CorrectTestModule1", InterpreterCorrect.Root.GetNamespace("nctm"));
+            Assert.AreEqual("yang-interpreter", InterpreterCorrect.Root.GetNamespace("yani"));
+            Assert.AreEqual("interpreter-files", InterpreterCorrect.Root.GetNamespace("in-fi"));
+            Assert.AreEqual("profiles", InterpreterCorrect.Root.GetNamespace("profiles"));
         }
 
         /// <summary>
@@ -132,9 +137,27 @@ namespace InterpreterNUnitTester
         /// Interpreter has to give error in worngly formatted import line.
         /// </summary>
         [Test]
-        public void ModuleInterpreterFailExceptionImproperImport()
+        public void ModuleInterpreterImportInnerMalformFailException()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterInproperMalformedImport.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMalformedImportInner.yang"));
+        }
+
+        /// <summary>
+        /// Interpreter has to give error in worngly formatted import line.
+        /// </summary>
+        [Test]
+        public void ModuleInterpreterImportEndMissingFailException()
+        {
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMalformedImportInnerMissingEnd.yang"));
+        }
+
+        /// <summary>
+        /// Interpreter has to give error in worngly formatted import line.
+        /// </summary>
+        [Test]
+        public void ModuleInterpreterImportOutterMalformFailException()
+        {
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMalformedImportOutter.yang"));
         }
 
         /// <summary>
@@ -144,6 +167,15 @@ namespace InterpreterNUnitTester
         public void ModuleInterpreterMissingRowEndSymbol()
         {
             Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMissingSemicolonInValue.yang"));
+        }
+
+        /// <summary>
+        /// Interpreter has to give error if yang version is malformed.
+        /// </summary>
+        [Test]
+        public void ModuleInterpreteMalformedYangVersion()
+        {
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/ModuleStatementsMalformedYangVer.yang"));
         }
     }
 }

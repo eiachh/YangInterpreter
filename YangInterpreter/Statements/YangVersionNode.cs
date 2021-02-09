@@ -21,5 +21,10 @@ namespace YangInterpreter.Statements
             var indent = GetIndentation(indentationlevel);
             return indent + Name + " " + Value + ";";
         }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
 
-namespace YangInterpreter.Statements.Property
+namespace YangInterpreter.Statements
 {
     public class Description : Statement
     {
@@ -26,6 +26,11 @@ namespace YangInterpreter.Statements.Property
                 return NameAndValueAsYangString(indentationlevel,ValueFormattingOption.SameLineStart);
             else
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
+        }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
         }
     }
 }

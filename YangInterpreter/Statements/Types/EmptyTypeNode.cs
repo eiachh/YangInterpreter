@@ -21,5 +21,10 @@ namespace YangInterpreter.Statements.Types
             var indent = GetIndentation(indentationlevel);
             return indent + "type empty;";
         }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
+        }
     }
 }

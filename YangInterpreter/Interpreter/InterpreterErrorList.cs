@@ -53,4 +53,14 @@ namespace YangInterpreter.Interpreter
         protected InterpreterParseFail(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
+
+    [Serializable()]
+    public class ImproperValue : System.Exception
+    {
+        public ImproperValue() : base() { }
+        public ImproperValue(string message) : base(message) { }
+        public ImproperValue(string message, System.Exception inner) : base(message, inner) { }
+        protected ImproperValue(System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
 }

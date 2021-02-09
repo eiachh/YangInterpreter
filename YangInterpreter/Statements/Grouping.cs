@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Grouping : ContainerCapability
+    public class Grouping : Statement
     {
         public static List<Grouping> GruopingList = new List<Grouping>();
         public static List<Uses> UsesWaitingForSpecifiedGrouping = new List<Uses>();
@@ -64,6 +64,11 @@ namespace YangInterpreter.Statements
         public override XElement[] NodeAsXML()
         {
             throw new NotImplementedException();
+        }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
         }
     }
 }

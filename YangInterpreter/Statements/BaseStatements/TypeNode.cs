@@ -31,7 +31,7 @@ namespace YangInterpreter.Statements.BaseStatements
         union,
         none,
     }
-    public abstract class TypeNode : ContainerCapability
+    public abstract class TypeNode : Statement
     {
         public BuiltInTypes BuiltInTypeOfNode { get; set; } = BuiltInTypes.none;
         public TypeNode(BuiltInTypes BaseType) : base(BuiltInTypeToString(BaseType))

@@ -27,5 +27,10 @@ namespace YangInterpreter.Statements.Property
             else
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
         }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
+        }
     }
 }

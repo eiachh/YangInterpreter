@@ -37,5 +37,10 @@ namespace YangInterpreter.Statements.Types
         {
             return EnumPropGroup.NodeAsXML();
         }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            return true;
+        }
     }
 }

@@ -1,11 +1,11 @@
-module InProperTestModule1 {
+module RevisionStatementImproperValue {
 	yang-version 1;
 	namespace
 		"NamespaceInproperTestModule1";
 
 	prefix nctm;
 
-	import yang-interpreter { pregix "yani"; }
+	import yang-interpreter { prefix "yani"; }
 	import interpreter-files { prefix "in-fi"; }
 	import profiles { prefix "profiles"; }
 
@@ -23,7 +23,7 @@ module InProperTestModule1 {
 	reference
 		"cc1fil_t - 0x0033A0000";
 
-	revision 2019-09-11 {
+	revision NotADate {
 		description "Generic Session Control parameter file.";
 	}
 }

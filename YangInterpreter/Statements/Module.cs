@@ -40,7 +40,7 @@ namespace YangInterpreter
     /// | uses        | 7.12    | 0..n  |
     /// | yang-version | 7.1.2  | 0..1  |
     ///+--------------+---------+-------------+
-    public class Module : ContainerCapability
+    public class Module : Statement
     {
         /// <summary>
         /// The prefix for SELF namespace.faddchil
@@ -52,7 +52,7 @@ namespace YangInterpreter
         /// <summary>
         /// Namespace dictionary of imported modules. Keys are the prefixes, values are the full namespace.
         /// </summary>
-        public Dictionary<string, string> NamespaceDictionary = new Dictionary<string, string>();
+        internal Dictionary<string, string> NamespaceDictionary = new Dictionary<string, string>();
 
         /// <summary>
         /// Adds the namespace to the dictionary. ( Prefix,  Namespace)
@@ -77,8 +77,25 @@ namespace YangInterpreter
             return outvalue;
         }
 
+        /// <summary>
+        /// Returns the prefix for the given NameSpace, null if not found.
+        /// </summary>
+        /// <param name="NameSpace"></param>
+        /// <returns></returns>
+        public string GetPrefixByNamespace(string NameSpace)
+        {
+            foreach (var entry in NamespaceDictionary)
+            {
+                if (entry.Value == NameSpace)
+                    return entry.Key;
+            }
+            return null;
+        }
+
         public override Statement AddStatement(Statement Node)
         {
+            if (Root == null)
+                Root = this;
             if (Node.GetType() == typeof(YangVersionNode))
             {
                 var version = DescendantsNode("yang-version")?.Single();
@@ -144,6 +161,11 @@ namespace YangInterpreter
         }*/
 
         public override XElement[] NodeAsXML()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             throw new NotImplementedException();
         }
