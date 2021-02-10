@@ -6,10 +6,10 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements.Types
 {
-    class EmptyTypeNode : TypeNode
+    public class EmptyTypeStatement : TypeStatement
     {
-        public EmptyTypeNode() : base(BuiltInTypes.empty) { }
-        public EmptyTypeNode(string name) : this() { }
+        public EmptyTypeStatement() : base(BuiltInTypes.empty) { }
+        public EmptyTypeStatement(string name) : this() { }
 
         public override XElement[] StatementAsXML()
         {
@@ -22,9 +22,9 @@ namespace YangInterpreter.Statements.Types
             return indent + "type empty;";
         }
 
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             return true;
-        }
+        }*/
     }
 }

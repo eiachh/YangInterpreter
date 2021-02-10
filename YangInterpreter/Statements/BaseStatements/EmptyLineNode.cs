@@ -19,9 +19,9 @@ namespace YangInterpreter.Statements.BaseStatements
             return "";
         }
 
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             return true;
-        }
+        }*/
     }
 }

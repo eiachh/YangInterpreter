@@ -36,10 +36,10 @@ namespace YangInterpreter.Statements
             return indent + Name.ToLower() + " " + Value + " { " + GetStatementsAsYangString(0) + " }";
         }
 
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             return true;
-        }
+        }*/
 
         /// <summary>
         /// Changes Value for this namespace in module`s dictionary.

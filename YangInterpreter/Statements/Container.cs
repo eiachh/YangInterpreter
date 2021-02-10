@@ -35,9 +35,9 @@ namespace YangInterpreter.Statements
             return strBuilder;
         }
 
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             return true;
-        }
+        }*/
     }
 }

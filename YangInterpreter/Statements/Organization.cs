@@ -35,6 +35,6 @@ namespace YangInterpreter.Statements
         /// </summary>
         /// <param name="StatementToAdd"></param>
         /// <returns></returns>
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd) { return false; }
+        //internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd) { return false; }
     }
 }

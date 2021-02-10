@@ -45,10 +45,10 @@ namespace YangInterpreter.Statements.Property
             return indent + "prefix " + Value + ";";
         }
 
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             return true;
-        }
+        }*/
 
         private void HandleValueChange(string originalValueOfPrefix,string newValueOfPrefix)
         {

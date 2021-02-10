@@ -35,6 +35,8 @@ namespace YangInterpreter.Interpreter
 
         public Interpreter(InterpreterOption opt = InterpreterOption.Normal)
         {
+            SubStatementAllowanceCollection.Init();
+
             Option = opt;
             InterpreterStatusStack.Push(TokenTypes.Start);
             TokenCreator.Init();
@@ -131,7 +133,8 @@ namespace YangInterpreter.Interpreter
                     MultilineBegPresent = true;
                 if (MultiLineToken(TokenForCurrentRow))
                 {
-                    if (TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline && !MultilineTokens.Contains(PreviousState))
+                    if (TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline && !MultilineTokens.Contains(PreviousState) ||
+                        (PreviousState != TokenTypes.ValueForPreviousLineBeg && TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline))
                         NodeProcessionFail(TokenForCurrentRow, LineNumber);
                     PreviousState = TokenForCurrentRow.TokenType;
                     SetPreviousToken(TokenForCurrentRow);
@@ -151,6 +154,7 @@ namespace YangInterpreter.Interpreter
                     MultilineBegPresent = false;
                 }
                 ProcessToken(TokenForCurrentRow, Metadata);
+                PreviousState = TokenTypes.Start;
             }
             else
                 TokenCreationFail(LineNumber);
@@ -461,11 +465,11 @@ namespace YangInterpreter.Interpreter
                 }*/
                 if (InputToken.TokenType == TokenTypes.TypeEnum)
                 {
-                    AddNewStatement(typeof(EnumTypeNode), InputToken);
+                    AddNewStatement(typeof(EnumTypeStatement), InputToken);
                 }
                 else if (InputToken.TokenType == TokenTypes.TypeEmpty)
                 {
-                    AddNewStatement(typeof(EmptyTypeNode), InputToken, YangAddingOption.ChildAndStatusless);
+                    AddNewStatement(typeof(EmptyTypeStatement), InputToken, YangAddingOption.ChildAndStatusless);
                 }
                 else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
                          InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
@@ -489,7 +493,7 @@ namespace YangInterpreter.Interpreter
                 }*/
                 if (InputToken.TokenType == TokenTypes.TypeEnum)
                 {
-                    AddNewStatement(typeof(EnumTypeNode), InputToken, YangAddingOption.ChildAndStatusless);
+                    AddNewStatement(typeof(EnumTypeStatement), InputToken, YangAddingOption.ChildAndStatusless);
                 }
                 else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
                          InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
@@ -526,7 +530,7 @@ namespace YangInterpreter.Interpreter
             {
                 if (InputToken.TokenType == TokenTypes.Type)
                 {
-                    AddNewStatement(typeof(TypeNode), InputToken);
+                    AddNewStatement(typeof(TypeStatement), InputToken);
                     CreateMetadata(new List<string> { InputToken.TokenName });
                 }
                 else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
@@ -563,7 +567,7 @@ namespace YangInterpreter.Interpreter
 
                 if (InputToken.TokenType == TokenTypes.SimpleEnum)
                 {
-                    ((EnumTypeNode)TracerCurrentNode).AddEnumProperty(new EnumProperty(InputToken.TokenValue));
+                    ((EnumTypeStatement)TracerCurrentNode).AddEnumProperty(new EnumProperty(InputToken.TokenValue));
                 }
                 else
                 {
@@ -593,7 +597,7 @@ namespace YangInterpreter.Interpreter
 
                 if (InputToken.TokenType == TokenTypes.SimpleEnum)
                 {
-                    ((EnumTypeNode)TracerCurrentNode).AddEnumProperty(new EnumProperty(InputToken.TokenValue));
+                    ((EnumTypeStatement)TracerCurrentNode).AddEnumProperty(new EnumProperty(InputToken.TokenValue));
                 }
                 else
                 {

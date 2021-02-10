@@ -25,9 +25,9 @@ namespace YangInterpreter.Statements
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
         }
 
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             return true;
-        }
+        }*/
     }
 }

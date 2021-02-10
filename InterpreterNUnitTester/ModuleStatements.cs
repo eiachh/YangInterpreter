@@ -11,10 +11,12 @@ namespace InterpreterNUnitTester
     class ModuleStatements
     {
         YangInterpreterTool InterpreterCorrect;
+        YangInterpreterTool InterpreterCorrectYangVerMissing;
         [SetUp]
         public void Setup()
         {
             InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/ModuleStatementsCorrect1.yang");
+            InterpreterCorrectYangVerMissing = YangInterpreterTool.Load("TestFiles/ModuleTests/ModuleStatementsCorrectYangVerMissing.yang");
         }
 
         /// <summary>
@@ -33,6 +35,18 @@ namespace InterpreterNUnitTester
         public void YangVersionParsedCorrectly()
         {
             var Nodes = InterpreterCorrect.Root.Descendants("yang-version");
+            Assert.IsTrue(Nodes.Count() > 0);
+            var YangVersionNode = Nodes.First() as YangVersionNode;
+            Assert.AreEqual("1", YangVersionNode.Value);
+        }
+
+        /// <summary>
+        /// Interpreter has to assume yang version is 1 if its not given.
+        /// </summary>
+        [Test]
+        public void ModuleInterpreteMissingYangVersion()
+        {
+            var Nodes = InterpreterCorrectYangVerMissing.Root.Descendants("yang-version");
             Assert.IsTrue(Nodes.Count() > 0);
             var YangVersionNode = Nodes.First() as YangVersionNode;
             Assert.AreEqual("1", YangVersionNode.Value);
@@ -97,7 +111,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleDescriptionParsedCorrectlyTest()
         {
-            Assert.AreEqual("Description of correctly formatted\r\n\t\tmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Descendants("description").Single().Value);
+            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Descendants("description").Single().Value);
         }
 
         /// <summary>

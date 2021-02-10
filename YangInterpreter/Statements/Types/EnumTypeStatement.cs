@@ -7,15 +7,15 @@ using YangInterpreter.Statements.Property;
 
 namespace YangInterpreter.Statements.Types
 {
-    public class EnumTypeNode : TypeNode
+    public class EnumTypeStatement : TypeStatement
     {
         public int MyProperty { get; set; }
         private EnumPropertyGroup EnumPropGroup = new EnumPropertyGroup();
-        public EnumTypeNode() : base(BuiltInTypes.enumeration)
+        public EnumTypeStatement() : base(BuiltInTypes.enumeration)
         {
             StatementList.Add(EnumPropGroup);
         }
-        public EnumTypeNode(string value) : base(BuiltInTypes.enumeration) { }
+        public EnumTypeStatement(string value) : base(BuiltInTypes.enumeration) { }
 
         public void AddEnumProperty(EnumProperty prop)
         {
@@ -38,9 +38,9 @@ namespace YangInterpreter.Statements.Types
             return EnumPropGroup.StatementAsXML();
         }
 
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             return true;
-        }
+        }*/
     }
 }

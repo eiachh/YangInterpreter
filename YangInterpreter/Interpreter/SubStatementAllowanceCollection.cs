@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System;
+using System.Linq;
+using YangInterpreter.Statements;
+using YangInterpreter.Statements.Types;
+using YangInterpreter.Statements.BaseStatements;
+
+namespace YangInterpreter.Interpreter
+{
+    internal static class SubStatementAllowanceCollection
+    {
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///                 Lists of allowed substatements and the maximum allowed occurence of them.
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        internal static Dictionary<Type, int> TypeStatementAllowedSubstatements = new Dictionary<Type, int>();
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        internal static bool IsInitialized = false;
+        public static void Init()
+        {
+            if(!IsInitialized)
+            {
+                IsInitialized = true;
+                FillTypeSntatementAllowanceList();
+            }
+        }
+
+        private static void FillTypeSntatementAllowanceList()
+        {
+            TypeStatementAllowedSubstatements.Add(typeof(Bit), -1);
+            TypeStatementAllowedSubstatements.Add(typeof(EnumTypeStatement), -1);
+            TypeStatementAllowedSubstatements.Add(typeof(TypeStatement), -1);
+            TypeStatementAllowedSubstatements.Add(typeof(EmptyTypeStatement), -1);
+
+
+            TypeStatementAllowedSubstatements.Add(typeof(Leaf), 1);
+        }
+    }
+}

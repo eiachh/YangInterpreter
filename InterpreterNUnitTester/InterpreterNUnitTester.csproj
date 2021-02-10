@@ -17,6 +17,21 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Update="TestFiles\ModuleTests\Description\DescriptionMissingSemicolon.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Description\DescriptionMissingSecondQuotationMark.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Description\DescriptionMissingFirstQuotationMark.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Description\DescriptionCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\ModuleStatementsCorrectYangVerMissing.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\ModuleTests\Organization\OrganizationCorrectNextLineStart.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -60,6 +75,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\ModuleStatementsInproperYangVer.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\TypeStatement\TypeStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

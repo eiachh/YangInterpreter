@@ -39,14 +39,14 @@ namespace YangInterpreter.Statements
             }
         }
 
-        public override Statement AddStatement(Statement StatementToAdd)
+        /*public override Statement AddStatement(Statement StatementToAdd)
         {
             if(IsAddedSubstatementAllowedInCurrentStatement(StatementToAdd))
                 return base.AddStatement(StatementToAdd);
             else
                 throw new ImproperValue("Forbidden Statement was added to the revision node. Statement name: " + StatementToAdd.GetType().ToString() 
                                            + Environment.NewLine + "For valid arguments check RFC 6020 7.1.9.1 or the Revision class source code!");
-        }
+        }*/
 
         public override XElement[] StatementAsXML()
         {
@@ -72,7 +72,7 @@ namespace YangInterpreter.Statements
         /// </summary>
         /// <param name="StatementToAdd"></param>
         /// <returns></returns>
-        internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
             if (!base.IsAddedSubstatementAllowedInCurrentStatement(StatementToAdd))
             {
@@ -92,7 +92,7 @@ namespace YangInterpreter.Statements
                 }
             }
             return true;
-        }
+        }*/
 
         /// <summary>
         /// Revision Value has to be a valid date (of revision).

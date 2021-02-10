@@ -5,19 +5,23 @@ using System.Xml.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
 
-namespace YangInterpreter.Statements.Property
+namespace YangInterpreter.Statements
 {
-    public class NamespaceStatement : Statement
+    /// Revision Statement RFC 6020 7.19.3.
+    ///
+   
+    /// </summary>
+    public class Bit : Statement
     {
-        public NamespaceStatement() : base("Namespace") { }
-        public NamespaceStatement(string _Value) : base("Namespace")
+        public Bit() : base("Bit") { }
+        public Bit(string Value) : base("Bit")
         {
-            Value = _Value;
+            base.Value = Value;
         }
 
         public override XElement[] StatementAsXML()
         {
-            throw new NotImplementedException();
+            return new XElement[] { new XElement("Bit", base.Value) };
         }
 
         public override string StatementAsYangString(int indentationlevel)
@@ -28,9 +32,11 @@ namespace YangInterpreter.Statements.Property
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
-        {
-            throw new NotImplementedException();
-        }*/
+        /// <summary>
+        /// No child statement is allowed for Description statement.
+        /// </summary>
+        /// <param name="StatementToAdd"></param>
+        /// <returns></returns>
+        //internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd) { return false; }
     }
 }

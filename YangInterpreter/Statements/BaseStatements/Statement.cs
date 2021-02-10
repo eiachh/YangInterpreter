@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using YangInterpreter.Statements.Property;
 using YangInterpreter.Interpreter;
+using System.Linq;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
@@ -59,12 +60,40 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         /// <param name="StatementToAdd"></param>
         /// <returns></returns>
-        internal virtual bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal bool IsAddedSubstatementAllowedInCurrentStatement(Dictionary<Type, int> AllowanceList, Statement StatementToAdd)
         {
-            if (StatementToAdd.GetType() != typeof(EmptyLineNode))
+            int AllowedAmount = -2;
+            if (!SubStatementAllowanceCollection.IsInitialized)
+                SubStatementAllowanceCollection.Init();
+            AllowanceList.TryGetValue(StatementToAdd.GetType(), out AllowedAmount);
+
+            if (AllowedAmount == 0)
                 return false;
-            return true;
+            else if (AllowedAmount == -1)
+                return true;
+            else
+                return IsArgumentInRange(StatementToAdd, AllowedAmount);
         }
+
+
+        /// <summary>
+        /// True if the maximum allowed substatement > Allowed amount.
+        /// </summary>
+        /// <param name="StatementToAdd"></param>
+        /// <param name="AllowedAmount"></param>
+        /// <returns></returns>
+        private bool IsArgumentInRange(Statement StatementToAdd, int AllowedAmount)
+        {
+            int AmountOfMatchingDescendants = 0;
+            var DescendantList = Descendants(StatementToAdd.GetType());
+            if(DescendantList != null)
+                AmountOfMatchingDescendants = DescendantList.Count();
+            if (AmountOfMatchingDescendants < AllowedAmount)
+                return true;
+            throw new ArgumentOutOfRangeException(StatementToAdd.GetType().ToString(),"Cannot add more "+ StatementToAdd.GetType().ToString() + " into "+GetType().ToString() + ", maximum amount reached: ");
+        }
+
+        internal virtual Dictionary<Type, int> GetAllowanceSubStatementDictionary() { return null; }
 
         /// <summary>
         /// This is here to force YangNode constructor with Name parameter.
@@ -79,7 +108,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <returns></returns>
         public virtual Statement AddStatement(Statement StatementToAdd)
         {
-            if (!IsAddedSubstatementAllowedInCurrentStatement(StatementToAdd))
+            if (!IsAddedSubstatementAllowedInCurrentStatement(GetAllowanceSubStatementDictionary(),StatementToAdd))
                 throw new ArgumentException("The given statement \""+StatementToAdd.GetType().ToString()+ "\"cannot be added to\"" + GetType().ToString());
             StatementToAdd.Root = Root;
             StatementList.Add(StatementToAdd);
@@ -95,48 +124,10 @@ namespace YangInterpreter.Statements.BaseStatements
             return StatementList.Count;
         }
 
-        /// <summary>
-        /// Returns any property of the current node if the name contains the given name.
-        /// </summary>
-        /// <param name="Name"></param>
-        /// <returns></returns>
-        /*public IEnumerable<Statement> GetPropertyByName(string Name)
-        {
-            List<Statement> matchingProps = new List<Statement>();
-            bool hasAny = false;
-            foreach (var prop in StatementList)
-            {
-                if (prop.GetName().ToLower().Contains(Name.ToLower()))
-                {
-                    hasAny = true;
-                    matchingProps.Add(prop);
-                }
-            }
-            if (!hasAny)
-                return null;
-            else
-                return matchingProps;
-        }*/
-
         protected static string GetIndentation(int n)
         {
             return new String('\t', n);
         }
-
-        /*protected virtual string GetPropertyListAsYangText(int indentation)
-        {
-            string retVal = "";
-            foreach (var prop in StatementList)
-            {
-                retVal += prop.StatementAsYangString(indentation) + Environment.NewLine;
-            }
-            retVal.TrimEnd();
-            return retVal;
-        }
-        protected virtual void GetPropertyListAsYangText()
-        {
-            GetPropertyListAsYangText(0);
-        }*/
 
         /// <summary>
         /// With the given indentationLevel fixes the indent for the given string at every NewLine symbol.
@@ -235,6 +226,37 @@ namespace YangInterpreter.Statements.BaseStatements
                     }
                 }
                 if (child.Name.ToLower().Contains(Name.ToLower()))
+                {
+                    hasAny = true;
+                    MatchingElements.Add(child);
+                }
+            }
+            if (hasAny)
+                return MatchingElements;
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Finds any descendants at any depth, that matches the given type.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public IEnumerable<Statement> Descendants(Type type)
+        {
+            List<Statement> MatchingElements = new List<Statement>();
+            bool hasAny = false;
+            foreach (var child in StatementList)
+            {
+
+                var Descendants = child.Descendants(type);
+                if (Descendants != null)
+                {
+                    hasAny = true;
+                    MatchingElements.AddRange(Descendants);
+                }
+
+                if (child.GetType() == type)
                 {
                     hasAny = true;
                     MatchingElements.Add(child);
