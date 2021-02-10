@@ -75,14 +75,16 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <summary>
         /// Adds the given Statement as child.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="StatementToAdd"></param>
         /// <returns></returns>
-        public virtual Statement AddStatement(Statement item)
+        public virtual Statement AddStatement(Statement StatementToAdd)
         {
-            item.Root = Root;
-            StatementList.Add(item);
-            item.Parent = this;
-            return item;
+            if (!IsAddedSubstatementAllowedInCurrentStatement(StatementToAdd))
+                throw new ArgumentException("The given statement \""+StatementToAdd.GetType().ToString()+ "\"cannot be added to\"" + GetType().ToString());
+            StatementToAdd.Root = Root;
+            StatementList.Add(StatementToAdd);
+            StatementToAdd.Parent = this;
+            return StatementToAdd;
         }
         /// <summary>
         /// Returns the amount of children immadiately under this node.
@@ -176,12 +178,12 @@ namespace YangInterpreter.Statements.BaseStatements
         }
 
         /// <summary>
-        /// Returns the name of the property.
+        /// Same as this.StatementAsYangString()
         /// </summary>
         /// <returns></returns>
-        public virtual string GetName()
+        public override string ToString()
         {
-            return Name;
+            return StatementAsYangString();
         }
 
         /// <summary>
@@ -265,9 +267,10 @@ namespace YangInterpreter.Statements.BaseStatements
         {
             var indent = GetIndentation(indentationlevel);
             if (formattingOption == ValueFormattingOption.SameLineStart)
-                return indent + Name.ToLower() + " \"" + MultilineIndentFixer(indentationlevel, Value) + "\"";
+                return indent + Name.ToLower() + " \"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";
             else
-                return indent + Name.ToLower() + " " + Environment.NewLine + indent + indent + "\"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";
+                return indent + Name.ToLower() + " " + Environment.NewLine + indent + "\t" + "\"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";
         }
+        
     }
 }

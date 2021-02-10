@@ -17,19 +17,37 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="TestFiles\ModuleTests\RevisionStatementImproperValue.yang">
+    <None Update="TestFiles\ModuleTests\Organization\OrganizationCorrectNextLineStart.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\ModuleTests\RevisionStatementCorrect.yang">
+    <None Update="TestFiles\ModuleTests\Organization\OrganizationMissingSemicolon.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\ModuleTests\InterpreterMalformedImportInnerMissingEnd.yang">
+    <None Update="TestFiles\ModuleTests\Organization\OrganizationMissingSecondQuotationMark.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\ModuleTests\InterpreterMalformedImportOutter.yang">
+    <None Update="TestFiles\ModuleTests\Organization\OrganizationMissingFirstQuotationMark.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\ModuleTests\InterpreterMalformedImportInner.yang">
+    <None Update="TestFiles\ModuleTests\Organization\OrganizationCorrectSameLineStart.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Organization\OrganizationCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Revision\RevisionStatementImproperValue.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Revision\RevisionStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Import\InterpreterMalformedImportInnerMissingEnd.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Import\InterpreterMalformedImportOutter.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Import\InterpreterMalformedImportInner.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\InterpreterMissingSemicolonInValue.yang">

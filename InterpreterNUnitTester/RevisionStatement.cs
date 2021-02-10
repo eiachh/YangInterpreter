@@ -15,7 +15,7 @@ namespace InterpreterNUnitTester
         [SetUp]
         public void Setup()
         {
-            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
+            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementCorrect.yang");
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionIsParsedCorrectly()
         {
-            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
+            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementCorrect.yang");
             var Revision = RevisipnStatementCorrect.Root.Descendants("revision").Single();
             Assert.AreEqual("2019-09-11", Revision.Value);
             Assert.AreEqual("Generic Session Control parameter file.", Revision.Descendants("description").Single().Value);
@@ -37,7 +37,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionImproperValue()
         {
-            Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementImproperValue.yang"));
+            Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementImproperValue.yang"));
         }
 
         /// <summary>

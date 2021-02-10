@@ -1,0 +1,32 @@
+module OrganizationCorrectSameLineStart {
+	yang-version 1;
+	namespace
+		"NamespaceInproperTestModule1";
+
+	prefix nctm;
+
+	import yang-interpreter { prefix "yani"; }
+	import interpreter-files { prefix "in-fi"; }
+	import profiles { prefix "profiles"; }
+
+	organization 
+		"My diplomwork 
+		other line corp";
+
+	contact
+		"Adam Sranko srankoadam@gmail.com";
+
+	description
+		"Description of correctly formatted
+		module,
+		with multiline value.";
+
+	reference
+		"cc1fil_t - 0x0033A0000";
+
+	revision 2019-09-11 {
+		description "Generic Session Control parameter file.";
+		reference "The Reference for Revision 
+		2019-09-11";
+	}
+}

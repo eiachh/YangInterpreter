@@ -67,7 +67,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*}\s*$"),TokenTypes.NodeEndingBracket,-1,-1),
 
                 //Multiline of value or error based on previous state
-                new SearchScheme(new Regex("(?s)^(?!.*\")(.*)$"),TokenTypes.ValueForPreviousLineMultiline,-1,1,TokenTypes.ValueForPreviousLineBeg),
+                new SearchScheme(new Regex("(?s)^(?!.*[\"|;])(.*)$"),TokenTypes.ValueForPreviousLineMultiline,-1,1,TokenTypes.ValueForPreviousLineBeg),
             };
         }
 

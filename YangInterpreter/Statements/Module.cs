@@ -167,7 +167,7 @@ namespace YangInterpreter
 
         internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

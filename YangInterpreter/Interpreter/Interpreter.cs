@@ -139,8 +139,11 @@ namespace YangInterpreter.Interpreter
                 }
                 if (PreviousToken != null)
                 {
-                    if (PreviousState != TokenTypes.ValueForPreviousLineMultiline && TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineEnd && MultilineBegPresent)
+                    if (!(PreviousState == TokenTypes.ValueForPreviousLineBeg || PreviousState == TokenTypes.ValueForPreviousLineMultiline) 
+                        && TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineEnd && MultilineBegPresent)
+                    {
                         NodeProcessionFail(TokenForCurrentRow, LineNumber);
+                    }
                     var prevtoken = GetpreviousToken();
                     prevtoken.TokenValue += TokenForCurrentRow.TokenValue;
                     prevtoken.TokenType = prevtoken.TokenAsSingleLine;

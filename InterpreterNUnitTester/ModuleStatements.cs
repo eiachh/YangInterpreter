@@ -139,7 +139,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleInterpreterImportInnerMalformFailException()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMalformedImportInner.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Import/InterpreterMalformedImportInner.yang"));
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleInterpreterImportEndMissingFailException()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMalformedImportInnerMissingEnd.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Import/InterpreterMalformedImportInnerMissingEnd.yang"));
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleInterpreterImportOutterMalformFailException()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/InterpreterMalformedImportOutter.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Import/InterpreterMalformedImportOutter.yang"));
         }
 
         /// <summary>
