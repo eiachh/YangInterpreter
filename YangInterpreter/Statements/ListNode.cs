@@ -24,7 +24,7 @@ namespace YangInterpreter
             throw new NotImplementedException();
         }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

@@ -16,7 +16,7 @@ namespace Runner
             string asd = "asdasdda \r\n and \n";
             var counted = asd.Count(x => x == '\n');
 
-            YangInterpreterTool tool = YangInterpreterTool.Load((Path.Combine(testfolder, "ModuleStatementsCorrect1.yang")));
+            YangInterpreterTool tool = YangInterpreterTool.Load((Path.Combine(testfolder, "RevisionStatementImproperValue.yang")));
 
             if (!Directory.Exists(@"C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\testfiles"))
                 Directory.CreateDirectory(@"C:\Users\sranko\Desktop\definitlyWorkReleated\szakdogarework\testfiles\");

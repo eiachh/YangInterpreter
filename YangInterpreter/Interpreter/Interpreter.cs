@@ -636,8 +636,9 @@ namespace YangInterpreter.Interpreter
                     NodeProcessionFail(InputToken, LineNumber);
                 }
             }
-
+            ///
             ///CHOICE-CASE
+            ///
             else if (InterpreterStatus == TokenTypes.ChoiceCase)
             {
                 if (InputToken.TokenType == TokenTypes.Leaf)
@@ -669,25 +670,29 @@ namespace YangInterpreter.Interpreter
                     NodeProcessionFail(InputToken, LineNumber);
                 }
             }
-
-            ///NAMESPACE
-            /*else if (InterpreterStatus == TokenTypes.Namespace && InputToken.TokenType == TokenTypes.Prefix)
-            {
-                ///Metadata[0] contains fullnamespace
-                ((Module)InterpreterTracer).Namespace = Metadata[0];
-                ((Module)InterpreterTracer).Prefix = InputToken.TokenValue;
-
-                //((Module)InterpreterTracer).AddNamespace(InputToken.TokenValue, Metadata[0]);
-                FallbackToPreviousInterpreterStatus();
-            }*/
-
+            ///
             ///REVISION
-            else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
-                         InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
+            ///
+            else if (InterpreterStatus == TokenTypes.Revision)
             {
-                var descStatement = AddNewStatement(typeof(Description), InputToken, YangAddingOption.ChildAndStatusless);
-                descStatement.Value = InputToken.TokenValue;
-                descStatement.GeneratedFrom = InputToken.TokenType;
+                if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
+                             InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
+                {
+                    var descStatement = AddNewStatement(typeof(Description), InputToken, YangAddingOption.ChildAndStatusless);
+                    descStatement.Value = InputToken.TokenValue;
+                    descStatement.GeneratedFrom = InputToken.TokenType;
+                }
+                else if (InputToken.TokenType == TokenTypes.ReferenceSameLineStart ||
+                             InputToken.TokenType == TokenTypes.ReferenceNextLineStart)
+                {
+                    var refStatement = AddNewStatement(typeof(Reference), InputToken, YangAddingOption.ChildAndStatusless);
+                    refStatement.Value = InputToken.TokenValue;
+                    refStatement.GeneratedFrom = InputToken.TokenType;
+                }
+                else
+                {
+                    NodeProcessionFail(InputToken, LineNumber);
+                }
             }
 
             ///No search scheme match => Incorrect inputline;

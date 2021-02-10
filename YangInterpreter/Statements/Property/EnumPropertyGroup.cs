@@ -10,7 +10,7 @@ namespace YangInterpreter.Statements.Property
     {
         public List<EnumProperty> EnumList = new List<EnumProperty>();
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

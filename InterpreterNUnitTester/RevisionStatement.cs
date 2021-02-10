@@ -24,8 +24,11 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionIsParsedCorrectly()
         {
-           RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
-           Assert.AreEqual("2019-09-11", RevisipnStatementCorrect.Root.DescendantsNode("revision").Single().Value);
+            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
+            var Revision = RevisipnStatementCorrect.Root.Descendants("revision").Single();
+            Assert.AreEqual("2019-09-11", Revision.Value);
+            Assert.AreEqual("Generic Session Control parameter file.", Revision.Descendants("description").Single().Value);
+            Assert.AreEqual("The Reference for Revision \r\n2019-09-11", Revision.Descendants("reference").Single().Value);
         }
 
         /// <summary>
@@ -54,11 +57,9 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionMultipleReferenceStatementError()
         {
-            //FINISh AFTER REFERENCE IS CREATED
-            Assert.IsTrue(false);
             Revision TestRevision = new Revision("1997-09-02");
-            TestRevision.AddStatement(new Description());
-            Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new Description()));
+            TestRevision.AddStatement(new Reference());
+            Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new Reference()));
         }
     }
 }

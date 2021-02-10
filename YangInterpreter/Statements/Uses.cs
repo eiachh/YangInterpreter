@@ -10,7 +10,7 @@ namespace YangInterpreter.Statements
     {
         public Uses(string name) : base(name) { ContainedGrouping = Grouping.GetGroupingByName(name,this); }
         public Grouping ContainedGrouping { get; set; }
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             return ContainedGrouping.NodeAsXmlForUses();
         }

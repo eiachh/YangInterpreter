@@ -23,7 +23,7 @@ module RevisionStatementImproperValue {
 	reference
 		"cc1fil_t - 0x0033A0000";
 
-	revision NotADate {
+	revision NotADateValue {
 		description "Generic Session Control parameter file.";
 	}
 }

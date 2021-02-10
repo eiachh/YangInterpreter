@@ -9,7 +9,7 @@ namespace YangInterpreter.Statements.BaseStatements
     {
         public EmptyLineNode() : base("") { }
         public EmptyLineNode(string empty) : this() { }
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             return new XElement[] { new XElement(" ") };
         }

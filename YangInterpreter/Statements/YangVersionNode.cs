@@ -11,7 +11,7 @@ namespace YangInterpreter.Statements
         public YangVersionNode() : base("yang-version") { BuildIntoOutput = false; }
         public YangVersionNode(string value) : this() { Value = value; }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

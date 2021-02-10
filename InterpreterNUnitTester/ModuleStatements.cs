@@ -32,7 +32,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void YangVersionParsedCorrectly()
         {
-            var Nodes = InterpreterCorrect.Root.DescendantsNode("yang-version");
+            var Nodes = InterpreterCorrect.Root.Descendants("yang-version");
             Assert.IsTrue(Nodes.Count() > 0);
             var YangVersionNode = Nodes.First() as YangVersionNode;
             Assert.AreEqual("1", YangVersionNode.Value);
@@ -44,7 +44,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleNameSpaceParsedCorrectlyTest()
         {
-            Assert.AreEqual("NamespaceCorrectTestModule1", InterpreterCorrect.Root.DescendantsNode("namespace").Single().Value);
+            Assert.AreEqual("NamespaceCorrectTestModule1", InterpreterCorrect.Root.Descendants("namespace").Single().Value);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModulePrefixParsedCorrectlyTest()
         {
-            Assert.AreEqual("nctm", InterpreterCorrect.Root.DescendantsNode("prefix").Single().Value);
+            Assert.AreEqual("nctm", InterpreterCorrect.Root.Descendants("prefix").Single().Value);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleOrganizationParsedCorrectlyTest()
         {
-            Assert.AreEqual("My diplomwork corp", InterpreterCorrect.Root.DescendantsNode("organization").Single().Value);
+            Assert.AreEqual("My diplomwork corp", InterpreterCorrect.Root.Descendants("organization").Single().Value);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleContactParsedCorrectlyTest()
         {
-            Assert.AreEqual("Adam Sranko srankoadam@gmail.com", InterpreterCorrect.Root.DescendantsNode("contact").Single().Value);
+            Assert.AreEqual("Adam Sranko srankoadam@gmail.com", InterpreterCorrect.Root.Descendants("contact").Single().Value);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleDescriptionParsedCorrectlyTest()
         {
-            Assert.AreEqual("Description of correctly formatted\r\n\t\tmodule,\r\nwith multiline value.", InterpreterCorrect.Root.DescendantsNode("description").Single().Value);
+            Assert.AreEqual("Description of correctly formatted\r\n\t\tmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Descendants("description").Single().Value);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace InterpreterNUnitTester
         public void ModuleReferenceParsedCorrectlyTest()
         {
             
-            Assert.AreEqual("Reference1102-2323", InterpreterCorrect.Root.DescendantsNode("reference").Single().Value);
+            Assert.AreEqual("Reference1102-2323", InterpreterCorrect.Root.Descendants("reference").Single().Value);
         }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

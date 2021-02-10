@@ -10,7 +10,7 @@ namespace YangInterpreter.Statements
     {
         public Container(string name) : base(name) { }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

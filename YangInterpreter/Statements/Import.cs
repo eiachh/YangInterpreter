@@ -25,7 +25,7 @@ namespace YangInterpreter.Statements
             }
         }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }
@@ -48,7 +48,7 @@ namespace YangInterpreter.Statements
         private void HandleValueChange(string newValueOfPrefix)
         {
             var module = Root as Module;
-            var childPrefix = DescendantsNode("prefif");
+            var childPrefix = Descendants("prefif");
 
             if (childPrefix is null)
                 return;

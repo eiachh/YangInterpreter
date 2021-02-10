@@ -5,14 +5,14 @@ using System.Xml.Linq;
 using YangInterpreter.Interpreter;
 using YangInterpreter.Statements.BaseStatements;
 
-namespace YangInterpreter.Statements.Property
-{
+namespace YangInterpreter.Statements
+{ 
     public class Reference : Statement
     {
         public Reference() : base("reference") { }
         public Reference(string value) : this() { Value = value; }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

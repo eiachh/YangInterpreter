@@ -11,7 +11,7 @@ namespace YangInterpreter
     {
         public LeafList(string leafname) : base(leafname) { }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             return new XElement[] { new XElement(Name, "Example Content1"), new XElement(Name, "Example Content2") };
         }

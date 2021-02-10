@@ -17,7 +17,7 @@ namespace YangInterpreter
         }
         public Leaf(string leafname, bool config)                          : this(leafname)              {Config = config;}
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             return new XElement[] { new XElement(Name, "Example Content") };
         }

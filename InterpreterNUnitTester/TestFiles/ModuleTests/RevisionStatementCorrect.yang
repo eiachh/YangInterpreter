@@ -25,5 +25,7 @@ module RevisionStatementCorrect {
 
 	revision 2019-09-11 {
 		description "Generic Session Control parameter file.";
+		reference "The Reference for Revision 
+		2019-09-11";
 	}
 }

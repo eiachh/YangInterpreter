@@ -25,6 +25,10 @@ namespace YangInterpreter.Statements.BaseStatements
         private string _value;
         internal TokenTypes GeneratedFrom;
         public string Name { get; set; }
+
+        /// <summary>
+        /// Represents the Value of the Statement if it can have, otherwise null.
+        /// </summary>
         public virtual string Value { get => _value; set => _value = value; }
         public virtual Statement Parent { get; set; }
         public virtual Statement Root { get; set; }
@@ -32,14 +36,35 @@ namespace YangInterpreter.Statements.BaseStatements
         internal bool BuildIntoOutput = true;
 
         protected List<Statement> StatementList = new List<Statement>();
-        public abstract XElement[] NodeAsXML();
+
+        /// <summary>
+        /// Returns the Statement as an XML example Array.
+        /// </summary>
+        /// <returns></returns>
+        public abstract XElement[] StatementAsXML();
+
+        /// <summary>
+        /// The Yang statement converted into string.
+        /// </summary>
+        /// <param name="indentationlevel"></param>
+        /// <returns></returns>
         public abstract string StatementAsYangString(int indentationlevel);
         public virtual string StatementAsYangString()
         {
             return StatementAsYangString(0);
         }
 
-        internal abstract bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd);
+        /// <summary>
+        /// Empty Line is allowed in every statement.
+        /// </summary>
+        /// <param name="StatementToAdd"></param>
+        /// <returns></returns>
+        internal virtual bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        {
+            if (StatementToAdd.GetType() != typeof(EmptyLineNode))
+                return false;
+            return true;
+        }
 
         /// <summary>
         /// This is here to force YangNode constructor with Name parameter.
@@ -170,12 +195,29 @@ namespace YangInterpreter.Statements.BaseStatements
         }
 
         /// <summary>
+        /// Returns all Descendants of any level
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        public IEnumerable<Statement> Descendants()
+        {
+            List<Statement> MatchingElements = new List<Statement>();
+            foreach (var child in StatementList)
+            {
+                var descendants = child.Descendants();
+                MatchingElements.AddRange(descendants);
+            }
+            return MatchingElements;
+        }
+
+        /// <summary>
         /// Looks for the Node with the given name in any depth any child Node.
         /// </summary>
         /// <param name="Name"></param>
         /// <param name="Value"></param>
         /// <returns></returns>
-        public IEnumerable<Statement> DescendantsNode(string Name)
+        public IEnumerable<Statement> Descendants(string Name)
         {
             List<Statement> MatchingElements = new List<Statement>();
             bool hasAny = false;
@@ -183,7 +225,7 @@ namespace YangInterpreter.Statements.BaseStatements
             {
                 if (child.GetType().IsInstanceOfType(typeof(Statement)))
                 {
-                    var Descendants = child.DescendantsNode(Name);
+                    var Descendants = child.Descendants(Name);
                     if (Descendants != null)
                     {
                         hasAny = true;

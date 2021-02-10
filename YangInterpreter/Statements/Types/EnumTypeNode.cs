@@ -33,9 +33,9 @@ namespace YangInterpreter.Statements.Types
             return StatementAsYangString(0);
         }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
-            return EnumPropGroup.NodeAsXML();
+            return EnumPropGroup.StatementAsXML();
         }
 
         internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)

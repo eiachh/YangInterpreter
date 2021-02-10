@@ -15,7 +15,7 @@ namespace YangInterpreter.Statements
             Value = _Value;
         }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

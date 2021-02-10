@@ -56,12 +56,12 @@ namespace YangInterpreter.Statements
             List<XElement> retchildlist = new List<XElement>();
             foreach (var child in StatementList)
             {
-                retchildlist.AddRange(child.NodeAsXML());
+                retchildlist.AddRange(child.StatementAsXML());
             }
             return retchildlist.ToArray();
         }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

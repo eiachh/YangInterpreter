@@ -98,7 +98,7 @@ namespace YangInterpreter
                 Root = this;
             if (Node.GetType() == typeof(YangVersionNode))
             {
-                var version = DescendantsNode("yang-version")?.Single();
+                var version = Descendants("yang-version")?.Single();
                 if (version != null)
                     return version;
             }
@@ -116,7 +116,7 @@ namespace YangInterpreter
             var indent = GetIndentation(indentationlevel);
             var strBuilder = indent + "module " + Name + " {" + Environment.NewLine;
 
-            Statement yangver = DescendantsNode("yang-version").Single();
+            Statement yangver = Descendants("yang-version").Single();
             strBuilder += yangver.StatementAsYangString(indentationlevel + 1) + Environment.NewLine;
 
             strBuilder += GetStatementsAsYangString(indentationlevel + 1) + Environment.NewLine;
@@ -160,7 +160,7 @@ namespace YangInterpreter
             return strBuilder + Environment.NewLine;
         }*/
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }

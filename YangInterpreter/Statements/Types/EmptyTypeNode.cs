@@ -11,7 +11,7 @@ namespace YangInterpreter.Statements.Types
         public EmptyTypeNode() : base(BuiltInTypes.empty) { }
         public EmptyTypeNode(string name) : this() { }
 
-        public override XElement[] NodeAsXML()
+        public override XElement[] StatementAsXML()
         {
             throw new NotImplementedException();
         }
