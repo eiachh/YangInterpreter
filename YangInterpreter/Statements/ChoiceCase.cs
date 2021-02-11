@@ -6,6 +6,9 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
+    /// <summary>
+    /// Case statement insode choice.
+    /// </summary>
     class ChoiceCase : Statement
     {
         public ChoiceCase(string name) : base(name) { }
@@ -22,6 +25,11 @@ namespace YangInterpreter.Statements
             strBuilder += GetStatementsAsYangString(indentationlevel + 1);
             strBuilder += indent + "}";
             return strBuilder;
+        }
+
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
+        {
+            throw new NotImplementedException();
         }
 
         /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)

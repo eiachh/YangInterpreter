@@ -36,7 +36,7 @@ namespace InterpreterNUnitTester
         {
             var Nodes = InterpreterCorrect.Root.Descendants("yang-version");
             Assert.IsTrue(Nodes.Count() > 0);
-            var YangVersionNode = Nodes.First() as YangVersionNode;
+            var YangVersionNode = Nodes.First() as YangVersionStatement;
             Assert.AreEqual("1", YangVersionNode.Value);
         }
 
@@ -48,7 +48,7 @@ namespace InterpreterNUnitTester
         {
             var Nodes = InterpreterCorrectYangVerMissing.Root.Descendants("yang-version");
             Assert.IsTrue(Nodes.Count() > 0);
-            var YangVersionNode = Nodes.First() as YangVersionNode;
+            var YangVersionNode = Nodes.First() as YangVersionStatement;
             Assert.AreEqual("1", YangVersionNode.Value);
         }
 

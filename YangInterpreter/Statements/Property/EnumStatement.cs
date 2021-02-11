@@ -6,10 +6,10 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements.Property
 {
-    public class EnumProperty : Statement
+    public class EnumStatement : Statement
     {
-        public EnumProperty() : base("enum") { }
-        public EnumProperty(string value) : base("enum") 
+        public EnumStatement() : base("enum") { }
+        public EnumStatement(string value) : base("enum") 
         {
             Value = value;
         }
@@ -24,9 +24,9 @@ namespace YangInterpreter.Statements.Property
             throw new NotImplementedException();
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();
-        }*/
+        }
     }
 }

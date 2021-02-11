@@ -1,6 +1,8 @@
 ﻿using System.Xml.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
+using System.Collections.Generic;
+using System;
 
 namespace YangInterpreter.Statements
 {
@@ -30,11 +32,9 @@ namespace YangInterpreter.Statements
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
         }
 
-        /// <summary>
-        /// Organization statement cannot have descendants.
-        /// </summary>
-        /// <param name="StatementToAdd"></param>
-        /// <returns></returns>
-        //internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd) { return false; }
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
+        {
+            return new Dictionary<Type, Tuple<int, int>>();
+        }
     }
 }

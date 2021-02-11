@@ -9,22 +9,12 @@ namespace YangInterpreter.Statements.Types
 {
     public class EnumTypeStatement : TypeStatement
     {
-        public int MyProperty { get; set; }
-        private EnumPropertyGroup EnumPropGroup = new EnumPropertyGroup();
-        public EnumTypeStatement() : base(BuiltInTypes.enumeration)
-        {
-            StatementList.Add(EnumPropGroup);
-        }
+        public EnumTypeStatement() : base(BuiltInTypes.enumeration) { }
         public EnumTypeStatement(string value) : base(BuiltInTypes.enumeration) { }
-
-        public void AddEnumProperty(EnumProperty prop)
-        {
-            EnumPropGroup.EnumList.Add(prop);
-        }
         public override string StatementAsYangString(int indentationlevel)
         {
             var indent = GetIndentation(indentationlevel);
-            return indent + "type enumeration {"+ Environment.NewLine + EnumPropGroup.StatementAsYangString(indentationlevel + 1) 
+            return indent + "type enumeration {" + Environment.NewLine + GetStatementsAsYangString(indentationlevel)
                           + Environment.NewLine + indent + "}";
         }
 
@@ -35,12 +25,16 @@ namespace YangInterpreter.Statements.Types
 
         public override XElement[] StatementAsXML()
         {
-            return EnumPropGroup.StatementAsXML();
+            XElement ThisAsXML = new XElement("EnumTypeStatement");
+            foreach (var descend in Descendants())
+            {
+                foreach (var descandAsXml in descend.StatementAsXML())
+                {
+                    ThisAsXML.Add(descandAsXml);
+                }
+                
+            }
+            return new XElement[] { ThisAsXML };
         }
-
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
-        {
-            return true;
-        }*/
     }
 }

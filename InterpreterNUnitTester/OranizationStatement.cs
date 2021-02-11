@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using YangInterpreter.Interpreter;
 using System;
-using YangInterpreter.Statements;
 
 namespace InterpreterNUnitTester
 {
@@ -91,7 +90,7 @@ namespace InterpreterNUnitTester
         public void OrganizationAddStatementFailCheck()
         {
             Organization org = new Organization("SomeValue");
-            Assert.Throws<ArgumentException>(() => org.AddStatement(new EmptyLineNode()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => org.AddStatement(new EmptyLineNode()));
         }
     }
 }

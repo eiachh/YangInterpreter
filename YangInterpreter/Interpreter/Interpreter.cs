@@ -375,7 +375,7 @@ namespace YangInterpreter.Interpreter
                 }
                 else if (InputToken.TokenType == TokenTypes.YangVersion)
                 {
-                    var node = AddNewStatement(typeof(YangVersionNode), InputToken, YangAddingOption.ChildAndStatusless) as YangVersionNode;
+                    var node = AddNewStatement(typeof(YangVersionStatement), InputToken, YangAddingOption.ChildAndStatusless) as YangVersionStatement;
                     node.Value = InputToken.TokenValue;
                     if (!ValidateYangVersionCompatibility(node.Value) && Option == InterpreterOption.Normal)
                         throw new InvalidYangVersion("The version of this file is not 1 therefore not compatible with the interpreter. If you want to force run anyways use Interpreteroption force argument!");
@@ -567,7 +567,9 @@ namespace YangInterpreter.Interpreter
 
                 if (InputToken.TokenType == TokenTypes.SimpleEnum)
                 {
-                    ((EnumTypeStatement)TracerCurrentNode).AddEnumProperty(new EnumProperty(InputToken.TokenValue));
+                    var enumStat = AddNewStatement(typeof(EnumStatement), InputToken,YangAddingOption.ChildAndStatusless);
+                    enumStat.Value = InputToken.TokenValue;
+                    //((EnumTypeStatement)TracerCurrentNode).AddEnumProperty(new EnumStatement(InputToken.TokenValue));
                 }
                 else
                 {
@@ -597,7 +599,8 @@ namespace YangInterpreter.Interpreter
 
                 if (InputToken.TokenType == TokenTypes.SimpleEnum)
                 {
-                    ((EnumTypeStatement)TracerCurrentNode).AddEnumProperty(new EnumProperty(InputToken.TokenValue));
+                    var enumStat = AddNewStatement(typeof(EnumStatement), InputToken, YangAddingOption.ChildAndStatusless);
+                    enumStat.Value = InputToken.TokenValue;
                 }
                 else
                 {

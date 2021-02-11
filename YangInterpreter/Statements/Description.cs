@@ -38,11 +38,9 @@ namespace YangInterpreter.Statements
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
         }
 
-        /// <summary>
-        /// No child statement is allowed for Description statement.
-        /// </summary>
-        /// <param name="StatementToAdd"></param>
-        /// <returns></returns>
-        //internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd) { return false; }
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
+        {
+            return new Dictionary<Type, Tuple<int, int>>();
+        }
     }
 }

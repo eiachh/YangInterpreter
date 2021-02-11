@@ -35,9 +35,9 @@ namespace YangInterpreter.Statements
             return strBuilder;
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return true;
-        }*/
+            throw new NotImplementedException();
+        }
     }
 }

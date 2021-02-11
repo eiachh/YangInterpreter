@@ -73,7 +73,7 @@ namespace YangInterpreter.Statements.BaseStatements
             }
         }
 
-        internal override Dictionary<Type, int> GetAllowanceSubStatementDictionary() 
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary() 
         { 
             return SubStatementAllowanceCollection.TypeStatementAllowedSubstatements; 
         }

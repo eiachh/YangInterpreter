@@ -4,6 +4,7 @@ using System.Text;
 using System.Xml.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using System.Linq;
+using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
@@ -36,10 +37,10 @@ namespace YangInterpreter.Statements
             return indent + Name.ToLower() + " " + Value + " { " + GetStatementsAsYangString(0) + " }";
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return true;
-        }*/
+            return SubStatementAllowanceCollection.ImportStatementAllowedSubstatements;
+        }
 
         /// <summary>
         /// Changes Value for this namespace in module`s dictionary.

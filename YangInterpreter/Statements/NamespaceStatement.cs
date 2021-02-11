@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
 
-namespace YangInterpreter.Statements.Property
+namespace YangInterpreter.Statements
 {
     public class NamespaceStatement : Statement
     {
@@ -28,9 +28,9 @@ namespace YangInterpreter.Statements.Property
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            throw new NotImplementedException();
-        }*/
+            return new Dictionary<Type, Tuple<int, int>>();
+        }
     }
 }

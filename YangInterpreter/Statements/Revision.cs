@@ -4,6 +4,7 @@ using YangInterpreter.Statements.BaseStatements;
 using System.Text.RegularExpressions;
 using YangInterpreter.Interpreter;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace YangInterpreter.Statements
 
@@ -39,15 +40,6 @@ namespace YangInterpreter.Statements
             }
         }
 
-        /*public override Statement AddStatement(Statement StatementToAdd)
-        {
-            if(IsAddedSubstatementAllowedInCurrentStatement(StatementToAdd))
-                return base.AddStatement(StatementToAdd);
-            else
-                throw new ImproperValue("Forbidden Statement was added to the revision node. Statement name: " + StatementToAdd.GetType().ToString() 
-                                           + Environment.NewLine + "For valid arguments check RFC 6020 7.1.9.1 or the Revision class source code!");
-        }*/
-
         public override XElement[] StatementAsXML()
         {
             XElement rev = new XElement("Revision", base.Value);
@@ -67,32 +59,10 @@ namespace YangInterpreter.Statements
             return stringBuilder;
         }
 
-        /// <summary>
-        /// Revision allowed to have 1 Description statement and 1 Reference statement.
-        /// </summary>
-        /// <param name="StatementToAdd"></param>
-        /// <returns></returns>
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            if (!base.IsAddedSubstatementAllowedInCurrentStatement(StatementToAdd))
-            {
-                if (StatementToAdd.GetType() != typeof(Description) && StatementToAdd.GetType() != typeof(Reference))
-                    throw new ArgumentException("Statement: " + StatementToAdd.GetType().ToString() + " cannot be added to a Revision statement.");
-                if (StatementToAdd.GetType() == typeof(Description))
-                {
-                    var descendList = Descendants("description");
-                    if (descendList?.Count() >= 1)
-                        throw new ArgumentOutOfRangeException("One Description statement already exists in the current Revision statement!");
-                }
-                else if (StatementToAdd.GetType() == typeof(Reference))
-                {
-                    var descendList = Descendants("reference");
-                    if (descendList?.Count() >= 1)
-                        throw new ArgumentOutOfRangeException("One Reference statement already exists in the current Revision statement!");
-                }
-            }
-            return true;
-        }*/
+            return SubStatementAllowanceCollection.RevisionStatementAllowedSubstatements;
+        }
 
         /// <summary>
         /// Revision Value has to be a valid date (of revision).

@@ -26,8 +26,7 @@ namespace InterpreterNUnitTester
         public void RevisionIsParsedCorrectly()
         {
             EmptyTypeStatement ts = new EmptyTypeStatement();
-            ts.AddStatement(new Leaf("kek"));
-            ts.AddStatement(new Leaf("kek2"));
+            ts.AddStatement(new EnumTypeStatement());
             //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
         }
     }

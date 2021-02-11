@@ -43,7 +43,7 @@ namespace InterpreterNUnitTester
         public void ThrowErrorOnStatementAdd()
         {
             Description desc = new Description("Some value");
-            Assert.Throws<ArgumentException>(() => desc.AddStatement(new Description()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => desc.AddStatement(new Description()));
         }
 
         /// <summary>

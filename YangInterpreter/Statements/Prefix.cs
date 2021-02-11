@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
 
-namespace YangInterpreter.Statements.Property
+namespace YangInterpreter.Statements
 {
     public class Prefix : Statement
     {
@@ -45,10 +45,10 @@ namespace YangInterpreter.Statements.Property
             return indent + "prefix " + Value + ";";
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return true;
-        }*/
+            return new Dictionary<Type, Tuple<int, int>>();
+        }
 
         private void HandleValueChange(string originalValueOfPrefix,string newValueOfPrefix)
         {

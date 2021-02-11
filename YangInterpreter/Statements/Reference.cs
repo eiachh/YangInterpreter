@@ -25,9 +25,9 @@ namespace YangInterpreter.Statements
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return true;
-        }*/
+            return new Dictionary<Type, Tuple<int, int>>();
+        }
     }
 }

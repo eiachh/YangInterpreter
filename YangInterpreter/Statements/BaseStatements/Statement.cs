@@ -60,19 +60,26 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         /// <param name="StatementToAdd"></param>
         /// <returns></returns>
-        internal bool IsAddedSubstatementAllowedInCurrentStatement(Dictionary<Type, int> AllowanceList, Statement StatementToAdd)
+        internal bool IsAddedSubstatementAllowedInCurrentStatement(Dictionary<Type, Tuple<int, int>> AllowanceList, Statement StatementToAdd)
         {
-            int AllowedAmount = -2;
+            //Item1 is min, Item 2 is maximum amount
+            Tuple<int, int> AllowedAmount;
             if (!SubStatementAllowanceCollection.IsInitialized)
                 SubStatementAllowanceCollection.Init();
             AllowanceList.TryGetValue(StatementToAdd.GetType(), out AllowedAmount);
+            if (AllowedAmount is null)
+            {
+                AllowanceList.TryGetValue(StatementToAdd.GetType().BaseType, out AllowedAmount);
+                if (AllowedAmount is null)
+                    AllowedAmount = new Tuple<int, int>(-2, -2);
+            }
 
-            if (AllowedAmount == 0)
+            if (AllowedAmount?.Item2 == 0)
                 return false;
-            else if (AllowedAmount == -1)
+            else if (AllowedAmount?.Item2 == -1)
                 return true;
             else
-                return IsArgumentInRange(StatementToAdd, AllowedAmount);
+                return IsArgumentInRange(StatementToAdd, AllowedAmount.Item2);
         }
 
 
@@ -90,10 +97,12 @@ namespace YangInterpreter.Statements.BaseStatements
                 AmountOfMatchingDescendants = DescendantList.Count();
             if (AmountOfMatchingDescendants < AllowedAmount)
                 return true;
-            throw new ArgumentOutOfRangeException(StatementToAdd.GetType().ToString(),"Cannot add more "+ StatementToAdd.GetType().ToString() + " into "+GetType().ToString() + ", maximum amount reached: ");
+            if (AllowedAmount < 0)
+                AllowedAmount = 0;
+            throw new ArgumentOutOfRangeException(StatementToAdd.GetType().ToString(),"Cannot add more "+ StatementToAdd.GetType().ToString() + " into "+GetType().ToString() + ", maximum amount reached: " + AllowedAmount);
         }
 
-        internal virtual Dictionary<Type, int> GetAllowanceSubStatementDictionary() { return null; }
+        internal abstract Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary();
 
         /// <summary>
         /// This is here to force YangNode constructor with Name parameter.

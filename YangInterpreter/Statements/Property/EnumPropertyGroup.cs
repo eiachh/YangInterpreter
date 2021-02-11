@@ -8,7 +8,7 @@ namespace YangInterpreter.Statements.Property
 {
     internal class EnumPropertyGroup : Statement
     {
-        public List<EnumProperty> EnumList = new List<EnumProperty>();
+        public List<EnumStatement> EnumList = new List<EnumStatement>();
 
         public override XElement[] StatementAsXML()
         {
@@ -36,6 +36,11 @@ namespace YangInterpreter.Statements.Property
         }*/
 
         public override string StatementAsYangString(int indentationlevel)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();
         }

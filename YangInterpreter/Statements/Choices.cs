@@ -7,6 +7,9 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
+    /// <summary>
+    /// Choice statement itself.
+    /// </summary>
     public class Choices : Statement
     { 
         public Choices(string name) : base(name){ }
@@ -36,6 +39,11 @@ namespace YangInterpreter.Statements
         }
 
         public override XElement[] StatementAsXML()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();
         }

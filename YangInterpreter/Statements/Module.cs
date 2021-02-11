@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using System.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Statements;
+using YangInterpreter.Interpreter;
 
 namespace YangInterpreter
 {
@@ -47,7 +48,7 @@ namespace YangInterpreter
         /// </summary>
         public string Prefix { get; set; }
 
-        public Module(string name) : base(name) { AddStatement(new YangVersionNode("1")); }
+        public Module(string name) : base(name) { AddStatement(new YangVersionStatement("1")); }
 
         /// <summary>
         /// Namespace dictionary of imported modules. Keys are the prefixes, values are the full namespace.
@@ -96,7 +97,7 @@ namespace YangInterpreter
         {
             if (Root == null)
                 Root = this;
-            if (Node.GetType() == typeof(YangVersionNode))
+            if (Node.GetType() == typeof(YangVersionStatement))
             {
                 var version = Descendants("yang-version")?.Single();
                 if (version != null)
@@ -165,9 +166,9 @@ namespace YangInterpreter
             throw new NotImplementedException();
         }
 
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return true;
-        }*/
+            return SubStatementAllowanceCollection.ModuleStatementAllowedSubstatements;
+        }
     }
 }
