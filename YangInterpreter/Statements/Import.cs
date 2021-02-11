@@ -8,7 +8,17 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Import : Statement
+    /// Import Statement RFC 6020 7.1.5.
+    ///
+    /// <summary>
+    /// +---------------+---------+-------------+
+    /// | substatement  | section | cardinality |
+    /// +---------------+---------+-------------+
+    /// | prefix        | 7.1.4   | 1           |
+    /// | revision-date | 7.1.5.1 | 0..1        |
+    /// +---------------+---------+-------------+
+    /// </summary>
+    public class Import : ContainerStatementBase
     {
         public Import() : base("Import") { }
         public Import(string _Value) : base("Import")
@@ -24,11 +34,6 @@ namespace YangInterpreter.Statements
                 HandleValueChange(value);
                 base.Value = value;
             }
-        }
-
-        public override XElement[] StatementAsXML()
-        {
-            throw new NotImplementedException();
         }
 
         public override string StatementAsYangString(int indentationlevel)

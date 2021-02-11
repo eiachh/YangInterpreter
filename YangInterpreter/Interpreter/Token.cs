@@ -17,13 +17,17 @@ namespace YangInterpreter.Interpreter
         Uses,
         Choice,
         ChoiceCase,
+
+        TypeBits,
         TypeEnum,
         TypeEmpty,
         Type,
+
         SimpleEnum,
-        TypeMultiline,
-        TypeWithRange,
+        SimpleBit,
+
         Key,
+        Position,
 
         ContactSameLineStart,
         ContactNextLineStart,

@@ -4,6 +4,7 @@ using System.Linq;
 using YangInterpreter.Statements;
 using YangInterpreter.Statements.Types;
 using YangInterpreter.Statements.BaseStatements;
+using YangInterpreter.Statements.SingleValueStatements;
 
 namespace YangInterpreter.Interpreter
 {
@@ -96,6 +97,10 @@ namespace YangInterpreter.Interpreter
         private static void FillBitsSntatementAllowanceList()
         {
             BitStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            BitStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
+            BitStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
+            //BitStatementAllowedSubstatements.Add(typeof(Status), new Tuple<int, int>(0, 1));
+            BitStatementAllowedSubstatements.Add(typeof(Position), new Tuple<int, int>(0, 10));
         }
         private static void FillChoiceCaseSntatementAllowanceList()
         {
@@ -117,6 +122,7 @@ namespace YangInterpreter.Interpreter
         private static void FillLeafSntatementAllowanceList()
         {
             LeafStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(BitsTypeStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillRevisionSntatementAllowanceList()

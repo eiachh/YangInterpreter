@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements.Property
 {
-    internal class EnumPropertyGroup : Statement
+    internal class EnumPropertyGroup : BaseStatement
     {
         public List<EnumStatement> EnumList = new List<EnumStatement>();
 

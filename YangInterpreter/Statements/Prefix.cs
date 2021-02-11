@@ -7,7 +7,7 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Prefix : Statement
+    public class Prefix : BaseStatement
     {
         public Prefix() : base("Prefix") { }
         public Prefix(string _Value) : base("Prefix")
@@ -25,7 +25,7 @@ namespace YangInterpreter.Statements
             }
         }
 
-        public override Statement Parent 
+        public override BaseStatement Parent 
         { 
             get => base.Parent;
             set

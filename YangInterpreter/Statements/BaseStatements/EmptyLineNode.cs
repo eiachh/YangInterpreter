@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
-    public class EmptyLineNode : Statement
+    public class EmptyLineNode : BaseStatement
     {
         public EmptyLineNode() : base("") { }
         public EmptyLineNode(string empty) : this() { }

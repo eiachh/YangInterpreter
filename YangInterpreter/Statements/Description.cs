@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-using YangInterpreter.Statements.BaseStatements;
-using YangInterpreter.Interpreter;
+﻿using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
@@ -17,30 +12,9 @@ namespace YangInterpreter.Statements
     /// to choose a language that is widely understood among the community of
     /// network administrators who will use the module.
     /// </summary>
-    public class Description : Statement
+    public class Description : StatementWithSingleValueBase
     {
         public Description() : base("Description") { }
-        public Description(string Value) : base("Description")
-        {
-            base.Value = Value;
-        }
-
-        public override XElement[] StatementAsXML()
-        {
-            return new XElement[] { new XElement("Description", base.Value) };
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            if(GeneratedFrom == TokenTypes.DescriptionSameLineStart)
-                return NameAndValueAsYangString(indentationlevel,ValueFormattingOption.SameLineStart);
-            else
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
-        }
-
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            return new Dictionary<Type, Tuple<int, int>>();
-        }
+        public Description(string Value) : base("Description", Value) { }
     }
 }

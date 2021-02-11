@@ -24,8 +24,8 @@ module OrganizationMissingFirstQuotationMark {
 		"cc1fil_t - 0x0033A0000";
 
 	revision 2019-09-11 {
-		description "Generic Session Control parameter file.";
-		reference "The Reference for Revision 
+		description "Generic Session Control parameter file.
+		reference
 		2019-09-11";
 	}
 }

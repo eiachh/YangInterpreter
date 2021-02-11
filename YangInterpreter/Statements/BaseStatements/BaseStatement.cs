@@ -21,7 +21,7 @@ namespace YangInterpreter.Statements.BaseStatements
         NextLineStart,
     }
 
-    public abstract class Statement
+    public abstract class BaseStatement
     {
         private string _value;
         internal TokenTypes GeneratedFrom;
@@ -31,12 +31,12 @@ namespace YangInterpreter.Statements.BaseStatements
         /// Represents the Value of the Statement if it can have, otherwise null.
         /// </summary>
         public virtual string Value { get => _value; set => _value = value; }
-        public virtual Statement Parent { get; set; }
-        public virtual Statement Root { get; set; }
+        public virtual BaseStatement Parent { get; set; }
+        public virtual BaseStatement Root { get; set; }
 
         internal bool BuildIntoOutput = true;
 
-        protected List<Statement> StatementList = new List<Statement>();
+        protected List<BaseStatement> StatementList = new List<BaseStatement>();
 
         /// <summary>
         /// Returns the Statement as an XML example Array.
@@ -60,7 +60,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         /// <param name="StatementToAdd"></param>
         /// <returns></returns>
-        internal bool IsAddedSubstatementAllowedInCurrentStatement(Dictionary<Type, Tuple<int, int>> AllowanceList, Statement StatementToAdd)
+        internal bool IsAddedSubstatementAllowedInCurrentStatement(Dictionary<Type, Tuple<int, int>> AllowanceList, BaseStatement StatementToAdd)
         {
             //Item1 is min, Item 2 is maximum amount
             Tuple<int, int> AllowedAmount;
@@ -89,7 +89,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <param name="StatementToAdd"></param>
         /// <param name="AllowedAmount"></param>
         /// <returns></returns>
-        private bool IsArgumentInRange(Statement StatementToAdd, int AllowedAmount)
+        private bool IsArgumentInRange(BaseStatement StatementToAdd, int AllowedAmount)
         {
             int AmountOfMatchingDescendants = 0;
             var DescendantList = Descendants(StatementToAdd.GetType());
@@ -107,15 +107,15 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <summary>
         /// This is here to force YangNode constructor with Name parameter.
         /// </summary>
-        protected Statement() { }
-        public Statement(string name) { Name = name; }
+        protected BaseStatement() { }
+        public BaseStatement(string name) { Name = name; }
 
         /// <summary>
         /// Adds the given Statement as child.
         /// </summary>
         /// <param name="StatementToAdd"></param>
         /// <returns></returns>
-        public virtual Statement AddStatement(Statement StatementToAdd)
+        public virtual BaseStatement AddStatement(BaseStatement StatementToAdd)
         {
             if (!IsAddedSubstatementAllowedInCurrentStatement(GetAllowanceSubStatementDictionary(),StatementToAdd))
                 throw new ArgumentException("The given statement \""+StatementToAdd.GetType().ToString()+ "\"cannot be added to\"" + GetType().ToString());
@@ -154,7 +154,7 @@ namespace YangInterpreter.Statements.BaseStatements
         }
 
 
-        public Statement FirstChild()
+        public BaseStatement FirstChild()
         {
             if (StatementList.Count > 0)
             {
@@ -165,7 +165,7 @@ namespace YangInterpreter.Statements.BaseStatements
                 return null;
             }
         }
-        public Statement LastChild()
+        public BaseStatement LastChild()
         {
             if (StatementList.Count > 0)
             {
@@ -202,9 +202,9 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <param name="Name"></param>
         /// <param name="Value"></param>
         /// <returns></returns>
-        public IEnumerable<Statement> Descendants()
+        public IEnumerable<BaseStatement> Descendants()
         {
-            List<Statement> MatchingElements = new List<Statement>();
+            List<BaseStatement> MatchingElements = new List<BaseStatement>();
             foreach (var child in StatementList)
             {
                 var descendants = child.Descendants();
@@ -219,13 +219,13 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <param name="Name"></param>
         /// <param name="Value"></param>
         /// <returns></returns>
-        public IEnumerable<Statement> Descendants(string Name)
+        public IEnumerable<BaseStatement> Descendants(string Name)
         {
-            List<Statement> MatchingElements = new List<Statement>();
+            List<BaseStatement> MatchingElements = new List<BaseStatement>();
             bool hasAny = false;
             foreach (var child in StatementList)
             {
-                if (child.GetType().IsInstanceOfType(typeof(Statement)))
+                if (child.GetType().IsInstanceOfType(typeof(BaseStatement)))
                 {
                     var Descendants = child.Descendants(Name);
                     if (Descendants != null)
@@ -251,9 +251,9 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public IEnumerable<Statement> Descendants(Type type)
+        public IEnumerable<BaseStatement> Descendants(Type type)
         {
-            List<Statement> MatchingElements = new List<Statement>();
+            List<BaseStatement> MatchingElements = new List<BaseStatement>();
             bool hasAny = false;
             foreach (var child in StatementList)
             {

@@ -6,6 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Statements;
 using YangInterpreter.Statements.Types;
 using YangInterpreter.Statements.Property;
+using YangInterpreter.Statements.SingleValueStatements;
 
 namespace YangInterpreter.Interpreter
 {
@@ -24,8 +25,8 @@ namespace YangInterpreter.Interpreter
         private TokenTypes InterpreterStatus = TokenTypes.Start;
         Stack<TokenTypes> InterpreterStatusStack = new Stack<TokenTypes>();
         private List<string> Metadata = new List<string>();
-        private Statement InterpreterTracer;
-        private Statement TracerCurrentNode;
+        private BaseStatement InterpreterTracer;
+        private BaseStatement TracerCurrentNode;
 
         private Token PreviousToken;
 
@@ -68,13 +69,14 @@ namespace YangInterpreter.Interpreter
                 TokenTypes.TypeEnum,
                 TokenTypes.Revision,
                 TokenTypes.Import,
+                TokenTypes.SimpleBit,
             };
         }
 
         /// <summary>
         /// Converts the raw text into objects that the YangHandlerTool can use easily;
         /// </summary>
-        internal Statement ConvertText(string YangAsRawText)
+        internal BaseStatement ConvertText(string YangAsRawText)
         {
             var YangAsRawTextRowByRow = Regex.Split(YangAsRawText, "\r\n|\r|\n");
             var PreviousState = TokenTypes.Start;
@@ -222,12 +224,12 @@ namespace YangInterpreter.Interpreter
                 return false;
         }
 
-        private Statement AddNewStatement(Type type, Token InputToken, YangAddingOption opt = YangAddingOption.None)
+        private BaseStatement AddNewStatement(Type type, Token InputToken, YangAddingOption opt = YangAddingOption.None)
         {
-            Statement instantiatedobj;
+            BaseStatement instantiatedobj;
             try
             {
-                instantiatedobj = (Statement)Activator.CreateInstance(type, InputToken.TokenName);
+                instantiatedobj = (BaseStatement)Activator.CreateInstance(type, InputToken.TokenName);
             }
             catch (Exception e)
             {
@@ -237,7 +239,7 @@ namespace YangInterpreter.Interpreter
                     throw e;
             }
             
-            instantiatedobj = ((Statement)TracerCurrentNode).AddStatement(instantiatedobj);
+            instantiatedobj = ((BaseStatement)TracerCurrentNode).AddStatement(instantiatedobj);
             if (opt == YangAddingOption.None)
             {
                 TracerCurrentNode = instantiatedobj;
@@ -291,6 +293,7 @@ namespace YangInterpreter.Interpreter
         /// <returns></returns>
         private bool ParentFallbackIsNeeded(TokenTypes currenttokentype)
         {
+
             return ItemsThatRequireParentFallback.Contains(currenttokentype);
         }
 
@@ -306,8 +309,8 @@ namespace YangInterpreter.Interpreter
             }
 
             ///EMPTY LINE FORMATTING
-            else if (InputToken.TokenType == TokenTypes.Skip && TracerCurrentNode.GetType().BaseType == typeof(Statement)
-                                                             && ((Statement)TracerCurrentNode).Count() > 1
+            else if (InputToken.TokenType == TokenTypes.Skip && TracerCurrentNode.GetType().BaseType == typeof(BaseStatement)
+                                                             && ((BaseStatement)TracerCurrentNode).Count() > 1
                                                              && !ModulEnded)
             {
                 AddNewStatement(typeof(EmptyLineNode), InputToken, YangAddingOption.ChildAndStatusless);
@@ -373,6 +376,10 @@ namespace YangInterpreter.Interpreter
                 {
                     AddNewStatement(typeof(Container), InputToken);
                 }
+                else if (InputToken.TokenType == TokenTypes.Leaf)
+                {
+                    AddNewStatement(typeof(Leaf), InputToken);
+                }
                 else if (InputToken.TokenType == TokenTypes.YangVersion)
                 {
                     var node = AddNewStatement(typeof(YangVersionStatement), InputToken, YangAddingOption.ChildAndStatusless) as YangVersionStatement;
@@ -396,7 +403,6 @@ namespace YangInterpreter.Interpreter
                 else if (InputToken.TokenType == TokenTypes.Import)
                 {
                     AddNewStatement(typeof(Import), InputToken);
-                    //((Module)InterpreterTracer).AddNamespace(InputToken.TokenValue, InputToken.TokenName);
                 }
                 else if(InputToken.TokenType == TokenTypes.Prefix)
                 {
@@ -466,6 +472,10 @@ namespace YangInterpreter.Interpreter
                 if (InputToken.TokenType == TokenTypes.TypeEnum)
                 {
                     AddNewStatement(typeof(EnumTypeStatement), InputToken);
+                }
+                else if (InputToken.TokenType == TokenTypes.TypeBits)
+                {
+                    AddNewStatement(typeof(BitsTypeStatement), InputToken);
                 }
                 else if (InputToken.TokenType == TokenTypes.TypeEmpty)
                 {
@@ -565,11 +575,38 @@ namespace YangInterpreter.Interpreter
                     //((ContainerCapability)TracerCurrentNode).AddChild(new YangEnum(InputToken.TokenName));
                 }*/
 
-                if (InputToken.TokenType == TokenTypes.SimpleEnum)
+                /*if (InputToken.TokenType == TokenTypes.SimpleEnum)
                 {
                     var enumStat = AddNewStatement(typeof(EnumStatement), InputToken,YangAddingOption.ChildAndStatusless);
                     enumStat.Value = InputToken.TokenValue;
-                    //((EnumTypeStatement)TracerCurrentNode).AddEnumProperty(new EnumStatement(InputToken.TokenValue));
+                }*/
+                /*else
+                {
+                    NodeProcessionFail(InputToken, LineNumber);
+                }*/
+            }
+
+            //TYPE-ENUM
+            else if (InterpreterStatus == TokenTypes.TypeEnum)
+            {
+                if (InputToken.TokenType == TokenTypes.SimpleEnum)
+                {
+                    var enumStat = AddNewStatement(typeof(EnumStatement), InputToken, YangAddingOption.ChildAndStatusless);
+                    enumStat.Value = InputToken.TokenValue;
+                }
+                else
+                {
+                    NodeProcessionFail(InputToken, LineNumber);
+                    
+                }
+            }
+
+            //TYPE-BITS
+            else if (InterpreterStatus == TokenTypes.TypeBits)
+            {
+                if (InputToken.TokenType == TokenTypes.SimpleBit)
+                {
+                    AddNewStatement(typeof(Bit), InputToken);
                 }
                 else
                 {
@@ -577,30 +614,12 @@ namespace YangInterpreter.Interpreter
                 }
             }
 
-            //TYPE-ENUM
-            else if (InterpreterStatus == TokenTypes.TypeEnum)
+            //BITS
+            else if (InterpreterStatus == TokenTypes.SimpleBit)
             {
-                /*if (InputToken.TokenType == TokenTypes.Range)
+                if (InputToken.TokenType == TokenTypes.Position)
                 {
-                    Range rangeprop = new Range();
-                    rangeprop.SetValue(InputToken.TokenValue);
-                    ((TypeNode)TracerCurrentNode).Range = rangeprop;
-                }
-                else if (InputToken.TokenType == TokenTypes.Description)
-                {
-                    Description desc = new Description(InputToken.TokenValue);
-                }
-                else if (InputToken.TokenType == TokenTypes.SimpleEnum)
-                {
-                    AddNewYangNode(typeof(YangEnum), InputToken, YangAddingOption.ChildAndStatusless);
-
-                    //((ContainerCapability)TracerCurrentNode).AddChild(new YangEnum(InputToken.TokenName));
-                }*/
-
-                if (InputToken.TokenType == TokenTypes.SimpleEnum)
-                {
-                    var enumStat = AddNewStatement(typeof(EnumStatement), InputToken, YangAddingOption.ChildAndStatusless);
-                    enumStat.Value = InputToken.TokenValue;
+                    AddNewStatement(typeof(Position), InputToken,YangAddingOption.ChildAndStatusless);
                 }
                 else
                 {

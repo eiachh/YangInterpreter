@@ -12,7 +12,7 @@ namespace InterpreterNUnitTester
 {
     public class TypeStatement
     {
-        YangInterpreterTool InterpreterCorrect;
+        //YangInterpreterTool InterpreterCorrect;
         [SetUp]
         public void Setup()
         {
@@ -27,6 +27,17 @@ namespace InterpreterNUnitTester
         {
             EmptyTypeStatement ts = new EmptyTypeStatement();
             ts.AddStatement(new EnumTypeStatement());
+            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
+        }
+
+        /// <summary>
+        /// Checks if the revision value is parsed correctly.
+        /// </summary>
+        [Test]
+        public void TypeStatementBitCorrect()
+        {
+            YangInterpreterTool InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/TypeStatement/TypeStatementBitTypeCorrect.yang");
+            
             //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
         }
     }

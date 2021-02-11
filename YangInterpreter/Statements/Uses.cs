@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Uses : Statement
+    public class Uses : BaseStatement
     {
         public Uses(string name) : base(name) { ContainedGrouping = Grouping.GetGroupingByName(name,this); }
         public Grouping ContainedGrouping { get; set; }

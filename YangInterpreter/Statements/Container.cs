@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Container : Statement
+    public class Container : BaseStatement
     {
         public Container(string name) : base(name) { }
 

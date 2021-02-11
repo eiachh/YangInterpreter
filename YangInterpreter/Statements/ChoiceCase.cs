@@ -9,7 +9,7 @@ namespace YangInterpreter.Statements
     /// <summary>
     /// Case statement insode choice.
     /// </summary>
-    class ChoiceCase : Statement
+    class ChoiceCase : BaseStatement
     {
         public ChoiceCase(string name) : base(name) { }
 

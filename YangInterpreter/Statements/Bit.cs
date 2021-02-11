@@ -7,34 +7,25 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    /// Revision Statement RFC 6020 7.19.3.
+    /// Bit Statement RFC 6020 9.7.4.
     ///
-   
+    /// +--------------+---------+-------------+
+    /// | substatement | section | cardinality |
+    /// +--------------+---------+-------------+
+    /// | description  | 7.19.3  | 0..1        |
+    /// | reference    | 7.19.4  | 0..1        |
+    /// | status       | 7.19.2  | 0..1        |
+    /// | position     | 9.7.4.2 | 0..1        |
+    /// +--------------+---------+-------------+
     /// </summary>
-    public class Bit : Statement
+    public class Bit : ContainerStatementBase
     {
         public Bit() : base("Bit") { }
-        public Bit(string Value) : base("Bit")
-        {
-            base.Value = Value;
-        }
-
-        public override XElement[] StatementAsXML()
-        {
-            return new XElement[] { new XElement("Bit", base.Value) };
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            if (GeneratedFrom == TokenTypes.DescriptionSameLineStart)
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.SameLineStart);
-            else
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
-        }
+        public Bit(string Value) : base("Bit") { base.Value = Value; }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            throw new NotImplementedException();
+            return SubStatementAllowanceCollection.BitStatementAllowedSubstatements;
         }
     }
 }

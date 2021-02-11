@@ -4,41 +4,21 @@ using System.Text;
 using System.Xml.Linq;
 using YangInterpreter.Statements.Property;
 using YangInterpreter.Statements.BaseStatements;
+using YangInterpreter.Interpreter;
 
 namespace YangInterpreter
 {
-    public class Leaf : SingleItemContainer
+    public class Leaf : ContainerStatementBase
     {
-        public bool Config { get; set; }
+        //public bool Config { get; set; }
 
-        public Leaf(string leafname) : base(leafname)
-        {
-            Config = false;
-        }
-        public Leaf(string leafname, bool config)                          : this(leafname)              {Config = config;}
+        public Leaf() : base("Leaf") { }
+        public Leaf(string Value) : base("Leaf", Value) { }
 
-        public override XElement[] StatementAsXML()
-        {
-            return new XElement[] { new XElement(Name, "Example Content") };
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            var indent = GetIndentation(indentationlevel);
-            var strBuilder = indent + "leaf " + Name + " {" + Environment.NewLine;
-            strBuilder += GetStatementsAsYangString(indentationlevel + 1);
-            strBuilder += indent + "}";
-            return strBuilder;
-        }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            throw new NotImplementedException();
+            return SubStatementAllowanceCollection.LeafStatementAllowedSubstatements;
         }
-
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
-        {
-            return true;
-        }*/
     }
 }

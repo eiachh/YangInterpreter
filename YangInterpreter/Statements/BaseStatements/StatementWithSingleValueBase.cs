@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 using YangInterpreter.Interpreter;
-using YangInterpreter.Statements.BaseStatements;
 
-namespace YangInterpreter.Statements
-{ 
-    public class Reference : BaseStatement
+namespace YangInterpreter.Statements.BaseStatements
+{
+    public abstract class StatementWithSingleValueBase : BaseStatement
     {
-        public Reference() : base("reference") { }
-        public Reference(string value) : this() { Value = value; }
-
+        public StatementWithSingleValueBase(string Name) : base(Name) { }
+        public StatementWithSingleValueBase(string Name,string Value) : base(Name) { base.Value = Value; }
         public override XElement[] StatementAsXML()
         {
-            throw new NotImplementedException();
+            return new XElement[] { new XElement("Description", base.Value) };
         }
 
         public override string StatementAsYangString(int indentationlevel)
         {
-            if (GeneratedFrom == TokenTypes.ReferenceSameLineStart)
+            if (GeneratedFrom == TokenTypes.DescriptionSameLineStart)
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.SameLineStart);
             else
                 return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);

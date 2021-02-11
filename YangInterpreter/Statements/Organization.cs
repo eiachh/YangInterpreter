@@ -14,27 +14,9 @@ namespace YangInterpreter.Statements
     /// description of the organization(s) under whose auspices this module
     /// was developed.
     ///</summary>
-    public class Organization : Statement
+    public class Organization : StatementWithSingleValueBase
     {
         public Organization() : base("Organization") { }
         public Organization(string Value) : base("Organization") { base.Value = Value; }
-
-        public override XElement[] StatementAsXML()
-        {
-            return new XElement[] { new XElement("Organization",base.Value)};
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            if (GeneratedFrom == TokenTypes.OrganizationSameLineStart)
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.SameLineStart);
-            else
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
-        }
-
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            return new Dictionary<Type, Tuple<int, int>>();
-        }
     }
 }

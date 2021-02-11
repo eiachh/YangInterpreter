@@ -41,7 +41,7 @@ namespace YangInterpreter
     /// | uses        | 7.12    | 0..n  |
     /// | yang-version | 7.1.2  | 0..1  |
     ///+--------------+---------+-------------+
-    public class Module : Statement
+    public class Module : BaseStatement
     {
         /// <summary>
         /// The prefix for SELF namespace.faddchil
@@ -93,7 +93,7 @@ namespace YangInterpreter
             return null;
         }
 
-        public override Statement AddStatement(Statement Node)
+        public override BaseStatement AddStatement(BaseStatement Node)
         {
             if (Root == null)
                 Root = this;
@@ -117,7 +117,7 @@ namespace YangInterpreter
             var indent = GetIndentation(indentationlevel);
             var strBuilder = indent + "module " + Name + " {" + Environment.NewLine;
 
-            Statement yangver = Descendants("yang-version").Single();
+            BaseStatement yangver = Descendants("yang-version").Single();
             strBuilder += yangver.StatementAsYangString(indentationlevel + 1) + Environment.NewLine;
 
             strBuilder += GetStatementsAsYangString(indentationlevel + 1) + Environment.NewLine;
@@ -137,29 +137,6 @@ namespace YangInterpreter
             }
             return strBuilder + Environment.NewLine;
         }
-
-
-        /*private string GetDescriptionAsYangString(int indentationLevel)
-        {
-            var indent = GetIndentation(indentationLevel);
-            var descValue = GetPropertyByName("description")?.Single().GetValue();
-            if (descValue == null)
-                return "";
-            var strBuilder = indent + "description" + Environment.NewLine;
-            strBuilder += indent + "\t\"" + MultilineIndentFixer(indentationLevel + 1,descValue)+ "\"" + Environment.NewLine;
-            return strBuilder + Environment.NewLine;
-        }
-
-        /*private string GetReferenceAsYangString(int indentationLevel)
-        {
-            var indent = GetIndentation(indentationLevel);
-            var refValue = GetPropertyByName("reference")?.Single().GetValue();
-            if (refValue == null)
-                return "";
-            var strBuilder = indent + "reference" + Environment.NewLine;
-            strBuilder += indent + "\t\"" + MultilineIndentFixer(indentationLevel + 1, refValue)+ "\"" + Environment.NewLine;
-            return strBuilder + Environment.NewLine;
-        }*/
 
         public override XElement[] StatementAsXML()
         {

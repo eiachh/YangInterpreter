@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter
 {
-    public class ListNode : Statement
+    public class ListNode : BaseStatement
     {
         /// <summary>
         /// The key property tells which Leaf node(s) of this list is(are) the key(s).

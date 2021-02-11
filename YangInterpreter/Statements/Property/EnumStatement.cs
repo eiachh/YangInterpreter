@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements.Property
 {
-    public class EnumStatement : Statement
+    public class EnumStatement : BaseStatement
     {
         public EnumStatement() : base("enum") { }
         public EnumStatement(string value) : base("enum") 

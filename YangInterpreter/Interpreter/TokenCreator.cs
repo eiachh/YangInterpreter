@@ -28,14 +28,20 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*case ([a-z0-9A-Z-]*) {\s*$"),TokenTypes.ChoiceCase,1,-1),
                 new SearchScheme(new Regex("^\\s*prefix \"?([^;|^\"]*)\"?;\\s*$",RegexOptions.IgnoreCase),TokenTypes.Prefix,-1,1),
                 new SearchScheme(new Regex(@"^\s*container ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.Container,1,-1),
-                new SearchScheme(new Regex(@"^\s*leaf ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.Leaf,1,-1),
+                new SearchScheme(new Regex(@"^\s*leaf\s*([a-z0-9A-Z-]*)\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.Leaf,1,-1),
                 new SearchScheme(new Regex(@"^\s*leaf-list ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.LeafList,1,-1),
                 new SearchScheme(new Regex(@"^\s*list ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.List,1,-1),
                 new SearchScheme(new Regex("^\\s*key \"([^;]*)\";\\s*$",RegexOptions.IgnoreCase),TokenTypes.Key,-1,1),
-                new SearchScheme(new Regex(@"^\s*type enumeration {\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEnum,1,-1),
-                new SearchScheme(new Regex(@"^\s*type empty;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEmpty,1,-1),
-                new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,-1,1),
                 new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*)\s*{$",RegexOptions.IgnoreCase),TokenTypes.Revision, 1,-1),
+
+                new SearchScheme(new Regex(@"^\s*position\s*([0-9])*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Position,-1,1),
+
+                new SearchScheme(new Regex(@"^\s*type enumeration {\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEnum,1,-1),
+                new SearchScheme(new Regex(@"^\s*type bits\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeBits,1,-1),
+                new SearchScheme(new Regex(@"^\s*type empty;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEmpty,1,-1),
+
+                new SearchScheme(new Regex(@"^\s*bit\s*([a-z0-9A-Z-]*)\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleBit,1,-1),
+                new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,-1,1),
 
                 new SearchScheme(new Regex("^\\s*contact \"([^;]*)\";\\s*$",RegexOptions.IgnoreCase),TokenTypes.ContactSameLineStart,-1,1),
                 new SearchScheme(new Regex("^\\s*contact \"([^;]*)\\s*$",RegexOptions.IgnoreCase),TokenTypes.ContactMultiLine,-1,1,TokenTypes.ContactSameLineStart),

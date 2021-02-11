@@ -7,7 +7,7 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class NamespaceStatement : Statement
+    public class NamespaceStatement : BaseStatement
     {
         public NamespaceStatement() : base("Namespace") { }
         public NamespaceStatement(string _Value) : base("Namespace")

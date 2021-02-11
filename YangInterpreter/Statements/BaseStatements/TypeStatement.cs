@@ -32,7 +32,7 @@ namespace YangInterpreter.Statements.BaseStatements
         union,
         none,
     }
-    public abstract class TypeStatement : Statement
+    public abstract class TypeStatement : ContainerStatementBase
     {
         /// <summary>
         /// List of allowed substatements and the maximum allowed occurence of them.
@@ -43,20 +43,6 @@ namespace YangInterpreter.Statements.BaseStatements
         {
             BuiltInTypeOfNode = BaseType;
         }
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd) 
-        {
-            int AllowedAmount = -2;
-            if (!SubStatementAllowanceCollection.IsInitialized)
-                SubStatementAllowanceCollection.Init();
-            SubStatementAllowanceCollection.TypeStatementAllowedSubstatements.TryGetValue(StatementToAdd.GetType(),out AllowedAmount);
-
-            if (AllowedAmount == 0)
-                return false;
-            else if (AllowedAmount == -1)
-                return true;
-            else
-                return IsArgumentInRange(StatementToAdd, AllowedAmount);
-        }*/
         internal static string BuiltInTypeToString(BuiltInTypes type)
         {
             if(type == BuiltInTypes.string_yang)

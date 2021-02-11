@@ -24,7 +24,7 @@ namespace YangInterpreter.Statements
     ///| reference    | 7.19.4  | 0..1        |
     ///+--------------+---------+-------------+
 
-    public class Revision : Statement
+    public class Revision : ContainerStatementBase
     {
         public Revision(string Value) : base("Revision") { this.Value = Value; }
 
@@ -38,25 +38,6 @@ namespace YangInterpreter.Statements
                 else
                     throw new ImproperValue("The given value for reference was not a proper date format \"YYY-MM-DD\"");
             }
-        }
-
-        public override XElement[] StatementAsXML()
-        {
-            XElement rev = new XElement("Revision", base.Value);
-            foreach (var desc in Descendants())
-            {
-                rev.Add(desc.StatementAsXML());
-            }
-            return new XElement[] { rev };
-        }
-
-        public override string StatementAsYangString(int IndentationLevel)
-        {
-            var indent = GetIndentation(IndentationLevel);
-            var stringBuilder = indent + Name + " " + Value + " {" + Environment.NewLine;
-            stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
-            stringBuilder += indent + "}";
-            return stringBuilder;
         }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()

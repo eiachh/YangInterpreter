@@ -10,7 +10,7 @@ namespace YangInterpreter.Statements
     /// <summary>
     /// Choice statement itself.
     /// </summary>
-    public class Choices : Statement
+    public class Choices : BaseStatement
     { 
         public Choices(string name) : base(name){ }
 

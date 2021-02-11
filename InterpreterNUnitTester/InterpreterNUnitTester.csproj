@@ -77,6 +77,9 @@
     <None Update="TestFiles\ModuleTests\ModuleStatementsInproperYangVer.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\ModuleTests\TypeStatement\TypeStatementBitTypeCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\ModuleTests\TypeStatement\TypeStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
