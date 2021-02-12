@@ -7,27 +7,13 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 { 
-    public class Reference : BaseStatement
+    public class Reference : StatementWithSingleValueBase
     {
-        public Reference() : base("reference") { }
-        public Reference(string value) : this() { Value = value; }
-
-        public override XElement[] StatementAsXML()
+        public Reference() : base("Reference") { }
+        public Reference(string Value) : this() { base.Value = Value; }
+        internal override bool IsValueStartAtSameLine()
         {
-            throw new NotImplementedException();
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            if (GeneratedFrom == TokenTypes.ReferenceSameLineStart)
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.SameLineStart);
-            else
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
-        }
-
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            return new Dictionary<Type, Tuple<int, int>>();
+            return GeneratedFrom == TokenTypes.ReferenceSameLineStart;
         }
     }
 }

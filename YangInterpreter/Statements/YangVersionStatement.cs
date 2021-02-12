@@ -13,7 +13,7 @@ namespace YangInterpreter.Statements
     /// argument is a string. If present, it MUST contain the value "1",
     /// which is the current YANG version and the default value.
     /// </summary>
-    public class YangVersionStatement : BaseStatement
+    public class YangVersionStatement : StatementWithSingleValueBase
     {
         public YangVersionStatement() : base("yang-version") { BuildIntoOutput = false; }
         public YangVersionStatement(string Value) : this() { base.Value = Value; }
@@ -32,6 +32,11 @@ namespace YangInterpreter.Statements
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             return new Dictionary<Type, Tuple<int, int>>();
+        }
+
+        internal override bool IsValueStartAtSameLine()
+        {
+            return true;
         }
     }
 }

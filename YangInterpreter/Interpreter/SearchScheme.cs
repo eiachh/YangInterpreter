@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Interpreter
 {
@@ -31,14 +32,20 @@ namespace YangInterpreter.Interpreter
         /// This links to the single line version of this token which is used after solving multiline tokens.
         /// </summary>
         public TokenTypes TokenAsSingleLine { get; set; }
-        public SearchScheme(Regex _Reg, TokenTypes _TokenType,int _IndexOfTokenName, int _IndexOfTokenValue)
+
+        /// <summary>
+        /// The token as a Type.
+        /// </summary>
+        public Type TokenAsType{ get; set; }
+        public SearchScheme(Regex _Reg, TokenTypes _TokenType,int _IndexOfTokenName, int _IndexOfTokenValue, Type _TokenAsType)
         {
             Reg = _Reg;
             TokenType = _TokenType;
             IndexOfTokenName = _IndexOfTokenName;
             IndexOfTokenValue = _IndexOfTokenValue;
+            TokenAsType = _TokenAsType;
         }
-        public SearchScheme(Regex _Reg, TokenTypes _TokenType, int _IndexOfTokenName, int _IndexOfTokenValue, TokenTypes _TokenAsSingleLine) : this(_Reg, _TokenType, _IndexOfTokenName, _IndexOfTokenValue)
+        public SearchScheme(Regex _Reg, TokenTypes _TokenType, int _IndexOfTokenName, int _IndexOfTokenValue, Type _TokenAsType, TokenTypes _TokenAsSingleLine) : this(_Reg, _TokenType, _IndexOfTokenName, _IndexOfTokenValue, _TokenAsType)
         {
             TokenAsSingleLine = _TokenAsSingleLine;
         }

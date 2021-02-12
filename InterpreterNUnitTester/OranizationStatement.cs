@@ -31,7 +31,8 @@ namespace InterpreterNUnitTester
         {
             var Org = InterpreterOrganizationSingleLine.Root.Descendants("organization").Single();
             Assert.AreEqual("My diplomwork corp", Org.Value);
-            Assert.IsTrue(Org.StatementAsYangString().Contains("organization \"My diplomwork corp\";"));
+            var OrgAsString = Org.ToString();
+            Assert.AreEqual("organization \"My diplomwork corp\";",OrgAsString);
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace InterpreterNUnitTester
             var Org = InterpreterOrganizationSameLineStart.Root.Descendants("organization").Single();
             Assert.AreEqual("My diplomwork \r\nother line corp", Org.Value);
             var OrgAsString = Org.ToString();
-            Assert.IsTrue(OrgAsString.Contains("organization \"My diplomwork \r\n\tother line corp\";"));
+            Assert.AreEqual("organization \"My diplomwork \r\n\tother line corp\";",OrgAsString);
         }
 
         /// <summary>

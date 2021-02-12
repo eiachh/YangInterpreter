@@ -294,10 +294,10 @@ namespace YangInterpreter.Statements.BaseStatements
             return strBuilder;
         }
 
-        internal virtual string NameAndValueAsYangString(int indentationlevel, ValueFormattingOption formattingOption = ValueFormattingOption.SameLineStart)
+        internal virtual string NameAndValueAsYangString(int indentationlevel, bool IsValueStartAtSameLine = true)
         {
             var indent = GetIndentation(indentationlevel);
-            if (formattingOption == ValueFormattingOption.SameLineStart)
+            if (IsValueStartAtSameLine)
                 return indent + Name.ToLower() + " \"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";
             else
                 return indent + Name.ToLower() + " " + Environment.NewLine + indent + "\t" + "\"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";

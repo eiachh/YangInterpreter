@@ -7,13 +7,10 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Prefix : BaseStatement
+    public class Prefix : StatementWithSingleValueBase
     {
         public Prefix() : base("Prefix") { }
-        public Prefix(string _Value) : base("Prefix")
-        {
-            Value = _Value;
-        }
+        public Prefix(string Value) : base("Prefix") { base.Value = Value; }
 
         public override string Value
         {
@@ -34,20 +31,15 @@ namespace YangInterpreter.Statements
             }
         }
 
-        public override XElement[] StatementAsXML()
-        {
-            throw new NotImplementedException();
-        }
-
         public override string StatementAsYangString(int indentationlevel)
         {
             var indent = GetIndentation(indentationlevel);
             return indent + "prefix " + Value + ";";
         }
 
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
+        internal override bool IsValueStartAtSameLine()
         {
-            return new Dictionary<Type, Tuple<int, int>>();
+            return true;
         }
 
         private void HandleValueChange(string originalValueOfPrefix,string newValueOfPrefix)

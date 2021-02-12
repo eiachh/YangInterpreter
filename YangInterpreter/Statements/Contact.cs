@@ -7,30 +7,14 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Contact : BaseStatement
+    public class Contact : StatementWithSingleValueBase
     {
         public Contact() : base("Contact") { }
-        public Contact(string _Value) : base("Contact")
-        {
-            Value = _Value;
-        }
+        public Contact(string Value) : base("Contact") { base.Value = Value; }
 
-        public override XElement[] StatementAsXML()
+        internal override bool IsValueStartAtSameLine()
         {
-            throw new NotImplementedException();
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            if (GeneratedFrom == TokenTypes.ContactSameLineStart)
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.SameLineStart);
-            else
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
-        }
-
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            return new Dictionary<Type, Tuple<int, int>>();
+            return GeneratedFrom == TokenTypes.ContactSameLineStart;
         }
     }
 }

@@ -16,5 +16,10 @@ namespace YangInterpreter.Statements
     {
         public Description() : base("Description") { }
         public Description(string Value) : base("Description", Value) { }
+
+        internal override bool IsValueStartAtSameLine()
+        {
+            return GeneratedFrom == Interpreter.TokenTypes.DescriptionSameLineStart;
+        }
     }
 }

@@ -17,15 +17,14 @@ namespace YangInterpreter.Statements.BaseStatements
 
         public override string StatementAsYangString(int indentationlevel)
         {
-            if (GeneratedFrom == TokenTypes.DescriptionSameLineStart)
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.SameLineStart);
-            else
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
+            return NameAndValueAsYangString(indentationlevel, IsValueStartAtSameLine());
         }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             return new Dictionary<Type, Tuple<int, int>>();
         }
+
+        internal abstract bool IsValueStartAtSameLine();
     }
 }

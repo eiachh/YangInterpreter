@@ -7,30 +7,13 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class NamespaceStatement : BaseStatement
+    public class NamespaceStatement : StatementWithSingleValueBase
     {
         public NamespaceStatement() : base("Namespace") { }
-        public NamespaceStatement(string _Value) : base("Namespace")
+        public NamespaceStatement(string Value) : base("Namespace") { base.Value = Value; }
+        internal override bool IsValueStartAtSameLine()
         {
-            Value = _Value;
-        }
-
-        public override XElement[] StatementAsXML()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            if (GeneratedFrom == TokenTypes.DescriptionSameLineStart)
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.SameLineStart);
-            else
-                return NameAndValueAsYangString(indentationlevel, ValueFormattingOption.NextLineStart);
-        }
-
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            return new Dictionary<Type, Tuple<int, int>>();
+            return GeneratedFrom == TokenTypes.DescriptionSameLineStart;
         }
     }
 }

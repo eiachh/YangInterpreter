@@ -24,7 +24,6 @@ namespace YangInterpreter.Interpreter
 
         private TokenTypes InterpreterStatus = TokenTypes.Start;
         Stack<TokenTypes> InterpreterStatusStack = new Stack<TokenTypes>();
-        private List<string> Metadata = new List<string>();
         private BaseStatement InterpreterTracer;
         private BaseStatement TracerCurrentNode;
 
@@ -43,7 +42,6 @@ namespace YangInterpreter.Interpreter
             TokenCreator.Init();
 
             ///Multiline tokens can only be simple tokens where token name is presented in the first line, token value is presented in the upcoming line(s)
-            ///For complex Nodes use "List metadata"
             MultilineTokens = new List<TokenTypes>
             {
                 TokenTypes.DescriptionMultiLine,
@@ -155,7 +153,7 @@ namespace YangInterpreter.Interpreter
                     TokenForCurrentRow = prevtoken;
                     MultilineBegPresent = false;
                 }
-                ProcessToken(TokenForCurrentRow, Metadata);
+                ProcessToken(TokenForCurrentRow);
                 PreviousState = TokenTypes.Start;
             }
             else
@@ -275,17 +273,6 @@ namespace YangInterpreter.Interpreter
             return InterpreterStatus;
         }
 
-
-        /// <summary>
-        /// Creates new metadata with the given input list.
-        /// </summary>
-        /// <param name="input"></param>
-        private void CreateMetadata(List<string> input)
-        {
-            Metadata.Clear();
-            Metadata.AddRange(input);
-        }
-
         /// <summary>
         /// Returns true if stepping out of node is required after processing.
         /// </summary>
@@ -293,12 +280,9 @@ namespace YangInterpreter.Interpreter
         /// <returns></returns>
         private bool ParentFallbackIsNeeded(TokenTypes currenttokentype)
         {
-
-            return ItemsThatRequireParentFallback.Contains(currenttokentype);
+            return TracerCurrentNode.GetType().BaseType == typeof(ContainerStatementBase))
         }
-
-        #region Interpreter State Machine
-        private void ProcessToken(Token InputToken, List<string> metadata)
+        private void ProcessToken(Token InputToken)
         {
             ///Reachable Statuses from Start status
             if (InterpreterStatus == TokenTypes.Start && InputToken.TokenType == TokenTypes.Module)
@@ -307,430 +291,47 @@ namespace YangInterpreter.Interpreter
                 TracerCurrentNode = InterpreterTracer;
                 NewInterpreterStatus(TokenTypes.Module);
             }
-
             ///EMPTY LINE FORMATTING
-            else if (InputToken.TokenType == TokenTypes.Skip && TracerCurrentNode.GetType().BaseType == typeof(BaseStatement)
-                                                             && ((BaseStatement)TracerCurrentNode).Count() > 1
-                                                             && !ModulEnded)
-            {
+            else if (InputToken.TokenType == TokenTypes.Skip && !ModulEnded)
                 AddNewStatement(typeof(EmptyLineNode), InputToken, YangAddingOption.ChildAndStatusless);
-            }
-
-            else if (InputToken.TokenType == TokenTypes.Skip) { }
 
             ///NODE END 
             else if (InputToken.TokenType == TokenTypes.NodeEndingBracket)
-            {
                 FallbackToPreviousInterpreterStatus();
-            }
 
             ///MODULE ENDED AND THERE ARE UNPROCESSED NOT EMPTY ROWS
             else if (InputToken.TokenType != TokenTypes.Skip && ModulEnded)
-            {
                 NodeProcessionFail(InputToken, LineNumber);
+
+            ///ROW PARSE ERROR
+            else if (InputToken.TokenAsType == null)
+                NodeProcessionFail(InputToken, LineNumber);
+
+            ///YANG VERSION COMPATIBILITY CHECK
+            else if (InputToken.TokenAsType == typeof(YangVersionStatement))
+            {
+                var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
+                InstantiatedNewStatement.Value = InputToken.TokenValue;
+                if (!ValidateYangVersionCompatibility(InstantiatedNewStatement.Value) && Option == InterpreterOption.Normal)
+                    throw new InvalidYangVersion("The version of this file is not 1 therefore not compatible with the interpreter. If you want to force run anyways use Interpreteroption force argument!");
             }
 
-            ///MODULE
-            else if (InterpreterStatus == TokenTypes.Module)
-            {
-                if (InputToken.TokenType == TokenTypes.NamespaceSameLineStart ||
-                    InputToken.TokenType == TokenTypes.NamespaceNextLineStart)
-                {
-                    var namespaceStatement = AddNewStatement(typeof(NamespaceStatement), InputToken, YangAddingOption.ChildAndStatusless);
-                    namespaceStatement.Value = InputToken.TokenValue;
-                    namespaceStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else if (InputToken.TokenType == TokenTypes.Revision)
-                {
-                    AddNewStatement(typeof(Revision), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.OrganizationSameLineStart ||
-                         InputToken.TokenType == TokenTypes.OrganizationNextLineStart)
-                {
-                    var orgStatement = AddNewStatement(typeof(Organization), InputToken, YangAddingOption.ChildAndStatusless);
-                    orgStatement.Value = InputToken.TokenValue;
-                    orgStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else if (InputToken.TokenType == TokenTypes.ContactSameLineStart ||
-                         InputToken.TokenType == TokenTypes.ContactNextLineStart)
-                {
-                    var contactStatement = AddNewStatement(typeof(Contact), InputToken, YangAddingOption.ChildAndStatusless);
-                    contactStatement.Value = InputToken.TokenValue;
-                    contactStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
-                         InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
-                {
-                    var descStatement = AddNewStatement(typeof(Description), InputToken, YangAddingOption.ChildAndStatusless);
-                    descStatement.Value = InputToken.TokenValue;
-                    descStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else if (InputToken.TokenType == TokenTypes.ReferenceSameLineStart ||
-                         InputToken.TokenType == TokenTypes.ReferenceNextLineStart)
-                {
-                    var refStatement = AddNewStatement(typeof(Reference), InputToken, YangAddingOption.ChildAndStatusless);
-                    refStatement.Value = InputToken.TokenValue;
-                    refStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else if (InputToken.TokenType == TokenTypes.Container)
-                {
-                    AddNewStatement(typeof(Container), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Leaf)
-                {
-                    AddNewStatement(typeof(Leaf), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.YangVersion)
-                {
-                    var node = AddNewStatement(typeof(YangVersionStatement), InputToken, YangAddingOption.ChildAndStatusless) as YangVersionStatement;
-                    node.Value = InputToken.TokenValue;
-                    if (!ValidateYangVersionCompatibility(node.Value) && Option == InterpreterOption.Normal)
-                        throw new InvalidYangVersion("The version of this file is not 1 therefore not compatible with the interpreter. If you want to force run anyways use Interpreteroption force argument!");
-                }
-                else if (InputToken.TokenType == TokenTypes.Typedef)
-                {
-                    /*AddNewYangNode(typeof(Typedef), InputToken);
-                    YangTypes.AddNewYangType(InputToken.TokenName, InputToken.TokenName, LineNumber, InterpreterTracer);*/
-                }
-                else if (InputToken.TokenType == TokenTypes.Grouping)
-                {
-                    AddNewStatement(typeof(Grouping), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Uses)
-                {
-                    AddNewStatement(typeof(Uses), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Import)
-                {
-                    AddNewStatement(typeof(Import), InputToken);
-                }
-                else if(InputToken.TokenType == TokenTypes.Prefix)
-                {
-                    var prefixStatement = AddNewStatement(typeof(Prefix), InputToken, YangAddingOption.ChildAndStatusless);
-                    prefixStatement.Value = InputToken.TokenValue;
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
+            ///CONTAINER BASED STATEMENT
+            else if (InputToken.TokenAsType.BaseType == typeof(ContainerStatementBase) || InputToken.TokenAsType.BaseType == typeof(TypeStatement))
+                AddNewStatement(InputToken.TokenAsType, InputToken);
 
-            ///IMPORT 
-            else if(InterpreterStatus == TokenTypes.Import)
+            ///SINGLE VALUE HOLDER STATEMENT
+            else if (InputToken.TokenAsType.BaseType == typeof(StatementWithSingleValueBase))
             {
-                if (InputToken.TokenType == TokenTypes.Prefix)
-                {
-                    var prefixStatement = AddNewStatement(typeof(Prefix), InputToken, YangAddingOption.ChildAndStatusless);
-                    prefixStatement.Value = InputToken.TokenValue;
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-            ///CONTAINER
-            else if (InterpreterStatus == TokenTypes.Container)
-            {
-                if (InputToken.TokenType == TokenTypes.Leaf)
-                {
-                    AddNewStatement(typeof(Leaf), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.LeafList)
-                {
-                    AddNewStatement(typeof(LeafList), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Container)
-                {
-                    AddNewStatement(typeof(Container), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.List)
-                {
-                    AddNewStatement(typeof(ListNode), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Uses)
-                {
-                    AddNewStatement(typeof(Uses), InputToken, YangAddingOption.ChildAndStatusless);
-                }
-                else if (InputToken.TokenType == TokenTypes.Choice)
-                {
-                    AddNewStatement(typeof(Choices), InputToken);
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-            ///LEAF
-            else if (InterpreterStatus == TokenTypes.Leaf)
-            {
-                /*if (InputToken.TokenType == TokenTypes.SimpleType)
-                {
-                    TracerCurrentNode.Type = new SimpleTypeNode(InputToken.TokenName);
-                }*/
-                if (InputToken.TokenType == TokenTypes.TypeEnum)
-                {
-                    AddNewStatement(typeof(EnumTypeStatement), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.TypeBits)
-                {
-                    AddNewStatement(typeof(BitsTypeStatement), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.TypeEmpty)
-                {
-                    AddNewStatement(typeof(EmptyTypeStatement), InputToken, YangAddingOption.ChildAndStatusless);
-                }
-                else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
-                         InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
-                {
-                    var descStatement = AddNewStatement(typeof(Description), InputToken, YangAddingOption.ChildAndStatusless);
-                    descStatement.Value = InputToken.TokenValue;
-                    descStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-            ///LEAF-LIST
-            else if (InterpreterStatus == TokenTypes.LeafList)
-            {
-                /*if (InputToken.TokenType == TokenTypes.SimpleType)
-                {
-                    TracerCurrentNode.Type = new SimpleTypeNode(InputToken.TokenName);
-                }*/
-                if (InputToken.TokenType == TokenTypes.TypeEnum)
-                {
-                    AddNewStatement(typeof(EnumTypeStatement), InputToken, YangAddingOption.ChildAndStatusless);
-                }
-                else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
-                         InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
-                {
-                    var descStatement = AddNewStatement(typeof(Description), InputToken, YangAddingOption.ChildAndStatusless);
-                    descStatement.Value = InputToken.TokenValue;
-                    descStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-            ///LIST
-            else if (InterpreterStatus == TokenTypes.List)
-            {
-                if (InputToken.TokenType == TokenTypes.Key)
-                {
-                    ((ListNode)TracerCurrentNode).Key = InputToken.TokenValue;
-                }
-                else if (InputToken.TokenType == TokenTypes.Leaf)
-                {
-                    AddNewStatement(typeof(Leaf), InputToken);
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-            ///Typedef
-            else if (InterpreterStatus == TokenTypes.Typedef)
-            {
-                if (InputToken.TokenType == TokenTypes.Type)
-                {
-                    AddNewStatement(typeof(TypeStatement), InputToken);
-                    CreateMetadata(new List<string> { InputToken.TokenName });
-                }
-                else if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
-                         InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
-                {
-                    var descStatement = AddNewStatement(typeof(Description), InputToken, YangAddingOption.ChildAndStatusless);
-                    descStatement.Value = InputToken.TokenValue;
-                    descStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-            ///TYPE
-            else if (InterpreterStatus == TokenTypes.Type)
-            {
-                /*if (InputToken.TokenType == TokenTypes.Range)
-                {
-                    Range rangeprop = new Range();
-                    rangeprop.SetValue(InputToken.TokenValue);
-                    ((TypeNode)TracerCurrentNode).Range = rangeprop;
-                }
-                else if (InputToken.TokenType == TokenTypes.Description)
-                {
-                    Description desc = new Description(InputToken.TokenValue);
-                }
-                else if (InputToken.TokenType == TokenTypes.SimpleEnum)
-                {
-                    AddNewYangNode(typeof(YangEnum), InputToken, YangAddingOption.ChildAndStatusless);
-
-                    //((ContainerCapability)TracerCurrentNode).AddChild(new YangEnum(InputToken.TokenName));
-                }*/
-
-                /*if (InputToken.TokenType == TokenTypes.SimpleEnum)
-                {
-                    var enumStat = AddNewStatement(typeof(EnumStatement), InputToken,YangAddingOption.ChildAndStatusless);
-                    enumStat.Value = InputToken.TokenValue;
-                }*/
-                /*else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }*/
-            }
-
-            //TYPE-ENUM
-            else if (InterpreterStatus == TokenTypes.TypeEnum)
-            {
-                if (InputToken.TokenType == TokenTypes.SimpleEnum)
-                {
-                    var enumStat = AddNewStatement(typeof(EnumStatement), InputToken, YangAddingOption.ChildAndStatusless);
-                    enumStat.Value = InputToken.TokenValue;
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                    
-                }
-            }
-
-            //TYPE-BITS
-            else if (InterpreterStatus == TokenTypes.TypeBits)
-            {
-                if (InputToken.TokenType == TokenTypes.SimpleBit)
-                {
-                    AddNewStatement(typeof(Bit), InputToken);
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-            //BITS
-            else if (InterpreterStatus == TokenTypes.SimpleBit)
-            {
-                if (InputToken.TokenType == TokenTypes.Position)
-                {
-                    AddNewStatement(typeof(Position), InputToken,YangAddingOption.ChildAndStatusless);
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-            ///GROUPING
-            else if (InterpreterStatus == TokenTypes.Grouping)
-            {
-                if (InputToken.TokenType == TokenTypes.Leaf)
-                {
-                    AddNewStatement(typeof(Leaf), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.LeafList)
-                {
-                    AddNewStatement(typeof(LeafList), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Container)
-                {
-                    AddNewStatement(typeof(Container), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.List)
-                {
-                    AddNewStatement(typeof(ListNode), InputToken);
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-
-
-            ///CHOICES
-            else if (InterpreterStatus == TokenTypes.Choice)
-            {
-                if (InputToken.TokenType == TokenTypes.ChoiceCase)
-                {
-                    AddNewStatement(typeof(ChoiceCase), InputToken);
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-            ///
-            ///CHOICE-CASE
-            ///
-            else if (InterpreterStatus == TokenTypes.ChoiceCase)
-            {
-                if (InputToken.TokenType == TokenTypes.Leaf)
-                {
-                    AddNewStatement(typeof(Leaf), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.LeafList)
-                {
-                    AddNewStatement(typeof(LeafList), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Container)
-                {
-                    AddNewStatement(typeof(Container), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.List)
-                {
-                    AddNewStatement(typeof(ListNode), InputToken);
-                }
-                else if (InputToken.TokenType == TokenTypes.Uses)
-                {
-                    AddNewStatement(typeof(Uses), InputToken, YangAddingOption.ChildAndStatusless);
-                }
-                else if (InputToken.TokenType == TokenTypes.Choice)
-                {
-                    AddNewStatement(typeof(Choices), InputToken);
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
-            }
-            ///
-            ///REVISION
-            ///
-            else if (InterpreterStatus == TokenTypes.Revision)
-            {
-                if (InputToken.TokenType == TokenTypes.DescriptionSameLineStart ||
-                             InputToken.TokenType == TokenTypes.DescriptionNextLineStart)
-                {
-                    var descStatement = AddNewStatement(typeof(Description), InputToken, YangAddingOption.ChildAndStatusless);
-                    descStatement.Value = InputToken.TokenValue;
-                    descStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else if (InputToken.TokenType == TokenTypes.ReferenceSameLineStart ||
-                             InputToken.TokenType == TokenTypes.ReferenceNextLineStart)
-                {
-                    var refStatement = AddNewStatement(typeof(Reference), InputToken, YangAddingOption.ChildAndStatusless);
-                    refStatement.Value = InputToken.TokenValue;
-                    refStatement.GeneratedFrom = InputToken.TokenType;
-                }
-                else
-                {
-                    NodeProcessionFail(InputToken, LineNumber);
-                }
+                var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
+                InstantiatedNewStatement.Value = InputToken.TokenValue;
+                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenType;
             }
 
             ///No search scheme match => Incorrect inputline;
             else
-            {
                 NodeProcessionFail(InputToken, LineNumber);
-            }
         }
-        #endregion
 
         private void NodeProcessionFail(Token tokenAtError, int rowNumber)
         {

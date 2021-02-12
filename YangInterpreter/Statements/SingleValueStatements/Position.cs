@@ -10,5 +10,7 @@ namespace YangInterpreter.Statements.SingleValueStatements
         public Position(string Name) : base(Name) { }
 
         public Position(string Name, string Value) : base(Name, Value) { }
+
+        internal override bool IsValueStartAtSameLine() { return true; }
     }
 }
