@@ -130,7 +130,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <returns></returns>
         public int Count()
         {
-            return StatementList.Count;
+            return StatementList.Count(element => !typeof(EmptyLineStatement).IsInstanceOfType(element));
         }
 
         protected static string GetIndentation(int n)
@@ -204,11 +204,29 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <returns></returns>
         public IEnumerable<BaseStatement> Descendants()
         {
+            return Descendants(false);
+        }
+
+        /// <summary>
+        /// Returns all Descendants of any level emptylines as well.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        internal IEnumerable<BaseStatement> Descendants(bool showEmptyLines = true)
+        {
             List<BaseStatement> MatchingElements = new List<BaseStatement>();
             foreach (var child in StatementList)
             {
                 var descendants = child.Descendants();
                 MatchingElements.AddRange(descendants);
+                if(showEmptyLines)
+                    MatchingElements.Add(child);
+                else
+                {
+                    if (!typeof(EmptyLineStatement).IsInstanceOfType(child))
+                        MatchingElements.Add(child);
+                }
             }
             return MatchingElements;
         }
@@ -225,7 +243,7 @@ namespace YangInterpreter.Statements.BaseStatements
             bool hasAny = false;
             foreach (var child in StatementList)
             {
-                if (child.GetType().IsInstanceOfType(typeof(BaseStatement)))
+                if (typeof(BaseStatement).IsInstanceOfType(child))
                 {
                     var Descendants = child.Descendants(Name);
                     if (Descendants != null)
@@ -244,6 +262,41 @@ namespace YangInterpreter.Statements.BaseStatements
                 return MatchingElements;
             else
                 return null;
+        }
+
+        /// <summary>
+        /// Returns direct list of children of current node with matching name.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        public IEnumerable<BaseStatement> Elements(string Name)
+        {
+            List<BaseStatement> MatchingElements = new List<BaseStatement>();
+            bool hasAny = false;
+            foreach (var child in StatementList)
+            {
+                if (child.Name.ToLower().Contains(Name.ToLower()))
+                {
+                    hasAny = true;
+                    MatchingElements.Add(child);
+                }
+            }
+            if (hasAny)
+                return MatchingElements;
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Returns direct list of children of current node with matching name.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        public IEnumerable<BaseStatement> Elements()
+        {
+            return StatementList.Where(statement => !typeof(EmptyLineStatement).IsInstanceOfType(statement));
         }
 
         /// <summary>

@@ -96,14 +96,20 @@ namespace YangInterpreter.Interpreter
         /// Inner block contains the inner string from a new block { } e.g: "import yang-interpreter { prefix "yani"; }"
         /// </summary>
         public string InnerBlock { get; set; } = string.Empty;
-        public Token(TokenTypes _TokenType, string _TokenName,string _TokenValue, Type _TokenAsType)
+
+        /// <summary>
+        /// Defines if the matched container type is childless. e.g.: type string;
+        /// </summary>
+        public bool IsChildlessContainer { get; set; } = false;
+        public Token(TokenTypes _TokenType, string _TokenName,string _TokenValue, Type _TokenAsType,bool _ChildlessContainer = false)
         {
             TokenType = _TokenType;
             TokenName = _TokenName;
             TokenValue = _TokenValue;
             TokenAsType = _TokenAsType;
+            IsChildlessContainer = _ChildlessContainer;
         }
-        public Token(TokenTypes _TokenType, string _TokenName, string _TokenValue, Type _TokenAsType, TokenTypes _TokenAsSingleLine) :  this(_TokenType,_TokenName,_TokenValue,_TokenAsType)
+        public Token(TokenTypes _TokenType, string _TokenName, string _TokenValue, Type _TokenAsType, TokenTypes _TokenAsSingleLine, bool _ChildlessContainer = false) :  this(_TokenType,_TokenName,_TokenValue,_TokenAsType, _ChildlessContainer)
         { 
             TokenAsSingleLine = _TokenAsSingleLine;
         }

@@ -5,10 +5,10 @@ using System.Xml.Linq;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
-    public class EmptyLineNode : BaseStatement
+    public class EmptyLineStatement : BaseStatement
     {
-        public EmptyLineNode() : base("") { }
-        public EmptyLineNode(string empty) : this() { }
+        public EmptyLineStatement() : base("") { }
+        public EmptyLineStatement(string empty) : this() { }
         public override XElement[] StatementAsXML()
         {
             return new XElement[] { new XElement(" ") };

@@ -17,6 +17,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Update="TestFiles\ModuleTests\Bit\BitTypeCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\ModuleTests\Description\DescriptionMissingSemicolon.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -48,6 +51,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\Organization\OrganizationCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ModuleTests\Revision\RevisionStatementCorrectChildless.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\Revision\RevisionStatementImproperValue.yang">

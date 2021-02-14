@@ -12,10 +12,12 @@ namespace InterpreterNUnitTester
     class RevisionStatement
     {
         YangInterpreterTool RevisipnStatementCorrect;
+        YangInterpreterTool RevisipnStatementCorrectChildless;
         [SetUp]
         public void Setup()
         {
             RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementCorrect.yang");
+           
         }
 
         /// <summary>
@@ -60,6 +62,18 @@ namespace InterpreterNUnitTester
             Revision TestRevision = new Revision("1997-09-02");
             TestRevision.AddStatement(new Reference());
             Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new Reference()));
+        }
+
+        /// <summary>
+        /// Revision without childs interpreted correctly.
+        /// </summary>
+        [Test]
+        public void RevisionChildless()
+        {
+            RevisipnStatementCorrectChildless = YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementCorrectChildless.yang");
+            var rev = RevisipnStatementCorrectChildless.Root.Descendants("revision").Single();
+            Assert.AreEqual("2019-09-11", rev.Value);
+            Assert.AreEqual("revision 2019-09-11;", rev.ToString());
         }
     }
 }

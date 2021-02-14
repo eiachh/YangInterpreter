@@ -24,7 +24,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void DescriptionValueParsedCorrectly()
         {
-            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Descendants("description").Single().Value);
+            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Elements("description").Single().Value);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void DescriptionValueFormattedCorrectlyAtOutput()
         {
-            Assert.AreEqual("description \r\n\t\"Description of correctly formatted\r\n\tmodule,\r\n\twith multiline value.\";", InterpreterCorrect.Root.Descendants("description").Single().ToString());
+            Assert.AreEqual("description \r\n\t\"Description of correctly formatted\r\n\tmodule,\r\n\twith multiline value.\";", InterpreterCorrect.Root.Elements("description").Single().ToString());
         }
 
         /// <summary>

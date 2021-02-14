@@ -37,15 +37,21 @@ namespace YangInterpreter.Interpreter
         /// The token as a Type.
         /// </summary>
         public Type TokenAsType{ get; set; }
-        public SearchScheme(Regex _Reg, TokenTypes _TokenType,int _IndexOfTokenName, int _IndexOfTokenValue, Type _TokenAsType)
+
+        /// <summary>
+        /// Defines if the matched container type is childless. e.g.: type string;
+        /// </summary>
+        public bool IsChildlessContainer { get; set; } = false;
+        public SearchScheme(Regex _Reg, TokenTypes _TokenType,int _IndexOfTokenName, int _IndexOfTokenValue, Type _TokenAsType, bool _ChildlessContainer = false)
         {
             Reg = _Reg;
             TokenType = _TokenType;
             IndexOfTokenName = _IndexOfTokenName;
             IndexOfTokenValue = _IndexOfTokenValue;
             TokenAsType = _TokenAsType;
+            IsChildlessContainer = _ChildlessContainer;
         }
-        public SearchScheme(Regex _Reg, TokenTypes _TokenType, int _IndexOfTokenName, int _IndexOfTokenValue, Type _TokenAsType, TokenTypes _TokenAsSingleLine) : this(_Reg, _TokenType, _IndexOfTokenName, _IndexOfTokenValue, _TokenAsType)
+        public SearchScheme(Regex _Reg, TokenTypes _TokenType, int _IndexOfTokenName, int _IndexOfTokenValue, Type _TokenAsType, TokenTypes _TokenAsSingleLine, bool _ChildlessContainer = false) : this(_Reg, _TokenType, _IndexOfTokenName, _IndexOfTokenValue, _TokenAsType, _ChildlessContainer)
         {
             TokenAsSingleLine = _TokenAsSingleLine;
         }

@@ -4,7 +4,6 @@ using System.Linq;
 using YangInterpreter.Statements;
 using YangInterpreter.Statements.Types;
 using YangInterpreter.Statements.BaseStatements;
-using YangInterpreter.Statements.SingleValueStatements;
 
 namespace YangInterpreter.Interpreter
 {
@@ -48,7 +47,7 @@ namespace YangInterpreter.Interpreter
 
         private static void FillTypeSntatementAllowanceList()
         {
-            TypeStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            TypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
 
             TypeStatementAllowedSubstatements.Add(typeof(Bit), new Tuple<int, int>(0, -1));
             //TypeStatementAllowedSubstatements.Add(typeof(EnumTypeStatement), new Tuple<int, int>(0, -1));
@@ -64,7 +63,7 @@ namespace YangInterpreter.Interpreter
 
         private static void FillModuleSntatementAllowanceList()
         {
-            ModuleStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             //ModuleStatementAllowedSubstatements.Add(typeof(AnyXml), -1);
             //ModuleStatementAllowedSubstatements.Add(typeof(Augment), -1);
             ModuleStatementAllowedSubstatements.Add(typeof(Choices), new Tuple<int, int>(0, -1));
@@ -96,38 +95,39 @@ namespace YangInterpreter.Interpreter
         }
         private static void FillBitsSntatementAllowanceList()
         {
-            BitStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            BitStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             BitStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
             BitStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
             //BitStatementAllowedSubstatements.Add(typeof(Status), new Tuple<int, int>(0, 1));
-            BitStatementAllowedSubstatements.Add(typeof(Position), new Tuple<int, int>(0, 10));
+            BitStatementAllowedSubstatements.Add(typeof(Position), new Tuple<int, int>(0, 1));
         }
         private static void FillChoiceCaseSntatementAllowanceList()
         {
-            ChoiceCaseStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            ChoiceCaseStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillChoiceSntatementAllowanceList()
         {
-            ChoiceStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            ChoiceStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillImportSntatementAllowanceList()
         {
-            ImportStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            ImportStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             ImportStatementAllowedSubstatements.Add(typeof(Prefix), new Tuple<int, int>(1, 1));
             //ImportStatementAllowedSubstatements.Add(typeof(RevisionDate), new Tuple<int, int>(0, 1));
         }
 
         private static void FillLeafSntatementAllowanceList()
         {
-            LeafStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(BitsTypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(EmptyTypeStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillRevisionSntatementAllowanceList()
         {
-            RevisionStatementAllowedSubstatements.Add(typeof(EmptyLineNode), new Tuple<int, int>(0, -1));
+            RevisionStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             RevisionStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
             RevisionStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
         }

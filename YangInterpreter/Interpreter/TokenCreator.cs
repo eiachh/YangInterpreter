@@ -5,7 +5,6 @@ using System.Text.RegularExpressions;
 using YangInterpreter.Statements;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Statements.Types;
-using YangInterpreter.Statements.SingleValueStatements;
 
 namespace YangInterpreter.Interpreter
 {
@@ -37,12 +36,13 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*list ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.List,1,-1, typeof(ListNode)),
                 //new SearchScheme(new Regex("^\\s*key \"([^;]*)\";\\s*$",RegexOptions.IgnoreCase),TokenTypes.Key,-1,1, typeof(key)),
                 new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*)\s*{$",RegexOptions.IgnoreCase),TokenTypes.Revision, 1,-1, typeof(Revision)),
+                new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.Revision,1,-1, typeof(Revision),true),
 
                 new SearchScheme(new Regex(@"^\s*position\s*([0-9])*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Position,-1,1, typeof(Position)),
 
                 new SearchScheme(new Regex(@"^\s*type enumeration {\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEnum,1,-1, typeof(EnumTypeStatement)),
                 new SearchScheme(new Regex(@"^\s*type bits\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeBits,1,-1, typeof(BitsTypeStatement)),
-                new SearchScheme(new Regex(@"^\s*type empty;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEmpty,1,-1, typeof(EmptyTypeStatement)),
+                new SearchScheme(new Regex(@"^\s*type\s*empty;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEmpty,1,-1, typeof(EmptyTypeStatement),true),
 
                 new SearchScheme(new Regex(@"^\s*bit\s*([a-z0-9A-Z-]*)\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleBit,1,-1, typeof(Bit)),
                 //new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,-1,1, typeof(enums)),
@@ -88,7 +88,7 @@ namespace YangInterpreter.Interpreter
         /// <returns></returns>
         internal static Token GetTokenForRow(string row)
         {
-            Token MatchResultToken = new Token(TokenTypes.Empty, "", "", null, TokenTypes.Empty);
+            Token MatchResultToken = new Token(TokenTypes.Empty, "", "", null, TokenTypes.Empty,false);
             row = InnerBlockTryParse(MatchResultToken, row);
             foreach (var scheme in InterpreterSearchSchemeList)
             {
@@ -98,6 +98,7 @@ namespace YangInterpreter.Interpreter
                     MatchResultToken.TokenType = scheme.TokenType;
                     MatchResultToken.TokenAsSingleLine = scheme.TokenAsSingleLine;
                     MatchResultToken.TokenAsType = scheme.TokenAsType;
+                    MatchResultToken.IsChildlessContainer = scheme.IsChildlessContainer;
                     if (scheme.IndexOfTokenName != -1)
                     {
                         MatchResultToken.TokenName = match.Groups[scheme.IndexOfTokenName].Value;

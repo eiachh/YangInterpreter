@@ -92,7 +92,7 @@ namespace InterpreterNUnitTester
         public void OrganizationAddStatementFailCheck()
         {
             Organization org = new Organization("SomeValue");
-            Assert.Throws<ArgumentOutOfRangeException>(() => org.AddStatement(new EmptyLineNode()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => org.AddStatement(new EmptyLineStatement()));
         }
     }
 }

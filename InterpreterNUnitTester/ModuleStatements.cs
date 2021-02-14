@@ -67,7 +67,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModulePrefixParsedCorrectlyTest()
         {
-            Assert.AreEqual("nctm", InterpreterCorrect.Root.Descendants("prefix").Single().Value);
+            Assert.AreEqual("nctm", InterpreterCorrect.Root.Elements("prefix").Single().Value);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleDescriptionParsedCorrectlyTest()
         {
-            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Descendants("description").Single().Value);
+            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Elements("description").Single().Value);
         }
 
         /// <summary>

@@ -39,7 +39,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         internal static List<Tuple<Type,int>> AllowedSubstatements = new List<Tuple<Type, int>>();
         public BuiltInTypes BuiltInTypeOfNode { get; set; } = BuiltInTypes.none;
-        public TypeStatement(BuiltInTypes BaseType) : base(BuiltInTypeToString(BaseType))
+        public TypeStatement(BuiltInTypes BaseType) : base("type",BuiltInTypeToString(BaseType))
         {
             BuiltInTypeOfNode = BaseType;
         }
