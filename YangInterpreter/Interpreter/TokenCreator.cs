@@ -37,6 +37,8 @@ namespace YangInterpreter.Interpreter
                 //new SearchScheme(new Regex("^\\s*key \"([^;]*)\";\\s*$",RegexOptions.IgnoreCase),TokenTypes.Key,-1,1, typeof(key)),
                 new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*)\s*{$",RegexOptions.IgnoreCase),TokenTypes.Revision, 1,-1, typeof(Revision)),
                 new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.Revision,1,-1, typeof(Revision),true),
+                new SearchScheme(new Regex(@"^\s*status\s*([a-z0-9A-Z-]*)\s*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Status,1,-1, typeof(StatusStatement),true),
+                new SearchScheme(new Regex(@"^\s*value\s*([a-z0-9A-Z-]*)\s*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Value,1,-1, typeof(ValueStatement),true),
 
                 new SearchScheme(new Regex(@"^\s*position\s*([0-9])*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Position,-1,1, typeof(Position)),
 
@@ -45,7 +47,8 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*type\s*empty;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEmpty,1,-1, typeof(EmptyTypeStatement),true),
 
                 new SearchScheme(new Regex(@"^\s*bit\s*([a-z0-9A-Z-]*)\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleBit,1,-1, typeof(Bit)),
-                //new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,-1,1, typeof(enums)),
+                new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,1,-1, typeof(EnumStatement),true),
+                new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*)\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,1,-1, typeof(EnumStatement)),
 
                 new SearchScheme(new Regex("^\\s*contact \"([^;]*)\";\\s*$",RegexOptions.IgnoreCase),TokenTypes.ContactSameLineStart,-1,1, typeof(Contact)),
                 new SearchScheme(new Regex("^\\s*contact \"([^;]*)\\s*$",RegexOptions.IgnoreCase),TokenTypes.ContactMultiLine,-1,1, typeof(Contact), TokenTypes.ContactSameLineStart),

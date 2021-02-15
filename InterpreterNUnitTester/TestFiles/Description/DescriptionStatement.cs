@@ -15,7 +15,7 @@ namespace InterpreterNUnitTester
         [SetUp]
         public void Setup()
         {
-            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/Description/DescriptionCorrect.yang");
+            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/Description/DescriptionCorrect.yang");
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ThrowErrorOnFirstQuotationMarkMissing()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Description/DescriptionMissingFirstQuotationMark.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/Description/DescriptionMissingFirstQuotationMark.yang"));
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ThrowErrorOnSecondQuotationMarkMissing()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Description/DescriptionMissingSecondQuotationMark.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/Description/DescriptionMissingSecondQuotationMark.yang"));
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ThrowErrorOnMissingSemicolon()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Description/DescriptionMissingSemicolon.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/Description/DescriptionMissingSemicolon.yang"));
         }
     }
 }

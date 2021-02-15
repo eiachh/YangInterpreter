@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using YangInterpreter.Statements.Property;
 using YangInterpreter.Interpreter;
 using System.Linq;
 
@@ -102,6 +101,10 @@ namespace YangInterpreter.Statements.BaseStatements
             throw new ArgumentOutOfRangeException(StatementToAdd.GetType().ToString(),"Cannot add more "+ StatementToAdd.GetType().ToString() + " into "+GetType().ToString() + ", maximum amount reached: " + AllowedAmount);
         }
 
+        /// <summary>
+        /// Subclasses are forced to return a list with allowed nodes and the min and max amount of them.
+        /// </summary>
+        /// <returns></returns>
         internal abstract Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary();
 
         /// <summary>

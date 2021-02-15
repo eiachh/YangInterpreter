@@ -32,6 +32,29 @@ namespace YangInterpreter.Statements.BaseStatements
         union,
         none,
     }
+
+    /// Type Statement RFC 6020 7.4. 
+    ///
+    /// <summary>
+    /// The "type" statement takes as an argument a string that is the name
+    /// of a YANG built-in type(see Section 9) or a derived type(see
+    /// Section 7.3), followed by an optional block of substatements that are
+    /// used to put further restrictions on the type.
+    /// </summary>
+    /// 
+    /// +------------------+---------+-------------+
+    /// | substatement     | section | cardinality |
+    /// +------------------+---------+-------------+
+    /// | bit              | 9.7.4   | 0..n        |
+    /// | enum             | 9.6.4   | 0..n        |
+    /// | length           | 9.4.4   | 0..1        |
+    /// | path             | 9.9.2   | 0..1        |
+    /// | pattern          | 9.4.6   | 0..n        |
+    /// | range            | 9.2.4   | 0..1        |
+    /// | require-instance | 9.13.2  | 0..1        |
+    /// | type             | 7.4     | 0..n        |
+    /// +------------------+---------+-------------+
+
     public abstract class TypeStatement : ContainerStatementBase
     {
         /// <summary>

@@ -1,0 +1,69 @@
+module StatusStatementInvalidValue {
+	yang-version 1;
+	namespace
+		"NamespaceCorrectTestModule1";
+
+	prefix nctm;
+
+	import yang-interpreter { prefix "yani"; }
+	import interpreter-files { prefix "in-fi"; }
+	import profiles { prefix "profiles"; }
+
+	organization
+		"My diplomwork corp";
+
+	contact
+		"Adam Sranko srankoadam@gmail.com";
+
+	description 
+		"Description of correctly formatted
+		module,
+		with multiline value.";
+
+	reference
+		"Reference1102-2323";
+
+	revision 2039-09-11 {
+		description "Generic Session 
+		Control parameter file.";
+	}
+
+	leaf mybits1 {
+		type bits {
+			bit disable-nagle {
+				position 0;
+				status somethingInvalid;
+				description "Description of
+				bit.";
+				reference
+					"Reference of bit.";
+			}
+		}
+	}
+
+	leaf mybits2 {
+		type bits {
+			bit disable-nagle {
+				position 0;
+				status obsolete;
+				description "Description of
+				bit.";
+				reference
+					"Reference of bit.";
+			}
+		}
+	}
+
+	leaf mybits3 {
+		type bits {
+			bit disable-nagle2 {
+				position 0;
+				status deprecated;
+				description "Description of
+				bit.";
+				reference
+					"Reference of bit.";
+			}
+		}
+	}
+}

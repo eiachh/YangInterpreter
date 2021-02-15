@@ -15,7 +15,7 @@ namespace InterpreterNUnitTester
         [SetUp]
         public void Setup()
         {
-            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/Bit/BitTypeCorrect.yang");
+            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/Bit/BitTypeCorrect.yang");
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace InterpreterNUnitTester
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
             var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits").Single();
             Assert.AreEqual("disable-nagle", Bit.Value);
-            Assert.AreEqual(3, Bit.Count());
+            Assert.AreEqual(4, Bit.Count());
             Assert.AreEqual("0", Bit.Descendants("position").Single().Value);
             Assert.AreEqual("Description of\r\nbit.", Bit.Descendants("description").Single().Value);
             Assert.AreEqual("Reference of bit.", Bit.Descendants("reference").Single().Value);
@@ -74,8 +74,7 @@ namespace InterpreterNUnitTester
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
             var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits").Single();
-            Assert.IsTrue(false);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new Position("0")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new YangInterpreter.Statements.StatusStatement("current")));
         }
     }
 }

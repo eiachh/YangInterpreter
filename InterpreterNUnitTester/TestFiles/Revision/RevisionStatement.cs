@@ -16,7 +16,7 @@ namespace InterpreterNUnitTester
         [SetUp]
         public void Setup()
         {
-            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementCorrect.yang");
+            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementCorrect.yang");
            
         }
 
@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionIsParsedCorrectly()
         {
-            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementCorrect.yang");
+            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementCorrect.yang");
             var Revision = RevisipnStatementCorrect.Root.Descendants("revision").Single();
             Assert.AreEqual("2019-09-11", Revision.Value);
             Assert.AreEqual("Generic Session Control parameter file.", Revision.Descendants("description").Single().Value);
@@ -39,7 +39,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionImproperValue()
         {
-            Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementImproperValue.yang"));
+            Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionChildless()
         {
-            RevisipnStatementCorrectChildless = YangInterpreterTool.Load("TestFiles/ModuleTests/Revision/RevisionStatementCorrectChildless.yang");
+            RevisipnStatementCorrectChildless = YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementCorrectChildless.yang");
             var rev = RevisipnStatementCorrectChildless.Root.Descendants("revision").Single();
             Assert.AreEqual("2019-09-11", rev.Value);
             Assert.AreEqual("revision 2019-09-11;", rev.ToString());

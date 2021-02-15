@@ -1,4 +1,4 @@
-module BitTypeCorrect {
+module EnumStatementCorrect {
 	yang-version 1;
 	namespace
 		"NamespaceCorrectTestModule1";
@@ -26,32 +26,13 @@ module BitTypeCorrect {
 	revision 2039-09-11 {
 		description "Generic Session 
 		Control parameter file.";
-	}
 
-	leaf mybits {
-		type empty;
-	}
-
-	leaf mybits {
-		type bits {
-			bit disable-nagle {
-				position 0;
-				description "Description of
-				bit.";
-				reference
-					"Reference of bit.";
-			}
-		}
-	}
-
-	leaf mybits2 {
-		type bits {
-			bit disable-nagle2 {
-				position 0;
-				description "Description of
-				bit.";
-				reference
-					"Reference of bit.";
+	leaf myenum {
+		type enumeration {
+			enum zero;
+			enum one;
+			enum seven {
+				value 7;
 			}
 		}
 	}

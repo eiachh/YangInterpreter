@@ -18,6 +18,7 @@ namespace YangInterpreter.Interpreter
         Uses,
         Choice,
         ChoiceCase,
+        Status,
 
         TypeBits,
         TypeEnum,

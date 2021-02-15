@@ -25,6 +25,7 @@ namespace InterpreterNUnitTester
         public void RevisionIsParsedCorrectly()
         {
             //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
+            //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
         }
     }
 }

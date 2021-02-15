@@ -6,7 +6,6 @@ using System.Linq;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Statements;
 using YangInterpreter.Statements.Types;
-using YangInterpreter.Statements.Property;
 
 namespace YangInterpreter.Interpreter
 {
