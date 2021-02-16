@@ -10,5 +10,10 @@ namespace YangInterpreter.Statements.Types
     {
         public EmptyTypeStatement() : base(BuiltInTypes.empty) { }
         public EmptyTypeStatement(string Name) : this() { }
+
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
+        {
+            return new Dictionary<Type, Tuple<int, int>>();
+        }
     }
 }

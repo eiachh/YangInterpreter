@@ -71,8 +71,19 @@ namespace InterpreterNUnitTester
         public void EnumStatementOverloadOfDescription()
         {
             var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First();
-
             Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new Description("some text in description")));
+        }
+
+        /// <summary>
+        /// Checks if the enum statement formatted correctly at toString()
+        /// </summary>
+        [Test]
+        public void EnumToStringFormatChecking()
+        {
+            var enumStatementChildless = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "one").First();
+            var enumStatementWithChildren = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First();
+            Assert.AreEqual("enum one;", enumStatementChildless.ToString());
+            Assert.AreEqual("enum seven {\r\n\tstatus current;\r\n\tvalue 7;\r\n\treference \"Reference of enum seven.\";\r\n\tdescription \"Description of enum seven.\";\r\n}", enumStatementWithChildren.ToString());
         }
     }
 }

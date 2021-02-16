@@ -5,23 +5,17 @@ using System.Xml.Linq;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
-    public class EmptyLineStatement : BaseStatement
+    public class EmptyLineStatement : ChildlessContainerStatement
     {
         public EmptyLineStatement() : base("") { }
-        public EmptyLineStatement(string empty) : this() { }
+        public EmptyLineStatement(string empty) : base("","") { }
         public override XElement[] StatementAsXML()
         {
             return new XElement[] { new XElement(" ") };
         }
-
-        public override string StatementAsYangString(int indentationlevel)
+        public override string StatementAsYangString()
         {
             return "";
-        }
-
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            throw new NotImplementedException();
         }
     }
 }

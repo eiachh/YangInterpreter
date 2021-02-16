@@ -8,16 +8,16 @@ using YangInterpreter.Statements.BaseStatements;
 namespace YangInterpreter.Statements.Types
 {
     /// <summary>
-    /// This is the specialised class for "type bits { " inherited from the basic TypeStatement
+    /// This is the specialised class for "type string { " inherited from the basic TypeStatement
     /// </summary>
-    public class BitsTypeStatement : TypeStatement
+    public class StringTypeStatement : TypeStatement
     {
-        public BitsTypeStatement() : base(BuiltInTypes.bits) { }
-        public BitsTypeStatement(string Name) : this() { }
+        public StringTypeStatement() : base(BuiltInTypes.string_yang) { }
+        public StringTypeStatement(string Name) : this() { }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return SubStatementAllowanceCollection.BitTypeStatementAllowedSubstatements;
+            return SubStatementAllowanceCollection.StringTypeStatementAllowedSubstatements;
         }
     }
 }

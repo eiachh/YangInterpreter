@@ -133,7 +133,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <returns></returns>
         public int Count()
         {
-            return StatementList.Count(element => !typeof(EmptyLineStatement).IsInstanceOfType(element));
+            return StatementList.Count(element => !typeof(EmptyLineStatement).IsAssignableFrom(element.GetType()));
         }
 
         protected static string GetIndentation(int n)
@@ -227,7 +227,7 @@ namespace YangInterpreter.Statements.BaseStatements
                     MatchingElements.Add(child);
                 else
                 {
-                    if (!typeof(EmptyLineStatement).IsInstanceOfType(child))
+                    if (!typeof(EmptyLineStatement).IsAssignableFrom(child.GetType()))
                         MatchingElements.Add(child);
                 }
             }
@@ -299,7 +299,8 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <returns></returns>
         public IEnumerable<BaseStatement> Elements()
         {
-            return StatementList.Where(statement => !typeof(EmptyLineStatement).IsInstanceOfType(statement));
+            var asdds = StatementList.Where(statement => !typeof(EmptyLineStatement).IsAssignableFrom(statement.GetType()));
+            return StatementList.Where(statement => !typeof(EmptyLineStatement).IsAssignableFrom(statement.GetType()));
         }
 
         /// <summary>
@@ -341,7 +342,7 @@ namespace YangInterpreter.Statements.BaseStatements
         protected string GetStatementsAsYangString(int indentationLevel)
         {
             var strBuilder = "";
-            foreach (var child in StatementList)
+            foreach (var child in Elements())
             {
                 if (child.BuildIntoOutput)
                     strBuilder += child.StatementAsYangString(indentationLevel) + Environment.NewLine;

@@ -34,17 +34,21 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*leaf\s*([a-z0-9A-Z-]*)\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.Leaf,1,-1, typeof(Leaf)),
                 new SearchScheme(new Regex(@"^\s*leaf-list ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.LeafList,1,-1, typeof(LeafList)),
                 new SearchScheme(new Regex(@"^\s*list ([a-z0-9A-Z-]*) {\s*$",RegexOptions.IgnoreCase),TokenTypes.List,1,-1, typeof(ListNode)),
-                //new SearchScheme(new Regex("^\\s*key \"([^;]*)\";\\s*$",RegexOptions.IgnoreCase),TokenTypes.Key,-1,1, typeof(key)),
+
                 new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*)\s*{$",RegexOptions.IgnoreCase),TokenTypes.Revision, 1,-1, typeof(Revision)),
                 new SearchScheme(new Regex(@"^\s*revision\s*([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.Revision,1,-1, typeof(Revision),true),
                 new SearchScheme(new Regex(@"^\s*status\s*([a-z0-9A-Z-]*)\s*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Status,1,-1, typeof(StatusStatement),true),
                 new SearchScheme(new Regex(@"^\s*value\s*([a-z0-9A-Z-]*)\s*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Value,1,-1, typeof(ValueStatement),true),
+                new SearchScheme(new Regex("^\\s*length \"?([^;|^\"]*)\"?;\\s*$",RegexOptions.IgnoreCase),TokenTypes.Length,-1,1, typeof(Length),true),
 
                 new SearchScheme(new Regex(@"^\s*position\s*([0-9])*;\s*$",RegexOptions.IgnoreCase),TokenTypes.Position,-1,1, typeof(Position)),
 
                 new SearchScheme(new Regex(@"^\s*type enumeration {\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEnum,1,-1, typeof(EnumTypeStatement)),
                 new SearchScheme(new Regex(@"^\s*type bits\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeBits,1,-1, typeof(BitsTypeStatement)),
                 new SearchScheme(new Regex(@"^\s*type\s*empty;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeEmpty,1,-1, typeof(EmptyTypeStatement),true),
+
+                new SearchScheme(new Regex(@"^\s*type string\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeString,1,-1, typeof(StringTypeStatement)),
+                new SearchScheme(new Regex(@"^\s*type string;\s*$",RegexOptions.IgnoreCase),TokenTypes.TypeString,1,-1, typeof(StringTypeStatement),true),
 
                 new SearchScheme(new Regex(@"^\s*bit\s*([a-z0-9A-Z-]*)\s*{\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleBit,1,-1, typeof(Bit)),
                 new SearchScheme(new Regex(@"^\s*enum ([a-z0-9A-Z-]*);\s*$",RegexOptions.IgnoreCase),TokenTypes.SimpleEnum,1,-1, typeof(EnumStatement),true),
@@ -110,7 +114,6 @@ namespace YangInterpreter.Interpreter
                     {
                         MatchResultToken.TokenValue = match.Groups[scheme.IndexOfTokenValue].Value;
                     }
-                    //InnerBlockTryParse(MatchResultToken, row);
                     return MatchResultToken;
                 }
             }

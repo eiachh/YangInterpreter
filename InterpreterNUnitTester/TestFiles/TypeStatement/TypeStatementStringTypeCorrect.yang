@@ -1,4 +1,4 @@
-module TypeStatementCorrect {
+module TypeStatementStringTypeCorrect {
 	yang-version 1;
 	namespace
 		"NamespaceCorrectTestModule1";
@@ -27,7 +27,10 @@ module TypeStatementCorrect {
 		description "Generic Session 
 		Control parameter file.";
 	}
-	leaf emptyTest{
-		type empty;
+
+	leaf mybits {
+		type string{
+			length "2323..5690";
+		}
 	}
 }

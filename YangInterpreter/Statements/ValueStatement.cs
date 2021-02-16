@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class ValueStatement : ContainerStatementBase
+    public class ValueStatement : ControlledValueChildlessContainerStatement
     {
         /// Revision Statement RFC 6020 9.6.4.2.
         ///
@@ -20,23 +20,9 @@ namespace YangInterpreter.Statements
         public ValueStatement() : base("Value") { }
         public ValueStatement(string Value) : base("Value", Value) { this.Value = Value; }
 
-        public override string Value
-        { 
-            get => base.Value;
-            set
-            {
-                if (IsValidValue(value))
-                    base.Value = value;
-                else
-                    throw new ImproperValue("The given value for Value Statement was not a number!");
-            }
-        }
+        protected override string ImproperValueErrorMessage => "The given value for Value Statement was not a number!";
 
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            return new Dictionary<Type, Tuple<int, int>>();
-        }
-        private static bool IsValidValue(string value)
+        protected override bool IsValidValue(string value)
         {
             int toParseInto;
             return int.TryParse(value, out toParseInto);

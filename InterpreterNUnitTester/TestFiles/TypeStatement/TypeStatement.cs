@@ -12,33 +12,65 @@ namespace InterpreterNUnitTester
 {
     public class TypeStatement
     {
-        //YangInterpreterTool InterpreterCorrect;
         [SetUp]
         public void Setup()
         {
-            //InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
+
         }
 
         /// <summary>
-        /// Checks if the revision value is parsed correctly.
+        /// Checks if the type with empty argument is parsed correctly.
         /// </summary>
         [Test]
-        public void RevisionIsParsedCorrectly()
+        public void EmptyTypeStatementParsedCorrectly()
+        {
+            YangInterpreterTool interpreted = YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementCorrect.yang");
+            var leaf = interpreted.Root.Descendants("leaf").Where(statement => statement.Value == "emptyTest").FirstOrDefault();
+            var typeEmpty = leaf.Elements().FirstOrDefault();
+            Assert.AreEqual("empty", typeEmpty.Value);
+            Assert.AreEqual(0, typeEmpty.Elements().Count());
+            Assert.AreEqual("type empty;", typeEmpty.ToString());
+        }
+
+        /// <summary>
+        /// Checks if the type with empty argument is parsed correctly.cannot get substatements.
+        /// </summary>
+        [Test]
+        public void EmptyTypeStatementNoSubstatementAllowed()
         {
             EmptyTypeStatement ts = new EmptyTypeStatement();
-            ts.AddStatement(new EnumTypeStatement());
-            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
+            Assert.Throws<ArgumentOutOfRangeException>(() => ts.AddStatement(new EnumTypeStatement()));
         }
 
         /// <summary>
-        /// Checks if the revision value is parsed correctly.
+        /// Throws error if type empty is used as a container.
         /// </summary>
         [Test]
-        public void TypeStatementBitCorrect()
+        public void EmptyTypeStatementMalformed()
+        { 
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementMalformed.yang"));
+        }
+
+        /// <summary>
+        /// Checks if the bit type statement is parsed correctly.
+        /// </summary>
+        [Test]
+        public void TypeStatementBitParsedCorrectly()
         {
             YangInterpreterTool InterpreterCorrect = YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementBitTypeCorrect.yang");
-            
-            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
+        }
+
+        /// <summary>
+        /// Checks if the string type statement is parsed correctly.
+        /// </summary>
+        [Test]
+        public void TypeStatementStringParsedCorrectly()
+        {
+            YangInterpreterTool InterpreterCorrect = YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementStringTypeCorrect.yang");
+            var typeString = InterpreterCorrect.Root.Descendants("type").First();
+            Assert.AreEqual("string", typeString.Value);
+            Assert.AreEqual("Length", typeString.Elements().First().Name);
+            Assert.AreEqual(1, typeString.Elements().Count());
         }
 
         /// <summary>

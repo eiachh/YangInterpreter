@@ -95,7 +95,13 @@
     <None Update="TestFiles\TypeStatement\EnumStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\TypeStatement\TypeStatementStringTypeCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\TypeStatement\TypeStatementBitTypeCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\TypeStatement\TypeStatementMalformed.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\TypeStatement\TypeStatementCorrect.yang">

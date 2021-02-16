@@ -19,6 +19,10 @@ namespace YangInterpreter.Interpreter
         ///                 Lists of allowed substatements and the maximum allowed occurence of them.
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         internal static Dictionary<Type, Tuple<int, int>> TypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> BitTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> StringTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> EnumTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+
         internal static Dictionary<Type, Tuple<int, int>> BitStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> ChoiceCaseStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> ChoiceStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
@@ -39,15 +43,20 @@ namespace YangInterpreter.Interpreter
             if (!IsInitialized)
             {
                 IsInitialized = true;
+                FillTypeStatementAllowanceList();
+                FillBitTypeStatementAllowanceList();
+                FillStringTypeStatementAllowanceList();
+                FillEnumTypeStatementAllowanceList();
+
                 FillBitsSntatementAllowanceList();
                 FillChoiceCaseSntatementAllowanceList();
                 FillChoiceSntatementAllowanceList();
-                FillTypeStatementAllowanceList();
                 FillModuleSntatementAllowanceList();
                 FillImportSntatementAllowanceList();
                 FillLeafSntatementAllowanceList();
                 FillRevisionSntatementAllowanceList();
                 FillEnumSntatementAllowanceList();
+
             }
         }
 
@@ -130,6 +139,7 @@ namespace YangInterpreter.Interpreter
             LeafStatementAllowedSubstatements.Add(typeof(BitsTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(EmptyTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(EnumTypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(StringTypeStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillRevisionSntatementAllowanceList()
@@ -145,6 +155,23 @@ namespace YangInterpreter.Interpreter
             EnumStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
             EnumStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
             EnumStatementAllowedSubstatements.Add(typeof(ValueStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillBitTypeStatementAllowanceList()
+        {
+            BitTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            BitTypeStatementAllowedSubstatements.Add(typeof(Bit), new Tuple<int, int>(0, -1));
+        }
+
+        private static void FillStringTypeStatementAllowanceList()
+        {
+            StringTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            StringTypeStatementAllowedSubstatements.Add(typeof(Length), new Tuple<int, int>(0, 1));
+        }
+
+        private static void FillEnumTypeStatementAllowanceList()
+        {
+            EnumTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            EnumTypeStatementAllowedSubstatements.Add(typeof(EnumStatement), new Tuple<int, int>(0, -1));
         }
     }
 }

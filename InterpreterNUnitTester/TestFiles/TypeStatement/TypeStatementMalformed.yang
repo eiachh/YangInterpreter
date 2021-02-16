@@ -26,8 +26,9 @@ module TypeStatementCorrect {
 	revision 2039-09-11 {
 		description "Generic Session 
 		Control parameter file.";
-	}
-	leaf emptyTest{
-		type empty;
+
+	type empty {
+		type empty {
+		}
 	}
 }

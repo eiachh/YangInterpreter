@@ -279,16 +279,16 @@ namespace YangInterpreter.Interpreter
             }
 
             ///CONTAINER WITH NO ELEMENT
-            else if ((InputToken.TokenAsType.BaseType == typeof(ContainerStatementBase) || InputToken.TokenAsType.BaseType == typeof(TypeStatement)) && 
+            else if ((typeof(ContainerStatementBase).IsAssignableFrom(InputToken.TokenAsType) || typeof(TypeStatement).IsAssignableFrom(InputToken.TokenAsType)) && 
                      InputToken.IsChildlessContainer)
                 AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
 
             ///CONTAINER BASED STATEMENT
-            else if (InputToken.TokenAsType.BaseType == typeof(ContainerStatementBase) || InputToken.TokenAsType.BaseType == typeof(TypeStatement))
+            else if (typeof(ContainerStatementBase).IsAssignableFrom(InputToken.TokenAsType)  || typeof(TypeStatement).IsAssignableFrom(InputToken.TokenAsType))
                 AddNewStatement(InputToken.TokenAsType, InputToken);
 
             ///SINGLE VALUE HOLDER STATEMENT
-            else if (InputToken.TokenAsType.BaseType == typeof(StatementWithSingleValueBase))
+            else if (typeof(StatementWithSingleValueBase).IsAssignableFrom(InputToken.TokenAsType))
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
                 InstantiatedNewStatement.Value = InputToken.TokenValue;
