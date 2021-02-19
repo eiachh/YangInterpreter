@@ -6,13 +6,13 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter
 {
-    public class ListNode : BaseStatement
+    public class ListNode : ContainerStatementBase
     {
         /// <summary>
         /// The key property tells which Leaf node(s) of this list is(are) the key(s).
         /// </summary>
         public string Key { get; set; }
-        public ListNode(string name) : base(name) { }
+        public ListNode(string Value) : base("List",Value) { }
 
         public override string StatementAsYangString()
         {

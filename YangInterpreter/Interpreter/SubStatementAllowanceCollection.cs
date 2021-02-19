@@ -22,6 +22,7 @@ namespace YangInterpreter.Interpreter
         internal static Dictionary<Type, Tuple<int, int>> BitTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> StringTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> EnumTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> LeafRefTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
 
         internal static Dictionary<Type, Tuple<int, int>> BitStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> ChoiceCaseStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
@@ -32,6 +33,7 @@ namespace YangInterpreter.Interpreter
         internal static Dictionary<Type, Tuple<int, int>> ModuleStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> RevisionStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> EnumStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> PatternStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,6 +49,7 @@ namespace YangInterpreter.Interpreter
                 FillBitTypeStatementAllowanceList();
                 FillStringTypeStatementAllowanceList();
                 FillEnumTypeStatementAllowanceList();
+                FillLeafRefTypeStatementAllowanceList();
 
                 FillBitsSntatementAllowanceList();
                 FillChoiceCaseSntatementAllowanceList();
@@ -56,7 +59,7 @@ namespace YangInterpreter.Interpreter
                 FillLeafSntatementAllowanceList();
                 FillRevisionSntatementAllowanceList();
                 FillEnumSntatementAllowanceList();
-
+                FillPatternStatementAllowanceList();
             }
         }
 
@@ -140,6 +143,7 @@ namespace YangInterpreter.Interpreter
             LeafStatementAllowedSubstatements.Add(typeof(EmptyTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(EnumTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(StringTypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(LeafRefTypeStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillRevisionSntatementAllowanceList()
@@ -166,12 +170,23 @@ namespace YangInterpreter.Interpreter
         {
             StringTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             StringTypeStatementAllowedSubstatements.Add(typeof(Length), new Tuple<int, int>(0, 1));
+            StringTypeStatementAllowedSubstatements.Add(typeof(Pattern), new Tuple<int, int>(0, -1));
         }
 
         private static void FillEnumTypeStatementAllowanceList()
         {
             EnumTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             EnumTypeStatementAllowedSubstatements.Add(typeof(EnumStatement), new Tuple<int, int>(0, -1));
+        }
+        private static void FillLeafRefTypeStatementAllowanceList()
+        {
+            LeafRefTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            LeafRefTypeStatementAllowedSubstatements.Add(typeof(PathStatement), new Tuple<int, int>(1, 1));
+        }
+        private static void FillPatternStatementAllowanceList()
+        {
+            PatternStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            PatternStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
         }
     }
 }

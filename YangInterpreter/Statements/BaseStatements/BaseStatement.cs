@@ -359,6 +359,6 @@ namespace YangInterpreter.Statements.BaseStatements
             else
                 return indent + Name.ToLower() + " " + Environment.NewLine + indent + "\t" + "\"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";
         }
-        
+
     }
 }

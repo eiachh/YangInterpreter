@@ -10,9 +10,9 @@ namespace YangInterpreter.Statements
     /// <summary>
     /// Choice statement itself.
     /// </summary>
-    public class Choices : BaseStatement
+    public class Choices : ContainerStatementBase
     { 
-        public Choices(string name) : base(name){ }
+        public Choices(string Value) : base("Choices",Value){ }
 
         public override string StatementAsYangString(int indentationlevel)
         {

@@ -10,14 +10,14 @@ namespace YangInterpreter.Statements
     public class Prefix : StatementWithSingleValueBase
     {
         public Prefix() : base("Prefix") { }
-        public Prefix(string Value) : base("Prefix") { base.Value = Value; }
+        public Prefix(string Value) : base("Prefix") { this.Value = Value; }
 
         public override string Value
         {
             get => base.Value;
             set
             {
-                HandleValueChange(base.Value, value);
+                HandleValueChange(Value, value);
                 base.Value = value;
             }
         }
@@ -28,6 +28,7 @@ namespace YangInterpreter.Statements
             set
             {
                 base.Parent = value;
+                HandleValueChange(null, Value);
             }
         }
 

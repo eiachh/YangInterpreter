@@ -1,0 +1,34 @@
+﻿using NUnit.Framework;
+using YangInterpreter;
+using YangInterpreter.Statements;
+using YangInterpreter.Statements.BaseStatements;
+using System.Collections.Generic;
+using System.Linq;
+using YangInterpreter.Interpreter;
+using System;
+
+namespace InterpreterNUnitTester
+{
+    public class PatternStatementTest
+    {
+        YangInterpreterTool InterpreterCorrect;
+        [SetUp]
+        public void Setup()
+        {
+            //InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
+        }
+
+        /// <summary>
+        /// Checks if the revision value is parsed correctly.
+        /// </summary>
+        [Test]
+        public void RevisionIsParsedCorrectly()
+        {
+            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/PatternStatement/PatternStatementCorrect.yang");
+            var patternStatement = InterpreterCorrect.Root.Descendants("pattern").Single();
+            Assert.AreEqual("[0-9a-fA-F]*", patternStatement.Value);
+            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
+            //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
+        }
+    }
+}

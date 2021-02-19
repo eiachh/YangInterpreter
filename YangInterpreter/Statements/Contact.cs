@@ -10,7 +10,7 @@ namespace YangInterpreter.Statements
     public class Contact : StatementWithSingleValueBase
     {
         public Contact() : base("Contact") { }
-        public Contact(string Value) : base("Contact") { base.Value = Value; }
+        public Contact(string Value) : base("Contact", Value) { }
 
         internal override bool IsValueStartAtSameLine()
         {

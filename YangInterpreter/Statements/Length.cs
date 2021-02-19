@@ -9,7 +9,7 @@ namespace YangInterpreter.Statements
     public class Length : ControlledSingleValueBase
     {
         public Length() : base("Length") { }
-        public Length(string Value) : base("Length", Value) { }
+        public Length(string Value) : base("Length",Value) { }
 
         protected override string ImproperValueErrorMessage { get => "The given value: "+ Value + " is not valid for Length statement!"; }
 

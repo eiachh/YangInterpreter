@@ -196,7 +196,12 @@ namespace YangInterpreter.Interpreter
             BaseStatement instantiatedobj;
             try
             {
-                instantiatedobj = (BaseStatement)Activator.CreateInstance(type, InputToken.TokenName);
+                if (typeof(ContainerStatementBase).IsAssignableFrom(type))
+                    instantiatedobj = (BaseStatement)Activator.CreateInstance(type, InputToken.TokenName);
+                else if (typeof(StatementWithSingleValueBase).IsAssignableFrom(type))
+                    instantiatedobj = (BaseStatement)Activator.CreateInstance(type, InputToken.TokenValue);
+                else
+                    throw new Exception();
             }
             catch (Exception e)
             {
@@ -254,7 +259,7 @@ namespace YangInterpreter.Interpreter
         private void ProcessToken(Token InputToken)
         {
             ///MODULE ENDED AND THERE ARE UNPROCESSED NOT EMPTY ROWS
-            if (InputToken.TokenType != TokenTypes.Skip && ModulEnded)
+            if (ModulEnded && InputToken.TokenType != TokenTypes.Skip)
                 NodeProcessionFail(InputToken, LineNumber);
 
             ///EMPTY LINE FORMATTING
@@ -291,7 +296,6 @@ namespace YangInterpreter.Interpreter
             else if (typeof(StatementWithSingleValueBase).IsAssignableFrom(InputToken.TokenAsType))
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
-                InstantiatedNewStatement.Value = InputToken.TokenValue;
                 InstantiatedNewStatement.GeneratedFrom = InputToken.TokenType;
             }
 

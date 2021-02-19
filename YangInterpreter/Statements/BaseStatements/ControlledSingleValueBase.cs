@@ -10,8 +10,8 @@ namespace YangInterpreter.Statements.BaseStatements
     /// </summary>
     public abstract class ControlledSingleValueBase : StatementWithSingleValueBase
     {
-        public ControlledSingleValueBase(string Name) : base(Name) { }
-        public ControlledSingleValueBase(string Name, string Value) : base(Name) { base.Value = Value; }
+        public ControlledSingleValueBase(string Value) : base(Value) { this.Value = Value; }
+        public ControlledSingleValueBase(string Name, string Value) : base(Name) { this.Value = Value; }
         protected abstract string ImproperValueErrorMessage { get;}
 
         public override string Value

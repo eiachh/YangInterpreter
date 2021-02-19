@@ -9,9 +9,9 @@ namespace YangInterpreter.Statements
     /// <summary>
     /// Case statement insode choice.
     /// </summary>
-    class ChoiceCase : BaseStatement
+    class ChoiceCase : ContainerStatementBase
     {
-        public ChoiceCase(string name) : base(name) { }
+        public ChoiceCase(string Value) : base("Case",Value) { }
 
         public override XElement[] StatementAsXML()
         {

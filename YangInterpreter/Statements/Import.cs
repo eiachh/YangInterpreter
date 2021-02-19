@@ -21,10 +21,7 @@ namespace YangInterpreter.Statements
     public class Import : ContainerStatementBase
     {
         public Import() : base("Import") { }
-        public Import(string _Value) : base("Import")
-        {
-            Value = _Value;
-        }
+        public Import(string Value) : base("Import", Value) { }
 
         public override string Value 
         { 

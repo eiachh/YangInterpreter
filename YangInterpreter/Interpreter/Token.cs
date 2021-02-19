@@ -20,7 +20,9 @@ namespace YangInterpreter.Interpreter
         ChoiceCase,
         Status,
         Length,
+        Pattern,
 
+        TypeLeafRef,
         TypeString,
         TypeBits,
         TypeEnum,
@@ -32,6 +34,10 @@ namespace YangInterpreter.Interpreter
 
         Key,
         Position,
+
+        PathSameLineStart,
+        PathNextLineStart,
+        PathMultiLine,
 
         ContactSameLineStart,
         ContactNextLineStart,

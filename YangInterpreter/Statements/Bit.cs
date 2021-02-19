@@ -21,7 +21,7 @@ namespace YangInterpreter.Statements
     public class Bit : ContainerStatementBase
     {
         public Bit() : base("Bit") { }
-        public Bit(string Value) : base("Bit") { base.Value = Value; }
+        public Bit(string Value) : base("Bit", Value) { }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {

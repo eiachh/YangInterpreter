@@ -6,9 +6,9 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Container : BaseStatement
+    public class Container : ContainerStatementBase
     {
-        public Container(string name) : base(name) { }
+        public Container(string Value) : base("Container", Value) { }
 
         public override XElement[] StatementAsXML()
         {
