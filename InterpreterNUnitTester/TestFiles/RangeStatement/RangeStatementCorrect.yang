@@ -1,4 +1,4 @@
-module PatternStatementCorrect {
+module RangeStatementCorrect {
 	yang-version 1;
 	namespace
 		"NamespaceCorrectTestModule1";
@@ -27,16 +27,24 @@ module PatternStatementCorrect {
 		description "Generic Session 
 		Control parameter file.";
 	}
-	leaf emptyTest{
-		type string {
-			length "0..4";
-			pattern "[0-9a-fA-F]*" {
+	leaf intTest{
+		type int32 {
+			range "2..10 
+			| 51..343"; {
 				description 
 					"description of 
 					pattern.";
 				error-app-tag "the error app tag";
 				error-message "the error message";
 				reference "the reference";
+			}
+		}
+	}
+
+	leaf decimalTest2{
+		type decimal64 {
+			range "3..11 | 52..344"; {
+				description "something";
 			}
 		}
 	}

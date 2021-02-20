@@ -50,6 +50,11 @@ namespace YangInterpreter.Interpreter
                 TokenTypes.ValueForPreviousLineMultiline,
                 TokenTypes.ContactMultiLine,
                 TokenTypes.ReferenceMultiline,
+                TokenTypes.ErrorAppTagMultiLine,
+                TokenTypes.ErrorMessageMultiLine,
+                TokenTypes.PathMultiLine,
+                TokenTypes.RangeMultiLine,
+
             };
 
             ItemsThatRequireParentFallback = new List<TokenTypes>
@@ -77,50 +82,43 @@ namespace YangInterpreter.Interpreter
         {
             var YangAsRawTextRowByRow = Regex.Split(YangAsRawText, "\r\n|\r|\n");
             var PreviousState = TokenTypes.Start;
-            bool MultilineBegPresent = false;
+            bool MultilineBeginingWasPresent = false;
 
             foreach (var RowOfYangText in YangAsRawTextRowByRow)
             {
                 LineNumber++;
-                string InnerBlock = ConvertLine(RowOfYangText, ref MultilineBegPresent, ref PreviousState);
+                string InnerBlock = ConvertLine(RowOfYangText, ref MultilineBeginingWasPresent, ref PreviousState);
                 while (InnerBlock != string.Empty)
                 {
-                    InnerBlock = ConvertLine(InnerBlock, ref MultilineBegPresent, ref PreviousState);
+                    InnerBlock = ConvertLine(InnerBlock, ref MultilineBeginingWasPresent, ref PreviousState);
                 }
             }
             return InterpreterTracer;
         }
 
-        internal string ConvertLine(string RowOfYangText,ref bool MultilineBegPresent, ref TokenTypes PreviousState)
+        /// <summary>
+        /// Converts the given line into a interpreted token and processes it into the yang tree at the current state.
+        /// </summary>
+        /// <param name="RowOfYangText">The given row of the yang file</param>
+        /// <param name="MultilineBeginingWasPresent">Determines wether the given row is a part of a Multiline token</param>
+        /// <param name="PreviousState">The previous state of the interpreter which is the state after the previously processed row.</param>
+        /// <returns></returns>
+        internal string ConvertLine(string RowOfYangText,ref bool MultilineBeginingWasPresent, ref TokenTypes PreviousState)
         {
-
             CurrentRow = RowOfYangText;
-            var TokenForCurrentRow = TokenCreator.GetTokenForRow(RowOfYangText);
+            var TokenForCurrentRow = TokenCreator.GetTokenForRow(RowOfYangText,PreviousToken);
             if (TokenForCurrentRow != null)
             {
                 if (TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineBeg)
-                    MultilineBegPresent = true;
+                    MultilineBeginingWasPresent = true;
+
                 if (MultiLineToken(TokenForCurrentRow))
+                    return HandleMultilineToken(TokenForCurrentRow, ref PreviousState);
+
+                else if (PreviousToken != null)
                 {
-                    if (TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline && !MultilineTokens.Contains(PreviousState) ||
-                        (PreviousState != TokenTypes.ValueForPreviousLineBeg && TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline))
-                        NodeProcessionFail(TokenForCurrentRow, LineNumber);
-                    PreviousState = TokenForCurrentRow.TokenType;
-                    SetPreviousToken(TokenForCurrentRow);
-                    return TokenForCurrentRow.InnerBlock;
-                }
-                if (PreviousToken != null)
-                {
-                    if (!(PreviousState == TokenTypes.ValueForPreviousLineBeg || PreviousState == TokenTypes.ValueForPreviousLineMultiline) 
-                        && TokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineEnd && MultilineBegPresent)
-                    {
-                        NodeProcessionFail(TokenForCurrentRow, LineNumber);
-                    }
-                    var prevtoken = GetpreviousToken();
-                    prevtoken.TokenValue += TokenForCurrentRow.TokenValue;
-                    prevtoken.TokenType = prevtoken.TokenAsSingleLine;
-                    TokenForCurrentRow = prevtoken;
-                    MultilineBegPresent = false;
+                    TokenForCurrentRow = MergeMultilineTokenEndingToken(TokenForCurrentRow, PreviousState, MultilineBeginingWasPresent);
+                    MultilineBeginingWasPresent = false;
                 }
                 ProcessToken(TokenForCurrentRow);
                 PreviousState = TokenTypes.Start;
@@ -128,6 +126,44 @@ namespace YangInterpreter.Interpreter
             else
                 TokenCreationFail(LineNumber);
             return TokenForCurrentRow.InnerBlock;
+        }
+
+        private bool IsInvalidState(Token tokenForCurrentRow, TokenTypes previousState)
+        {
+            return tokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline && !MultilineTokens.Contains(previousState) ||
+                        (previousState != TokenTypes.ValueForPreviousLineBeg && tokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineMultiline);
+        }
+
+        private bool IsInvalidStateAfterMultilineToken(Token tokenForCurrentRow, TokenTypes previousState,bool multilineBegWasPresent)
+        {
+            return (!(previousState == TokenTypes.ValueForPreviousLineBeg || previousState == TokenTypes.ValueForPreviousLineMultiline)
+                        && tokenForCurrentRow.TokenType == TokenTypes.ValueForPreviousLineEnd && multilineBegWasPresent);
+        }
+
+        private string HandleMultilineToken(Token tokenForCurrentRow, ref TokenTypes previousState)
+        {
+            if (IsInvalidState(tokenForCurrentRow, previousState))
+                NodeProcessionFail(tokenForCurrentRow, LineNumber);
+
+            previousState = tokenForCurrentRow.TokenType;
+            SetPreviousToken(tokenForCurrentRow);
+            return tokenForCurrentRow.InnerBlock;
+        }
+
+        private Token MergeMultilineTokenEndingToken(Token tokenForCurrentRow, TokenTypes previousState, bool multilineBegPresent)
+        {
+            if (IsInvalidStateAfterMultilineToken(tokenForCurrentRow, previousState, multilineBegPresent))
+            {
+                NodeProcessionFail(tokenForCurrentRow, LineNumber);
+            }
+            var prevtoken = GetpreviousToken();
+            if (typeof(ContainerStatementBase).IsAssignableFrom(prevtoken.TokenAsType))
+                prevtoken.TokenName += tokenForCurrentRow.TokenValue;
+            else
+                prevtoken.TokenValue += tokenForCurrentRow.TokenValue;
+            prevtoken.TokenType = prevtoken.TokenAsSingleLine;
+
+            return prevtoken;
         }
 
         /// <summary>

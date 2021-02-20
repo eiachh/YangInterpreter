@@ -15,6 +15,7 @@ namespace YangInterpreter.Statements
 
         protected override bool IsValidValue(string value)
         {
+            value = value.Replace("\r\n", "").Replace("\n", "");
             return new Regex("^(?:[0-9]+\\.\\.[0-9]+)(?:\\s?\\|\\s?(?:[0-9]*\\.\\.[0-9]*))*$").Match(value).Success;
         }
 

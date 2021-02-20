@@ -22,6 +22,16 @@ namespace YangInterpreter.Interpreter
         Length,
         Pattern,
 
+        TypeDecimal64,
+        TypeInt64,
+        TypeInt32,
+        TypeInt16,
+        TypeInt8,
+        TypeUInt64,
+        TypeUInt32,
+        TypeUInt16,
+        TypeUInt8,
+
         TypeLeafRef,
         TypeString,
         TypeBits,
@@ -35,9 +45,21 @@ namespace YangInterpreter.Interpreter
         Key,
         Position,
 
+        ErrorMessageSameLineStart,
+        ErrorMessageNextLineStart,
+        ErrorMessageMultiLine,
+
+        ErrorAppTagSameLineStart,
+        ErrorAppTagNextLineStart,
+        ErrorAppTagMultiLine,
+
         PathSameLineStart,
         PathNextLineStart,
         PathMultiLine,
+
+        RangeSameLineStart,
+        RangeNextLineStart,
+        RangeMultiLine,
 
         ContactSameLineStart,
         ContactNextLineStart,
