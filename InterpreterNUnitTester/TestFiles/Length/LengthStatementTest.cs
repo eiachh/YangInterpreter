@@ -49,5 +49,72 @@ namespace InterpreterNUnitTester
             Assert.Throws<ImproperValue>(() => new Length("completly bad value"));
             Assert.Throws<ImproperValue>(() => new Length("23.445"));
         }
+
+        /// <summary>
+        /// Checks if the error-app-tag is parsed correctly.
+        /// </summary>
+        [Test]
+        public void RangeErrorAppTagIsParsedCorrectly()
+        {
+            var lengthStatement1 = InterpreterCorrect.Root.Descendants("range").First();
+            var errorAppStatement = lengthStatement1.Elements("error-app-tag").Single();
+            Assert.AreEqual("the error app tag", errorAppStatement.Value);
+
+        }
+
+        /// <summary>
+        /// Checks if the error-message is parsed correctly.
+        /// </summary>
+        [Test]
+        public void RangeErrorMessageIsParsedCorrectly()
+        {
+            var lengthStatement1 = InterpreterCorrect.Root.Descendants("range").First();
+            var errormessageStatement = lengthStatement1.Elements("error-message").Single();
+            Assert.AreEqual("the error message", errormessageStatement.Value);
+        }
+
+        /// <summary>
+        /// Checks if the reference is parsed correctly.
+        /// </summary>
+        [Test]
+        public void RangeReferenceIsParsedCorrectly()
+        {
+            var lengthStatement1 = InterpreterCorrect.Root.Descendants("range").First();
+            var errormessageStatement = lengthStatement1.Elements("reference").Single();
+            Assert.AreEqual("the reference", errormessageStatement.Value);
+        }
+
+        /// <summary>
+        /// Throws error if error-app-tag is added more than 1 times.
+        /// </summary>
+        [Test]
+        public void ErrorAppTagOverFlowCheck()
+        {
+            var lengthStatement1 = new Length("2323..5690");
+            lengthStatement1.AddStatement(new ErrorAppTagStatement("value"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => lengthStatement1.AddStatement(new ErrorAppTagStatement("value")));
+        }
+
+        /// <summary>
+        /// Throws error if error-message is added more than 1 times.
+        /// </summary>
+        [Test]
+        public void ErrorMessageOverFlowCheck()
+        {
+            var lengthStatement1 = new RangeStatement("2323..5690");
+            lengthStatement1.AddStatement(new ErrorMessageStatement("value"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => lengthStatement1.AddStatement(new ErrorMessageStatement("value")));
+        }
+
+        /// <summary>
+        /// Throws error if reference is added more than 1 times.
+        /// </summary>
+        [Test]
+        public void ReferenceOverFlowCheck()
+        {
+            var lengthStatement1 = new RangeStatement("2323..5690");
+            lengthStatement1.AddStatement(new Reference("value"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => lengthStatement1.AddStatement(new Reference("value")));
+        }
     }
 }

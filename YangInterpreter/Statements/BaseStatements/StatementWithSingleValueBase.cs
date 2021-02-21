@@ -25,6 +25,9 @@ namespace YangInterpreter.Statements.BaseStatements
             return new Dictionary<Type, Tuple<int, int>>();
         }
 
-        internal abstract bool IsValueStartAtSameLine();
+        internal virtual bool IsValueStartAtSameLine()
+        {
+            return GeneratedFrom == TokenTypes.Empty || GeneratedFrom == TokenTypes.SameLineStart;
+        }
     }
 }

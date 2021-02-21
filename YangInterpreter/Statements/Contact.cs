@@ -12,9 +12,5 @@ namespace YangInterpreter.Statements
         public Contact() : base("Contact") { }
         public Contact(string Value) : base("Contact", Value) { }
 
-        internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == TokenTypes.ContactSameLineStart;
-        }
     }
 }

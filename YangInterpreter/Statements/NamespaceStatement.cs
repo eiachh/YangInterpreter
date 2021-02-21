@@ -11,9 +11,5 @@ namespace YangInterpreter.Statements
     {
         public NamespaceStatement() : base("Namespace") { }
         public NamespaceStatement(string Value) : base("Namespace") { base.Value = Value; }
-        internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == TokenTypes.DescriptionSameLineStart;
-        }
     }
 }

@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleNameParsedCorrectlyTest()
         {
-            Assert.AreEqual("CorrectTestModule1", InterpreterCorrect.Root.Name);
+            Assert.AreEqual("CorrectTestModule1", InterpreterCorrect.Root.Value);
         }
 
         /// <summary>

@@ -20,9 +20,5 @@ namespace YangInterpreter.Statements
     {
         public Reference() : base("Reference") { }
         public Reference(string Value) : this() { base.Value = Value; }
-        internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == TokenTypes.ReferenceSameLineStart;
-        }
     }
 }

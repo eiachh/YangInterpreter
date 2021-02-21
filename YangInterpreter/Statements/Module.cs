@@ -41,14 +41,14 @@ namespace YangInterpreter
     /// | uses        | 7.12    | 0..n  |
     /// | yang-version | 7.1.2  | 0..1  |
     ///+--------------+---------+-------------+
-    public class Module : BaseStatement
+    public class Module : ContainerStatementBase
     {
         /// <summary>
         /// The prefix for SELF namespace.faddchil
         /// </summary>
         public string Prefix { get; set; }
 
-        public Module(string name) : base(name) { AddStatement(new YangVersionStatement("1")); }
+        public Module(string Value) : base("Module",Value) { AddStatement(new YangVersionStatement("1")); }
 
         /// <summary>
         /// Namespace dictionary of imported modules. Keys are the prefixes, values are the full namespace.

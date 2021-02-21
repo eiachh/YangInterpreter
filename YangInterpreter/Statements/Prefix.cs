@@ -22,8 +22,8 @@ namespace YangInterpreter.Statements
             }
         }
 
-        public override BaseStatement Parent 
-        { 
+        public override BaseStatement Parent
+        {
             get => base.Parent;
             set
             {
@@ -43,7 +43,7 @@ namespace YangInterpreter.Statements
             return true;
         }
 
-        private void HandleValueChange(string originalValueOfPrefix,string newValueOfPrefix)
+        private void HandleValueChange(string originalValueOfPrefix, string newValueOfPrefix)
         {
             var module = Root as Module;
             if (!string.IsNullOrEmpty(originalValueOfPrefix))
@@ -54,13 +54,10 @@ namespace YangInterpreter.Statements
             }
             else
             {
-                if(Parent != null)
-                    if(Parent.GetType() != typeof(Module))
-                        module.NamespaceDictionary.Add(newValueOfPrefix, Parent.Value);
-                    else
-                        module.NamespaceDictionary.Add(newValueOfPrefix, Parent.Name);
+                if (Parent != null)
+                    module.NamespaceDictionary.Add(newValueOfPrefix, Parent.Value);
             }
-                
+
         }
     }
 }

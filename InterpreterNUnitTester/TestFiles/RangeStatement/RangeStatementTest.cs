@@ -24,8 +24,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void RangeIsParsedCorrectly()
         {
-            var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").Where(statement => statement.Value == "2..10 | 51..343").Single();
-            Assert.AreEqual("2..10 | 51..343", rangeStatement1.Value);
+            var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").First();
+            Assert.AreEqual("2..10 \r\n| 51..343", rangeStatement1.Value);
         }
 
         /// <summary>
@@ -34,7 +34,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void RangeErrorAppTagIsParsedCorrectly()
         {
-            var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").Where(statement => statement.Value == "2..10 | 51..343").Single();
+            var rangeStatements = InterpreterCorrect.Root.Descendants("range");
+            var rangeStatement1 = rangeStatements.First();
             var errorAppStatement = rangeStatement1.Elements("error-app-tag").Single();
             Assert.AreEqual("the error app tag", errorAppStatement.Value);
 
@@ -46,7 +47,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RangeErrorMessageIsParsedCorrectly()
         {
-            var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").Where(statement => statement.Value == "2..10 | 51..343").Single();
+            var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").First();
             var errormessageStatement = rangeStatement1.Elements("error-message").Single();
             Assert.AreEqual("the error message", errormessageStatement.Value);
         }
@@ -57,7 +58,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RangeReferenceIsParsedCorrectly()
         {
-            var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").Where(statement => statement.Value == "2..10 | 51..343").Single();
+            var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").First();
             var errormessageStatement = rangeStatement1.Elements("reference").Single();
             Assert.AreEqual("the reference", errormessageStatement.Value);
         }

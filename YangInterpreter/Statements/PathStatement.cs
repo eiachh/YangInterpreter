@@ -17,9 +17,5 @@ namespace YangInterpreter.Statements
     {
         public PathStatement() : base("Path") { }
         public PathStatement(string Value) : base("Path", Value) { }
-        internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == TokenTypes.PathSameLineStart;
-        }
     }
 }

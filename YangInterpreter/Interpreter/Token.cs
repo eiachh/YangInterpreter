@@ -7,6 +7,11 @@ namespace YangInterpreter.Interpreter
 {
     public enum TokenTypes
     {
+        SameLineStart,
+        NextLineStart,
+        Multiline,
+
+
         Start,
         YangVersion,
         Skip,
@@ -19,7 +24,6 @@ namespace YangInterpreter.Interpreter
         Choice,
         ChoiceCase,
         Status,
-        Length,
         Pattern,
 
         TypeDecimal64,
@@ -57,6 +61,10 @@ namespace YangInterpreter.Interpreter
         PathNextLineStart,
         PathMultiLine,
 
+        LengthSameLineStart,
+        LengthNextLineStart,
+        LengthMultiLine,
+
         RangeSameLineStart,
         RangeNextLineStart,
         RangeMultiLine,
@@ -90,7 +98,7 @@ namespace YangInterpreter.Interpreter
         Typedef,
         Range,
         NodeEndingBracket,
-        Module,
+        //Module,
         Prefix,
         Revision,
         Value,
@@ -104,15 +112,12 @@ namespace YangInterpreter.Interpreter
         /// <summary>
         /// The type of the current token.
         /// </summary>
-        public TokenTypes TokenType { get; set; }
+        public TokenTypes TokenType { get; set; } = TokenTypes.Empty;
+
         /// <summary>
-        /// The name of the token.
+        /// Value of the argument in the parsed line.
         /// </summary>
-        public string TokenName { get; set; }
-        /// <summary>
-        /// Value of the token.
-        /// </summary>
-        public string TokenValue { get; set; }
+        public string TokenArgument { get; set; }
 
         /// <summary>
         /// The given token as SingleLine token if the current one is Multiline.
@@ -132,15 +137,14 @@ namespace YangInterpreter.Interpreter
         /// Defines if the matched container type is childless. e.g.: type string;
         /// </summary>
         public bool IsChildlessContainer { get; set; } = false;
-        public Token(TokenTypes _TokenType, string _TokenName,string _TokenValue, Type _TokenAsType,bool _ChildlessContainer = false)
+        public Token(/*TokenTypes _TokenType, */string _TokenValue, Type _TokenAsType,bool _ChildlessContainer = false)
         {
-            TokenType = _TokenType;
-            TokenName = _TokenName;
-            TokenValue = _TokenValue;
+            //TokenType = _TokenType;
+            TokenArgument = _TokenValue;
             TokenAsType = _TokenAsType;
             IsChildlessContainer = _ChildlessContainer;
         }
-        public Token(TokenTypes _TokenType, string _TokenName, string _TokenValue, Type _TokenAsType, TokenTypes _TokenAsSingleLine, bool _ChildlessContainer = false) :  this(_TokenType,_TokenName,_TokenValue,_TokenAsType, _ChildlessContainer)
+        public Token(/*TokenTypes _TokenType,*/ string _TokenArgument, Type _TokenAsType, TokenTypes _TokenAsSingleLine, bool _ChildlessContainer = false) :  this(/*_TokenType,*/_TokenArgument,_TokenAsType, _ChildlessContainer)
         { 
             TokenAsSingleLine = _TokenAsSingleLine;
         }

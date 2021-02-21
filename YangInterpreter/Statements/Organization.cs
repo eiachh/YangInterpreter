@@ -18,10 +18,5 @@ namespace YangInterpreter.Statements
     {
         public Organization() : base("Organization") { }
         public Organization(string Value) : base("Organization") { base.Value = Value; }
-
-        internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == TokenTypes.OrganizationSameLineStart;
-        }
     }
 }

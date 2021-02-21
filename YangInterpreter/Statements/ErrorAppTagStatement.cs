@@ -16,9 +16,5 @@ namespace YangInterpreter.Statements
     {
         public ErrorAppTagStatement() : base("Error-App-Tag") { }
         public ErrorAppTagStatement(string Value) : base("Error-App-Tag",Value) { }
-        internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == Interpreter.TokenTypes.ErrorAppTagSameLineStart;
-        }
     }
 }

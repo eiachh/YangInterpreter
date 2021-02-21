@@ -41,7 +41,7 @@ namespace YangInterpreter.Statements
         protected override bool IsValidValue(string value)
         {
             value = value.Replace("\r\n", "").Replace("\n", "");
-            return new Regex("^(?:[0-9]+\\.\\.(?:[0-9]+)|max{1})(?:\\s?\\|\\s?(?:[0-9]*\\.\\.(?:[0-9]*)|max{1}))*$").Match(value).Success;
+            return new Regex("^\\s*(?:(?:[0-9]+|min{1})\\.\\.(?:[0-9]+|max{1}))(?:\\s?\\|\\s?(?:(?:[0-9]+|min{1})\\.\\.(?:[0-9]+|max{1})))*\\s*$").Match(value).Success;
         }
     }
 }

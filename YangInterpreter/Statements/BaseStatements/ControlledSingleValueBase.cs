@@ -8,7 +8,7 @@ namespace YangInterpreter.Statements.BaseStatements
     /// <summary>
     /// Base class for any statement that contains only a value and that value needs validation.
     /// </summary>
-    public abstract class ControlledSingleValueBase : StatementWithSingleValueBase
+    /*public abstract class ControlledSingleValueBase : StatementWithSingleValueBase
     {
         public ControlledSingleValueBase(string Value) : base(Value) { this.Value = Value; }
         public ControlledSingleValueBase(string Name, string Value) : base(Name) { this.Value = Value; }
@@ -29,5 +29,5 @@ namespace YangInterpreter.Statements.BaseStatements
             }
         }
         protected abstract bool IsValidValue(string value);
-    }
+    }*/
 }

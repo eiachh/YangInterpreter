@@ -6,7 +6,15 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Length : ControlledSingleValueBase
+    /// Length Statement RFC 6020 9.4.4. 
+    /// 
+    /// <summary>
+    /// The "length" statement, which is an optional substatement to the
+    /// "type" statement, takes as an argument a length expression string.
+    /// It is used to restrict the built-in type "string", or types derived
+    /// from "string".
+    /// </summary>
+    public class Length : ControlledValueContainerStatement
     {
         public Length() : base("Length") { }
         public Length(string Value) : base("Length",Value) { }
@@ -16,12 +24,17 @@ namespace YangInterpreter.Statements
         protected override bool IsValidValue(string value)
         {
             value = value.Replace("\r\n", "").Replace("\n", "");
-            return new Regex("^(?:[0-9]+\\.\\.[0-9]+)(?:\\s?\\|\\s?(?:[0-9]*\\.\\.[0-9]*))*$").Match(value).Success;
+            return new Regex("^\\s*(?:(?:[0-9]+|min{1})\\.\\.(?:[0-9]+|max{1}))(?:\\s?\\|\\s?(?:(?:[0-9]+|min{1})\\.\\.(?:[0-9]+|max{1})))*\\s*$").Match(value).Success;
         }
 
-        internal override bool IsValueStartAtSameLine()
+        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return true;
+            throw new NotImplementedException();
         }
+
+        /*internal override bool IsValueStartAtSameLine()
+        {
+            return GeneratedFrom == Interpreter.TokenTypes.LengthSameLineStart;
+        }*/
     }
 }

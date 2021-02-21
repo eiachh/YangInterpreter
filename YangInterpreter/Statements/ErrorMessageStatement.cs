@@ -16,9 +16,5 @@ namespace YangInterpreter.Statements
     {
         public ErrorMessageStatement() : base("Error-Message") { }
         public ErrorMessageStatement(string Value) : base("Error-Message",Value) { }
-        internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == Interpreter.TokenTypes.ErrorMessageSameLineStart;
-        }
     }
 }

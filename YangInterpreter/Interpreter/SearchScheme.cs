@@ -18,7 +18,7 @@ namespace YangInterpreter.Interpreter
         /// <summary>
         /// The TokenType gives information of what row the regex will match.
         /// </summary>
-        public TokenTypes TokenType { get; set; }
+        //public TokenTypes TokenType { get; set; }
 
         /// <summary>
         /// This links to the single line version of this token which is used after solving multiline tokens.
@@ -34,15 +34,27 @@ namespace YangInterpreter.Interpreter
         /// Defines if the matched container type is childless. e.g.: type string;
         /// </summary>
         public bool IsChildlessContainer { get; set; } = true;
-        public SearchScheme(Regex _Reg, TokenTypes _TokenType, Type _TokenAsType, bool _ChildlessContainer = false)
+        /*public SearchScheme(Regex _Reg, Type _TokenAsType, TokenTypes _TokenType = TokenTypes.SameLineStart, bool _ChildlessContainer = false)
         {
             Reg = _Reg;
             TokenType = _TokenType;
             TokenAsType = _TokenAsType;
             IsChildlessContainer = _ChildlessContainer;
-        }
-        public SearchScheme(Regex _Reg, TokenTypes _TokenType, Type _TokenAsType, TokenTypes _TokenAsSingleLine, bool _ChildlessContainer = false) : this(_Reg, _TokenType, _TokenAsType, _ChildlessContainer)
+        }*/
+        public SearchScheme(Regex _Reg, Type _TokenAsType, bool _ChildlessContainer = false, TokenTypes _TokenAsSingleLine = TokenTypes.Empty) //: this(_Reg, _TokenAsType, _TokenType, _ChildlessContainer)
         {
+            Reg = _Reg;
+            //TokenType = _TokenType;
+            TokenAsType = _TokenAsType;
+            IsChildlessContainer = _ChildlessContainer;
+            TokenAsSingleLine = _TokenAsSingleLine;
+        }
+
+        public SearchScheme(Regex _Reg, Type _TokenAsType, TokenTypes _TokenAsSingleLine) : this(_Reg, _TokenAsType, false, _TokenAsSingleLine)
+        {
+            Reg = _Reg;
+            //TokenType = _TokenType;
+            TokenAsType = _TokenAsType;
             TokenAsSingleLine = _TokenAsSingleLine;
         }
     }
