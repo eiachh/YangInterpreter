@@ -15,7 +15,7 @@ namespace InterpreterNUnitTester
         [SetUp]
         public void Setup()
         {
-
+            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/Length/TypeStatementStringTypeCorrect.yang");
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void LengthValueParsedCorrectly()
         {
-            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/Length/TypeStatementStringTypeCorrect.yang");
+            
             var length = InterpreterCorrect.Root.Descendants("length").Single();
             Assert.AreEqual("2323..5690", length.Value);
             Assert.AreEqual("length \"2323..5690\";", length.ToString());
@@ -56,7 +56,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RangeErrorAppTagIsParsedCorrectly()
         {
-            var lengthStatement1 = InterpreterCorrect.Root.Descendants("range").First();
+            var lengthStatement1 = InterpreterCorrect.Root.Descendants("length").First();
             var errorAppStatement = lengthStatement1.Elements("error-app-tag").Single();
             Assert.AreEqual("the error app tag", errorAppStatement.Value);
 
@@ -68,7 +68,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RangeErrorMessageIsParsedCorrectly()
         {
-            var lengthStatement1 = InterpreterCorrect.Root.Descendants("range").First();
+            var lengthStatement1 = InterpreterCorrect.Root.Descendants("length").First();
             var errormessageStatement = lengthStatement1.Elements("error-message").Single();
             Assert.AreEqual("the error message", errormessageStatement.Value);
         }
@@ -79,7 +79,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RangeReferenceIsParsedCorrectly()
         {
-            var lengthStatement1 = InterpreterCorrect.Root.Descendants("range").First();
+            var lengthStatement1 = InterpreterCorrect.Root.Descendants("length").First();
             var errormessageStatement = lengthStatement1.Elements("reference").Single();
             Assert.AreEqual("the reference", errormessageStatement.Value);
         }

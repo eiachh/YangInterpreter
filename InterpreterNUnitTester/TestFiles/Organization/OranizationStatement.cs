@@ -55,7 +55,7 @@ namespace InterpreterNUnitTester
         {
             var Org = InterpreterOrganizationNextLineStart.Root.Descendants("organization").Single();
             Assert.AreEqual("My diplomwork \r\nother line corp", Org.Value);
-            Assert.AreEqual("organization \r\n\t\"My diplomwork \r\n\tother line corp\";",Org.StatementAsYangString());
+            Assert.AreEqual("organization\r\n\t\"My diplomwork \r\n\tother line corp\";",Org.ToString());
         }
 
         /// <summary>

@@ -14,12 +14,6 @@ namespace YangInterpreter.Interpreter
         InterpreterOption Option = InterpreterOption.Normal;
 
         public string YangAsRawText { get; private set; }
-        //private static List<TokenTypes> MultilineTokens;
-
-        /// <summary>
-        /// List that contains all the tokens that requires step back to parent after processing. Mostly containers.
-        /// </summary>
-        //private static List<TokenTypes> ItemsThatRequireParentFallback;
 
         private TokenTypes InterpreterStatus = TokenTypes.Start;
         Stack<TokenTypes> InterpreterStatusStack = new Stack<TokenTypes>();
@@ -39,40 +33,6 @@ namespace YangInterpreter.Interpreter
             Option = opt;
             InterpreterStatusStack.Push(TokenTypes.Start);
             TokenCreator.Init();
-
-            ///Multiline tokens can only be simple tokens where token name is presented in the first line, token value is presented in the upcoming line(s)
-            /*MultilineTokens = new List<TokenTypes>
-            {
-                TokenTypes.DescriptionMultiLine,
-                TokenTypes.NamespaceMultiLine,
-                TokenTypes.OrganizationMultiLine,
-                TokenTypes.ValueForPreviousLineBeg,
-                TokenTypes.ValueForPreviousLineMultiline,
-                TokenTypes.ContactMultiLine,
-                TokenTypes.ReferenceMultiline,
-                TokenTypes.ErrorAppTagMultiLine,
-                TokenTypes.ErrorMessageMultiLine,
-                TokenTypes.PathMultiLine,
-                TokenTypes.RangeMultiLine,
-
-            };*/
-
-            /*ItemsThatRequireParentFallback = new List<TokenTypes>
-            {
-                TokenTypes.Leaf,
-                TokenTypes.Container,
-                TokenTypes.LeafList,
-                TokenTypes.List,
-                TokenTypes.Choice,
-                TokenTypes.ChoiceCase,
-                TokenTypes.Typedef,
-                TokenTypes.Type,
-                TokenTypes.Grouping,
-                TokenTypes.TypeEnum,
-                TokenTypes.Revision,
-                TokenTypes.Import,
-                TokenTypes.SimpleBit,
-            };*/
         }
 
         /// <summary>
@@ -253,7 +213,7 @@ namespace YangInterpreter.Interpreter
             }
             
             instantiatedobj = TracerCurrentNode.AddStatement(instantiatedobj);
-            if (opt == YangAddingOption.None)
+            if (opt == YangAddingOption.None && !typeof(ChildlessContainerStatement).IsAssignableFrom(instantiatedobj.GetType()))
             {
                 TracerCurrentNode = instantiatedobj;
                 NewInterpreterStatus(InputToken.TokenAsSingleLine);
@@ -335,18 +295,26 @@ namespace YangInterpreter.Interpreter
             ///CONTAINER WITH NO ELEMENT
             else if ((typeof(ContainerStatementBase).IsAssignableFrom(InputToken.TokenAsType) || typeof(TypeStatement).IsAssignableFrom(InputToken.TokenAsType)) && 
                      InputToken.IsChildlessContainer)
-                AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
-
-            ///CONTAINER BASED STATEMENT
-            else if (typeof(ContainerStatementBase).IsAssignableFrom(InputToken.TokenAsType)  || typeof(TypeStatement).IsAssignableFrom(InputToken.TokenAsType))
-                AddNewStatement(InputToken.TokenAsType, InputToken);
-
-            ///SINGLE VALUE HOLDER STATEMENT
-            else if (typeof(StatementWithSingleValueBase).IsAssignableFrom(InputToken.TokenAsType))
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
                 InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
             }
+               
+
+            ///CONTAINER BASED STATEMENT
+            else if (typeof(ContainerStatementBase).IsAssignableFrom(InputToken.TokenAsType)  || typeof(TypeStatement).IsAssignableFrom(InputToken.TokenAsType))
+            {
+                var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken);
+                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
+            }
+                
+
+            ///SINGLE VALUE HOLDER STATEMENT
+            /*else if (typeof(StatementWithSingleValueBase).IsAssignableFrom(InputToken.TokenAsType))
+            {
+                var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
+                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
+            }*/
 
             ///No search scheme match => Incorrect inputline;
             else

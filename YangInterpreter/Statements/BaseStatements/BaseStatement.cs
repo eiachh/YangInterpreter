@@ -49,7 +49,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <param name="indentationlevel"></param>
         /// <returns></returns>
         public abstract string StatementAsYangString(int indentationlevel);
-        public virtual string StatementAsYangString()
+        internal virtual string StatementAsYangString()
         {
             return StatementAsYangString(0);
         }
@@ -349,6 +349,11 @@ namespace YangInterpreter.Statements.BaseStatements
             }
             strBuilder = strBuilder.TrimEnd();
             return strBuilder;
+        }
+
+        internal virtual bool IsValueStartAtSameLine()
+        {
+            return GeneratedFrom == TokenTypes.Empty || GeneratedFrom == TokenTypes.SameLineStart;
         }
 
         internal virtual string NameAndValueAsYangString(int indentationlevel, bool IsValueStartAtSameLine = true)

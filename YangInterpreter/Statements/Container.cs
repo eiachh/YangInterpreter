@@ -15,7 +15,7 @@ namespace YangInterpreter.Statements
             throw new NotImplementedException();
         }
 
-        public override string StatementAsYangString()
+        internal override string StatementAsYangString()
         {
             string retval = string.Format("container {0} {{\r\n", Name);
             foreach (var child in StatementList)

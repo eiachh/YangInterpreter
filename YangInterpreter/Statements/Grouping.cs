@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Grouping : BaseStatement
+    public class Grouping : ContainerStatementBase
     {
         public static List<Grouping> GruopingList = new List<Grouping>();
         public static List<Uses> UsesWaitingForSpecifiedGrouping = new List<Uses>();
@@ -41,39 +41,9 @@ namespace YangInterpreter.Statements
             UsesWaitingForSpecifiedGrouping.Add(uses);
         }
 
-        public override string StatementAsYangString(int identationlevel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string StatementAsYangString()
-        {
-            throw new NotImplementedException();
-        }
-
-        public XElement[] NodeAsXmlForUses()
-        {
-            List<XElement> retchildlist = new List<XElement>();
-            foreach (var child in StatementList)
-            {
-                retchildlist.AddRange(child.StatementAsXML());
-            }
-            return retchildlist.ToArray();
-        }
-
-        public override XElement[] StatementAsXML()
-        {
-            throw new NotImplementedException();
-        }
-
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();
         }
-
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
-        {
-            return true;
-        }*/
     }
 }

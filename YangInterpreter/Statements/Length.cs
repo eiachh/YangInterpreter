@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using YangInterpreter.Statements.BaseStatements;
+using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
@@ -14,6 +15,16 @@ namespace YangInterpreter.Statements
     /// It is used to restrict the built-in type "string", or types derived
     /// from "string".
     /// </summary>
+    /// 
+    ///    /// +---------------+---------+-------------+
+    /// | substatement  | section | cardinality |
+    /// +---------------+---------+-------------+
+    /// | description   | 7.19.3  | 0..1        |
+    /// | error-app-tag | 7.5.4.2 | 0..1        |
+    /// | error-message | 7.5.4.1 | 0..1        |
+    /// | reference     | 7.19.4  | 0..1        |
+    /// +---------------+---------+-------------+
+    /// 
     public class Length : ControlledValueContainerStatement
     {
         public Length() : base("Length") { }
@@ -29,12 +40,7 @@ namespace YangInterpreter.Statements
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            throw new NotImplementedException();
+            return SubStatementAllowanceCollection.LengthStatementAllowedSubstatements;
         }
-
-        /*internal override bool IsValueStartAtSameLine()
-        {
-            return GeneratedFrom == Interpreter.TokenTypes.LengthSameLineStart;
-        }*/
     }
 }

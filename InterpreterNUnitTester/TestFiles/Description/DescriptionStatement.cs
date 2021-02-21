@@ -33,7 +33,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void DescriptionValueFormattedCorrectlyAtOutput()
         {
-            Assert.AreEqual("description \r\n\t\"Description of correctly formatted\r\n\tmodule,\r\n\twith multiline value.\";", InterpreterCorrect.Root.Elements("description").Single().ToString());
+            Assert.AreEqual("description\r\n\t\"Description of correctly formatted\r\n\tmodule,\r\n\twith multiline value.\";", InterpreterCorrect.Root.Elements("description").Single().ToString());
         }
 
         /// <summary>

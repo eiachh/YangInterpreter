@@ -16,9 +16,11 @@ namespace YangInterpreter.Statements
     /// document that provides additional information relevant to this
     /// definition.
     /// </summary>
-    public class Reference : StatementWithSingleValueBase
+    public class Reference : ChildlessContainerStatement
     {
         public Reference() : base("Reference") { }
         public Reference(string Value) : this() { base.Value = Value; }
+
+        internal override bool IsQuotedValue => true;
     }
 }

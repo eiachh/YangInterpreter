@@ -23,11 +23,6 @@ namespace YangInterpreter.Statements
             return strBuilder;
         }
 
-        public override string StatementAsYangString()
-        {
-            return StatementAsYangString(0);
-        }
-
         public XElement[] NodeAsXmlForUses()
         {
             List<XElement> retchildlist = new List<XElement>();
@@ -38,19 +33,9 @@ namespace YangInterpreter.Statements
             return retchildlist.ToArray();
         }
 
-        public override XElement[] StatementAsXML()
-        {
-            throw new NotImplementedException();
-        }
-
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();
         }
-
-        /*internal override bool IsAddedSubstatementAllowedInCurrentStatement(Statement StatementToAdd)
-        {
-            return true;
-        }*/
     }
 }

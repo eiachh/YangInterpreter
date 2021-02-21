@@ -13,7 +13,7 @@ namespace YangInterpreter.Statements.BaseStatements
         {
             return new XElement[] { new XElement(" ") };
         }
-        public override string StatementAsYangString()
+        internal override string StatementAsYangString()
         {
             return "";
         }

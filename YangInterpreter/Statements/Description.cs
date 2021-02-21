@@ -12,8 +12,9 @@ namespace YangInterpreter.Statements
     /// to choose a language that is widely understood among the community of
     /// network administrators who will use the module.
     /// </summary>
-    public class Description : StatementWithSingleValueBase
+    public class Description : ChildlessContainerStatement
     {
+        internal override bool IsQuotedValue => true;
         public Description() : base("Description") { }
         public Description(string Value) : base("Description", Value) { }
     }

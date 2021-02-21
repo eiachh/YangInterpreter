@@ -9,7 +9,7 @@ module OrganizationCorrectSameLineStart {
 	import interpreter-files { prefix "in-fi"; }
 	import profiles { prefix "profiles"; }
 
-	organization 
+	organization
 		"My diplomwork 
 		other line corp";
 

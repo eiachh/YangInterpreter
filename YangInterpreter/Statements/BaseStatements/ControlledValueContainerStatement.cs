@@ -11,7 +11,7 @@ namespace YangInterpreter.Statements.BaseStatements
     public abstract class ControlledValueContainerStatement : ContainerStatementBase
     {
         public ControlledValueContainerStatement(string Name) : base(Name) { }
-        public ControlledValueContainerStatement(string Name, string Value) : base(Name) { base.Value = Value; }
+        public ControlledValueContainerStatement(string Name, string Value) : base(Name) { this.Value = Value; }
         protected abstract string ImproperValueErrorMessage { get; }
         public override string Value
         {

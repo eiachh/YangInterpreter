@@ -107,11 +107,6 @@ namespace YangInterpreter
             return Node;
         }
 
-        public override string StatementAsYangString()
-        {
-            return StatementAsYangString(0);
-        }
-
         public override string StatementAsYangString(int indentationlevel)
         {
             var indent = GetIndentation(indentationlevel);

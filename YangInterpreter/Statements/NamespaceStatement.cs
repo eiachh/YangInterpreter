@@ -7,8 +7,9 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class NamespaceStatement : StatementWithSingleValueBase
+    public class NamespaceStatement : ChildlessContainerStatement
     {
+        internal override bool IsQuotedValue => true;
         public NamespaceStatement() : base("Namespace") { }
         public NamespaceStatement(string Value) : base("Namespace") { base.Value = Value; }
     }

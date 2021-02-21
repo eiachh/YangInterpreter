@@ -7,10 +7,11 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Contact : StatementWithSingleValueBase
+    public class Contact : ChildlessContainerStatement
     {
         public Contact() : base("Contact") { }
         public Contact(string Value) : base("Contact", Value) { }
 
+        internal override bool IsQuotedValue => true;
     }
 }

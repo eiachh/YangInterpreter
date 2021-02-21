@@ -7,8 +7,9 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Prefix : StatementWithSingleValueBase
+    public class Prefix : ChildlessContainerStatement
     {
+        internal override bool IsQuotedValue => true;
         public Prefix() : base("Prefix") { }
         public Prefix(string Value) : base("Prefix") { this.Value = Value; }
 
@@ -38,11 +39,6 @@ namespace YangInterpreter.Statements
             return indent + "prefix " + Value + ";";
         }
 
-        internal override bool IsValueStartAtSameLine()
-        {
-            return true;
-        }
-
         private void HandleValueChange(string originalValueOfPrefix, string newValueOfPrefix)
         {
             var module = Root as Module;
@@ -57,7 +53,6 @@ namespace YangInterpreter.Statements
                 if (Parent != null)
                     module.NamespaceDictionary.Add(newValueOfPrefix, Parent.Value);
             }
-
         }
     }
 }

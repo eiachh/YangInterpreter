@@ -14,21 +14,6 @@ namespace YangInterpreter
         public string Key { get; set; }
         public ListNode(string Value) : base("List",Value) { }
 
-        public override string StatementAsYangString()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string StatementAsYangString(int identationlevel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override XElement[] StatementAsXML()
-        {
-            throw new NotImplementedException();
-        }
-
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();

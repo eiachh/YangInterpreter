@@ -5,8 +5,9 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Position : StatementWithSingleValueBase
+    public class Position : ChildlessContainerStatement
     {
+        internal override bool IsQuotedValue => true;
         public Position(string Value) : base("Position",Value) { }
 
         internal override bool IsValueStartAtSameLine() { return true; }

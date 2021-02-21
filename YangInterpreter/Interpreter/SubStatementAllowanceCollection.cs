@@ -46,6 +46,7 @@ namespace YangInterpreter.Interpreter
         internal static Dictionary<Type, Tuple<int, int>> RevisionStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> EnumStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> PatternStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> LengthStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> RangeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -87,6 +88,7 @@ namespace YangInterpreter.Interpreter
                 FillRevisionSntatementAllowanceList();
                 FillEnumSntatementAllowanceList();
                 FillPatternStatementAllowanceList();
+                FillLengthStatementAllowanceList();
                 FillRangeStatementAllowanceList();
             }
         }
@@ -290,7 +292,14 @@ namespace YangInterpreter.Interpreter
             RangeStatementAllowedSubstatements.Add(typeof(ErrorMessageStatement), new Tuple<int, int>(0, 1));
             RangeStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
         }
-
+        private static void FillLengthStatementAllowanceList()
+        {
+            LengthStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            LengthStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
+            LengthStatementAllowedSubstatements.Add(typeof(ErrorAppTagStatement), new Tuple<int, int>(0, 1));
+            LengthStatementAllowedSubstatements.Add(typeof(ErrorMessageStatement), new Tuple<int, int>(0, 1));
+            LengthStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
+        }
 
     }
 }

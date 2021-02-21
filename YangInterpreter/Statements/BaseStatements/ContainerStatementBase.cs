@@ -36,11 +36,23 @@ namespace YangInterpreter.Statements.BaseStatements
                 }
                 else
                 {
-                    var indent = GetIndentation(IndentationLevel);
-                    var stringBuilder = indent + Name.ToLower() + " \"" + Value + "\" {" + Environment.NewLine;
-                    stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
-                    stringBuilder += indent + "}";
-                    return stringBuilder;
+                    if (IsValueStartAtSameLine())
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        var stringBuilder = indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\" {" + Environment.NewLine;
+                        stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
+                        stringBuilder += indent + "}";
+                        return stringBuilder;
+                    }
+                    else
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        var stringBuilder = indent + Name.ToLower() + Environment.NewLine + "\t" + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\" {" + Environment.NewLine;
+                        stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
+                        stringBuilder += indent + "}";
+                        return stringBuilder;
+                    }
+                    
                 }
             }
             else
@@ -52,8 +64,16 @@ namespace YangInterpreter.Statements.BaseStatements
                 }
                 else
                 {
-                    var indent = GetIndentation(IndentationLevel);
-                    return indent + Name.ToLower() + " \"" + Value.ToLower() + "\";";
+                    if (IsValueStartAtSameLine())
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        return indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
+                    }
+                    else
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        return indent + Name.ToLower() + Environment.NewLine + "\t" + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
+                    }
                 }
             }
         }

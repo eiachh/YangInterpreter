@@ -6,24 +6,10 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Uses : BaseStatement
+    public class Uses : ContainerStatementBase
     {
         public Uses(string name) : base(name) { ContainedGrouping = Grouping.GetGroupingByName(name,this); }
         public Grouping ContainedGrouping { get; set; }
-        public override XElement[] StatementAsXML()
-        {
-            return ContainedGrouping.NodeAsXmlForUses();
-        }
-
-        public override string StatementAsYangString(int identationlevel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string StatementAsYangString()
-        {
-            throw new NotImplementedException();
-        }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
