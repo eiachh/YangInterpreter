@@ -39,7 +39,7 @@ namespace YangInterpreter.Statements.BaseStatements
                     if (IsValueStartAtSameLine())
                     {
                         var indent = GetIndentation(IndentationLevel);
-                        var stringBuilder = indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\" {" + Environment.NewLine;
+                        var stringBuilder = indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\"; {" + Environment.NewLine;
                         stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
                         stringBuilder += indent + "}";
                         return stringBuilder;
@@ -47,7 +47,7 @@ namespace YangInterpreter.Statements.BaseStatements
                     else
                     {
                         var indent = GetIndentation(IndentationLevel);
-                        var stringBuilder = indent + Name.ToLower() + Environment.NewLine + "\t" + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\" {" + Environment.NewLine;
+                        var stringBuilder = indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\"; {" + Environment.NewLine;
                         stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
                         stringBuilder += indent + "}";
                         return stringBuilder;
@@ -72,7 +72,7 @@ namespace YangInterpreter.Statements.BaseStatements
                     else
                     {
                         var indent = GetIndentation(IndentationLevel);
-                        return indent + Name.ToLower() + Environment.NewLine + "\t" + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
+                        return indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
                     }
                 }
             }

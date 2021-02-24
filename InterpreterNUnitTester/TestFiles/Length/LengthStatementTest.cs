@@ -24,10 +24,10 @@ namespace InterpreterNUnitTester
         [Test]
         public void LengthValueParsedCorrectly()
         {
-            
+            var lengthToString = "length \"2323..5690\"; {\r\n\tdescription\r\n\t\t\"description of \r\n\t\tpattern.\";\r\n\terror-app-tag \"the error app tag\";\r\n\terror-message \"the error message\";\r\n\treference \"the reference\";\r\n}";
             var length = InterpreterCorrect.Root.Descendants("length").Single();
             Assert.AreEqual("2323..5690", length.Value);
-            Assert.AreEqual("length \"2323..5690\";", length.ToString());
+            Assert.AreEqual(lengthToString, length.ToString());
         }
 
         /// <summary>

@@ -32,6 +32,8 @@ namespace YangInterpreter.Statements
 
         protected override string ImproperValueErrorMessage { get => "The given value: "+ Value + " is not valid for Length statement!"; }
 
+        internal override bool IsQuotedValue => true;
+
         protected override bool IsValidValue(string value)
         {
             value = value.Replace("\r\n", "").Replace("\n", "");
