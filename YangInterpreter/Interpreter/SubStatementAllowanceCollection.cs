@@ -16,13 +16,15 @@ namespace YangInterpreter.Interpreter
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        ///                 Lists of allowed substatements and the maximum allowed occurence of them.
+        ///                 Lists of allowed substatements and the (minimum,maximum) allowed occurence of them.
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        internal static Dictionary<Type, Tuple<int, int>> TypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> BinaryTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> BitTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> StringTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> EnumTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> IdentityrefTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> LeafRefTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> InstanceIdentifierTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
 
         internal static Dictionary<Type, Tuple<int, int>> Int64TypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> Int32TypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
@@ -59,11 +61,13 @@ namespace YangInterpreter.Interpreter
             if (!IsInitialized)
             {
                 IsInitialized = true;
-                FillTypeStatementAllowanceList();
+                FillBinaryTypeStatementAllowanceList();
                 FillBitTypeStatementAllowanceList();
                 FillStringTypeStatementAllowanceList();
                 FillEnumTypeStatementAllowanceList();
                 FillLeafRefTypeStatementAllowanceList();
+                FillInstanceIdentifierTypeStatementAllowanceList();
+                FillIdentityrefTypeStatementAllowanceList();
 
                 #region (U)Int types
                 FillInt64TypeStatementAllowanceList();
@@ -91,22 +95,6 @@ namespace YangInterpreter.Interpreter
                 FillLengthStatementAllowanceList();
                 FillRangeStatementAllowanceList();
             }
-        }
-
-        private static void FillTypeStatementAllowanceList()
-        {
-            /*TypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
-
-            TypeStatementAllowedSubstatements.Add(typeof(Bit), new Tuple<int, int>(0, -1));
-            TypeStatementAllowedSubstatements.Add(typeof(EnumStatement), new Tuple<int, int>(0, -1));
-            //TypeStatementAllowedSubstatements.Add(typeof(Length), new Tuple<int, int>(0, 1));
-            //TypeStatementAllowedSubstatements.Add(typeof(Path), new Tuple<int, int>(0, 1));
-            //TypeStatementAllowedSubstatements.Add(typeof(Pattern), new Tuple<int, int>(0, -1));
-            //TypeStatementAllowedSubstatements.Add(typeof(Range), new Tuple<int, int>(0, -1));
-            //TypeStatementAllowedSubstatements.Add(typeof(RequireInstance), new Tuple<int, int>(0, 1));
-            TypeStatementAllowedSubstatements.Add(typeof(TypeStatement), new Tuple<int, int>(0, 1));
-
-            TypeStatementAllowedSubstatements.Add(typeof(EmptyTypeStatement), new Tuple<int, int>(0, -1));*/
         }
 
         private static void FillModuleSntatementAllowanceList()
@@ -186,6 +174,10 @@ namespace YangInterpreter.Interpreter
             LeafStatementAllowedSubstatements.Add(typeof(UInt64TypeStatement), new Tuple<int, int>(0, -1));
 
             LeafStatementAllowedSubstatements.Add(typeof(Decimal64TypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(InstanceIdentifierTypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(BinaryTypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillRevisionSntatementAllowanceList()
@@ -201,6 +193,11 @@ namespace YangInterpreter.Interpreter
             EnumStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
             EnumStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
             EnumStatementAllowedSubstatements.Add(typeof(ValueStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillBinaryTypeStatementAllowanceList()
+        {
+            BinaryTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            BinaryTypeStatementAllowedSubstatements.Add(typeof(Length), new Tuple<int, int>(0, 1));
         }
         private static void FillBitTypeStatementAllowanceList()
         {
@@ -219,6 +216,11 @@ namespace YangInterpreter.Interpreter
         {
             EnumTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             EnumTypeStatementAllowedSubstatements.Add(typeof(EnumStatement), new Tuple<int, int>(0, -1));
+        }
+        private static void FillIdentityrefTypeStatementAllowanceList()
+        {
+            IdentityrefTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            IdentityrefTypeStatementAllowedSubstatements.Add(typeof(BaseStatement), new Tuple<int, int>(0, 1));
         }
         private static void FillLeafRefTypeStatementAllowanceList()
         {
@@ -300,6 +302,10 @@ namespace YangInterpreter.Interpreter
             LengthStatementAllowedSubstatements.Add(typeof(ErrorMessageStatement), new Tuple<int, int>(0, 1));
             LengthStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
         }
-
+        private static void FillInstanceIdentifierTypeStatementAllowanceList()
+        {
+            InstanceIdentifierTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            InstanceIdentifierTypeStatementAllowedSubstatements.Add(typeof(RequireInstanceStatement), new Tuple<int, int>(0, 1));
+        }
     }
 }

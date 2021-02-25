@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
-    public abstract class ContainerStatementBase : BaseStatement
+    public abstract class ContainerStatementBase : StatementBase
     {
         /// <summary>
         /// Defines if the value should be beetween quote symbols at toString()

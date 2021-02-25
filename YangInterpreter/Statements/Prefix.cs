@@ -23,7 +23,7 @@ namespace YangInterpreter.Statements
             }
         }
 
-        public override BaseStatement Parent
+        public override StatementBase Parent
         {
             get => base.Parent;
             set

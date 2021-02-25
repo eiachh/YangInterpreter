@@ -93,7 +93,7 @@ namespace YangInterpreter
             return null;
         }
 
-        public override BaseStatement AddStatement(BaseStatement Node)
+        public override StatementBase AddStatement(StatementBase Node)
         {
             if (Root == null)
                 Root = this;
@@ -112,7 +112,7 @@ namespace YangInterpreter
             var indent = GetIndentation(indentationlevel);
             var strBuilder = indent + "module " + Name + " {" + Environment.NewLine;
 
-            BaseStatement yangver = Descendants("yang-version").Single();
+            StatementBase yangver = Descendants("yang-version").Single();
             strBuilder += yangver.StatementAsYangString(indentationlevel + 1) + Environment.NewLine;
 
             strBuilder += GetStatementsAsYangString(indentationlevel + 1) + Environment.NewLine;

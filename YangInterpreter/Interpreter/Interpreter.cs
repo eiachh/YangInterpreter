@@ -17,8 +17,8 @@ namespace YangInterpreter.Interpreter
 
         private TokenTypes InterpreterStatus = TokenTypes.Start;
         Stack<TokenTypes> InterpreterStatusStack = new Stack<TokenTypes>();
-        private BaseStatement InterpreterTracer;
-        private BaseStatement TracerCurrentNode;
+        private StatementBase InterpreterTracer;
+        private StatementBase TracerCurrentNode;
 
         private Token PreviousToken;
 
@@ -38,7 +38,7 @@ namespace YangInterpreter.Interpreter
         /// <summary>
         /// Converts the raw text into objects that the YangHandlerTool can use easily;
         /// </summary>
-        internal BaseStatement ConvertText(string YangAsRawText)
+        internal StatementBase ConvertText(string YangAsRawText)
         {
             var YangAsRawTextRowByRow = Regex.Split(YangAsRawText, "\r\n|\r|\n");
             var PreviousState = TokenTypes.Start;
@@ -197,12 +197,12 @@ namespace YangInterpreter.Interpreter
                 return false;
         }
 
-        private BaseStatement AddNewStatement(Type type, Token InputToken, YangAddingOption opt = YangAddingOption.None)
+        private StatementBase AddNewStatement(Type type, Token InputToken, YangAddingOption opt = YangAddingOption.None)
         {
-            BaseStatement instantiatedobj;
+            StatementBase instantiatedobj;
             try
             {
-                instantiatedobj = (BaseStatement)Activator.CreateInstance(type, InputToken.TokenArgument);
+                instantiatedobj = (StatementBase)Activator.CreateInstance(type, InputToken.TokenArgument);
             }
             catch (Exception e)
             {

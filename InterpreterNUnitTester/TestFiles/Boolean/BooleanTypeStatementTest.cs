@@ -10,13 +10,13 @@ using System;
 
 namespace InterpreterNUnitTester
 {
-    public class Template
+    public class BooleanTypeStatementTest
     {
         YangInterpreterTool InterpreterCorrect;
         [SetUp]
         public void Setup()
         {
-            //InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
+            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/Boolean/BooleanCorrect.yang");
         }
 
         /// <summary>
@@ -25,8 +25,9 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionIsParsedCorrectly()
         {
-            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
-            //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
+            var leafWithBooleanType = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "booleanTest").Single();
+            Assert.AreEqual(1, leafWithBooleanType.Elements().Count());
+            Assert.AreEqual("type boolean;",leafWithBooleanType.Elements().First().ToString());
         }
     }
 }

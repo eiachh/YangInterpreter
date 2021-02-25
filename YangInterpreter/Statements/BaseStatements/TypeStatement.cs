@@ -66,6 +66,7 @@ namespace YangInterpreter.Statements.BaseStatements
         {
             BuiltInTypeOfNode = BaseType;
         }
+
         internal static string BuiltInTypeToString(BuiltInTypes type)
         {
             if(type == BuiltInTypes.string_yang)
@@ -81,10 +82,5 @@ namespace YangInterpreter.Statements.BaseStatements
                 return type.ToString();
             }
         }
-
-        /*internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary() 
-        { 
-            return SubStatementAllowanceCollection.TypeStatementAllowedSubstatements; 
-        }*/
     }
 }

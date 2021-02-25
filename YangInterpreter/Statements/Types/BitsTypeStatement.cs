@@ -13,7 +13,7 @@ namespace YangInterpreter.Statements.Types
     public class BitsTypeStatement : TypeStatement
     {
         public BitsTypeStatement() : base(BuiltInTypes.bits) { }
-        public BitsTypeStatement(string Name) : this() { }
+        public BitsTypeStatement(string Argument) : this() { }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {

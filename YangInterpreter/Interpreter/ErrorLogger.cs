@@ -39,7 +39,7 @@ namespace YangInterpreter.Interpreter
         /// </summary>
         /// <param name="StatementWithParseError"></param>
         /// <returns></returns>
-        public bool CreateLog(BaseStatement StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken)
+        public bool CreateLog(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace YangInterpreter.Interpreter
             }
         }
 
-        public bool CreateLog(BaseStatement StatementWithParseError, Stack<TokenTypes> StatusStack)
+        public bool CreateLog(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace YangInterpreter.Interpreter
             return strBuilder;
         }
 
-        private string BuildOutputString(BaseStatement StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken) 
+        private string BuildOutputString(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken) 
         {
             string strBuilder = string.Empty;
             strBuilder += "Error at row: " + RowNumber + Environment.NewLine;
@@ -90,7 +90,7 @@ namespace YangInterpreter.Interpreter
             return strBuilder;
         }
 
-        private string BuildOutputString(BaseStatement StatementWithParseError, Stack<TokenTypes> StatusStack)
+        private string BuildOutputString(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack)
         {
             string strBuilder = string.Empty;
             strBuilder += "Error at row: " + RowNumber + Environment.NewLine;

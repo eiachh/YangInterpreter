@@ -26,7 +26,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*uses (?<argument>[a-z0-9A-Z-]*);\s*$",                                 RegexOptions.IgnoreCase),typeof(Uses)                      ),
                 new SearchScheme(new Regex(@"^\s*choice (?<argument>[a-z0-9A-Z-]*) {\s*$",                              RegexOptions.IgnoreCase),typeof(Choices)                   ),
                 new SearchScheme(new Regex(@"^\s*case (?<argument>[a-z0-9A-Z-]*) {\s*$",                                RegexOptions.IgnoreCase),typeof(ChoiceCase)               ),
-                new SearchScheme(new Regex("^\\s*prefix \"?(?<argument>[^;^\"]*)\"?;\\s*$",                             RegexOptions.IgnoreCase),typeof(Prefix)                   ),
+                new SearchScheme(new Regex("^\\s*prefix \"?(?<argument>[^;\"]*)\"?;\\s*$",                             RegexOptions.IgnoreCase),typeof(Prefix)                   ),
                 new SearchScheme(new Regex(@"^\s*container (?<argument>[a-z0-9A-Z-]*) {\s*$",                           RegexOptions.IgnoreCase),typeof(Container)                ),
                 new SearchScheme(new Regex(@"^\s*leaf\s*(?<argument>[a-z0-9A-Z-]*)\s*{\s*$",                            RegexOptions.IgnoreCase),typeof(Leaf)                     ),
                 new SearchScheme(new Regex(@"^\s*leaf-list (?<argument>[a-z0-9A-Z-]*) {\s*$",                           RegexOptions.IgnoreCase),typeof(LeafList)                 ),
@@ -36,13 +36,18 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*revision\s*(?<argument>[a-z0-9A-Z-]+)(;|(?<bracket>.*{.*)*)$",         RegexOptions.IgnoreCase),typeof(Revision)                 ,true),
                 new SearchScheme(new Regex(@"^\s*status\s*(?<argument>[a-z0-9A-Z-]*)\s*;\s*$",                          RegexOptions.IgnoreCase),typeof(StatusStatement)                    ,true),
                 new SearchScheme(new Regex(@"^\s*value\s*(?<argument>[a-z0-9A-Z-]*)\s*;\s*$",                           RegexOptions.IgnoreCase),typeof(ValueStatement)                      ,true),
-                //new SearchScheme(new Regex("^\\s*length \"?(?<argument>[^;\"]*)\"?;\\s*$",                              RegexOptions.IgnoreCase),TokenTypes.Length,                     typeof(Length),true),
+                new SearchScheme(new Regex("^\\s*require-instance\\s*\"(?<argument>[^;\"]*)\";\\s*$",                  RegexOptions.IgnoreCase),typeof(RequireInstanceStatement)                      ,true),
+                new SearchScheme(new Regex("^\\s*base\\s*\"(?<argument>[^;\"]*)\";\\s*$",                  RegexOptions.IgnoreCase),typeof(BaseStatement)                      ,true),
                 new SearchScheme(new Regex(@"^\s*position\s*(?<argument>[0-9])*;\s*$",                                  RegexOptions.IgnoreCase),typeof(Position)                 ),
 
                 new SearchScheme(new Regex(@"^\s*type enumeration\s*{\s*$",                                             RegexOptions.IgnoreCase),typeof(EnumTypeStatement)                  ),
                 new SearchScheme(new Regex(@"^\s*type bits\s*{\s*$",                                                    RegexOptions.IgnoreCase),typeof(BitsTypeStatement)                  ),
                 new SearchScheme(new Regex(@"^\s*type\s*empty;\s*$",                                                    RegexOptions.IgnoreCase),typeof(EmptyTypeStatement)                 ,true),
+                new SearchScheme(new Regex(@"^\s*type\s*boolean;\s*$",                                                    RegexOptions.IgnoreCase),typeof(BooleanTypeStatement)                 ,true),
                 new SearchScheme(new Regex(@"^\s*type\s*leafref\s*{\s*$",                                               RegexOptions.IgnoreCase),typeof(LeafRefTypeStatement)               ),
+                new SearchScheme(new Regex(@"^\s*type\s*instance-identifier(;\s*|(?<bracket>.*{.*)*)$",                                               RegexOptions.IgnoreCase),typeof(InstanceIdentifierTypeStatement),true               ),
+                new SearchScheme(new Regex(@"^\s*type\s*binary(;\s*|(?<bracket>.*{.*)*)$",                                         RegexOptions.IgnoreCase),typeof(BinaryTypeStatement),true                  ),
+                new SearchScheme(new Regex(@"^\s*type\s*identityref(;\s*|(?<bracket>.*{.*)*)$",                                         RegexOptions.IgnoreCase),typeof(IdentityrefTypeStatement),true                  ),
 
                 new SearchScheme(new Regex(@"^\s*type\s*int64(;\s*|(?<bracket>.*{.*)*)$",                                         RegexOptions.IgnoreCase),typeof(Int64TypeStatement),true                  ),
                 new SearchScheme(new Regex(@"^\s*type\s*int32(;\s*|(?<bracket>.*{.*)*)$",                                        RegexOptions.IgnoreCase),typeof(Int32TypeStatement),true                  ),
@@ -104,7 +109,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*}\s*$"),                                                               null,TokenTypes.NodeEndingBracket),
 
                 //Multiline of value or error based on previous state
-                new SearchScheme(new Regex("(?s)^(?!.*[\";])[\\s\\t]*(?<argument>.*)$"),                               null, TokenTypes.ValueForPreviousLineMultiline),
+                new SearchScheme(new Regex("(?s)^(?!.*[\";])[\\s\\t]*(?<argument>.*)$"),                                null, TokenTypes.ValueForPreviousLineMultiline),
             };
         }
 

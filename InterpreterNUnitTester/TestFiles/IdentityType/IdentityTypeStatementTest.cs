@@ -10,23 +10,23 @@ using System;
 
 namespace InterpreterNUnitTester
 {
-    public class Template
+    public class IdentityTypeStatementTest
     {
         YangInterpreterTool InterpreterCorrect;
         [SetUp]
         public void Setup()
         {
-            //InterpreterCorrect = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
+            InterpreterCorrect = YangInterpreterTool.Load("TestFiles/IdentityType/IdentityTypeStatementCorrect.yang");
         }
 
         /// <summary>
-        /// Checks if the revision value is parsed correctly.
+        /// Checks if the Identityref is parsed correctly.
         /// </summary>
         [Test]
-        public void RevisionIsParsedCorrectly()
+        public void IdentityrefParsedCorrectly()
         {
-            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
-            //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
+            var leafOfIdentityref = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "identityTest").Single();
+            Assert.AreEqual(1, leafOfIdentityref.Elements().Count());
         }
     }
 }
