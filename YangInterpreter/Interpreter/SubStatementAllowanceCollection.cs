@@ -25,6 +25,7 @@ namespace YangInterpreter.Interpreter
         internal static Dictionary<Type, Tuple<int, int>> IdentityrefTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> LeafRefTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> InstanceIdentifierTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> UnionTypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
 
         internal static Dictionary<Type, Tuple<int, int>> Int64TypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> Int32TypeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
@@ -68,6 +69,7 @@ namespace YangInterpreter.Interpreter
                 FillLeafRefTypeStatementAllowanceList();
                 FillInstanceIdentifierTypeStatementAllowanceList();
                 FillIdentityrefTypeStatementAllowanceList();
+                FillUnionTypeStatementAllowanceList();
 
                 #region (U)Int types
                 FillInt64TypeStatementAllowanceList();
@@ -178,6 +180,7 @@ namespace YangInterpreter.Interpreter
             LeafStatementAllowedSubstatements.Add(typeof(BinaryTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, -1));
+            LeafStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillRevisionSntatementAllowanceList()
@@ -306,6 +309,27 @@ namespace YangInterpreter.Interpreter
         {
             InstanceIdentifierTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             InstanceIdentifierTypeStatementAllowedSubstatements.Add(typeof(RequireInstanceStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillUnionTypeStatementAllowanceList()
+        {
+            UnionTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(BinaryTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(BitsTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(Decimal64TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(EnumTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(InstanceIdentifierTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(Int16TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(Int32TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(Int64TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(Int8TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(StringTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(UInt16TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(UInt32TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(UInt64TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(UInt8TypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, -1));
         }
     }
 }

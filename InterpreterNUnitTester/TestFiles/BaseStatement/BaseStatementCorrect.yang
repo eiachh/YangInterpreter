@@ -1,4 +1,4 @@
-module IdentityTypeStatementCorrect {
+module BaseStatementCorrect {
 	yang-version 1;
 	namespace
 		"NamespaceCorrectTestModule1";
@@ -30,7 +30,7 @@ module IdentityTypeStatementCorrect {
 
 	leaf identityTest {
 		type identityref {
-			base "SomeReference";
+			base "nameSpace:SomeReference";
 		}
 	}
 }

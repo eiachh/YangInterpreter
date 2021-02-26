@@ -42,6 +42,7 @@ namespace YangInterpreter.Interpreter
 
                 new SearchScheme(new Regex(@"^\s*type enumeration\s*{\s*$",                                             RegexOptions.IgnoreCase),typeof(EnumTypeStatement)                  ),
                 new SearchScheme(new Regex(@"^\s*type bits\s*{\s*$",                                                    RegexOptions.IgnoreCase),typeof(BitsTypeStatement)                  ),
+                new SearchScheme(new Regex(@"^\s*type union\s*{\s*$",                                                    RegexOptions.IgnoreCase),typeof(UnionTypeStatement)                  ),
                 new SearchScheme(new Regex(@"^\s*type\s*empty;\s*$",                                                    RegexOptions.IgnoreCase),typeof(EmptyTypeStatement)                 ,true),
                 new SearchScheme(new Regex(@"^\s*type\s*boolean;\s*$",                                                    RegexOptions.IgnoreCase),typeof(BooleanTypeStatement)                 ,true),
                 new SearchScheme(new Regex(@"^\s*type\s*leafref\s*{\s*$",                                               RegexOptions.IgnoreCase),typeof(LeafRefTypeStatement)               ),

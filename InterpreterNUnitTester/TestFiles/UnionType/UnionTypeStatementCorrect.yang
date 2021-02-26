@@ -1,0 +1,83 @@
+module UnionTypeStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceCorrectTestModule1";
+
+	prefix nctm;
+
+	import yang-interpreter { prefix "yani"; }
+	import interpreter-files { prefix "in-fi"; }
+	import profiles { prefix "profiles"; }
+
+	organization
+		"My diplomwork corp";
+
+	contact
+		"Adam Sranko srankoadam@gmail.com";
+
+	description 
+		"Description of correctly formatted
+		module,
+		with multiline value.";
+
+	reference
+		"Reference1102-2323";
+
+	revision 2039-09-11 {
+		description "Generic Session 
+		Control parameter file.";
+	}
+
+	leaf unionTest {
+		type union {
+			type enumeration {
+				enum zero;
+				enum one;
+				enum seven {
+					value 7;
+				}
+			}
+			type binary {
+				length "5..78";
+			}
+			type bits {
+				bit disable-nagle {
+					position 0;
+					status current;
+					description "Description of
+						bit.";
+					reference
+						"Reference of bit.";
+				}
+			}
+			type boolean;
+			type decimal64 {
+				range "3..11 | 52..344"; {
+					description "something";
+				}
+			}
+			type identityref {
+				base "SomeReference";
+			}
+			type instance-identifier {
+				require-instance "true";
+			}
+			type int8 {
+				range "2..10";
+			}
+			type uint8;
+			type uint16;
+			type uint32;
+			type uint64;
+			type int16;
+			type int32;
+			type int64;
+			type string{
+				length "2323..5690";
+			}
+			type union {
+				type int32;
+			}
+		}
+	}
+}

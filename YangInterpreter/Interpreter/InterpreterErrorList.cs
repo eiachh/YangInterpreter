@@ -15,26 +15,6 @@ namespace YangInterpreter.Interpreter
     }
 
     [Serializable()]
-    public class TypebindingError : System.Exception
-    {
-        public TypebindingError() : base() { }
-        public TypebindingError(string message) : base(message) { }
-        public TypebindingError(string message, System.Exception inner) : base(message, inner) { }
-        protected TypebindingError(System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
-
-    [Serializable()]
-    public class TypeMissmatch : System.Exception
-    {
-        public TypeMissmatch() : base() { }
-        public TypeMissmatch(string message) : base(message) { }
-        public TypeMissmatch(string message, System.Exception inner) : base(message, inner) { }
-        protected TypeMissmatch(System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
-
-    [Serializable()]
     public class InvalidYangVersion : System.Exception
     {
         public InvalidYangVersion() : base() { }
@@ -61,6 +41,16 @@ namespace YangInterpreter.Interpreter
         public ImproperValue(string message) : base(message) { }
         public ImproperValue(string message, System.Exception inner) : base(message, inner) { }
         protected ImproperValue(System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
+
+    [Serializable()]
+    public class StatementEndIsMissing : System.Exception
+    {
+        public StatementEndIsMissing() : base() { }
+        public StatementEndIsMissing(string message) : base(message) { }
+        public StatementEndIsMissing(string message, System.Exception inner) : base(message, inner) { }
+        protected StatementEndIsMissing(System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

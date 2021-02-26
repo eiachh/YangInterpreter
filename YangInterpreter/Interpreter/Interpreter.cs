@@ -53,6 +53,9 @@ namespace YangInterpreter.Interpreter
                     InnerBlock = ConvertLine(InnerBlock, ref MultilineBeginingWasPresent, ref PreviousState);
                 }
             }
+            if (InterpreterStatusStack.Pop() != TokenTypes.Start)
+                throw new StatementEndIsMissing("The yang file ended but statement closing symbol(s): \"}\" were missing.");
+
             return InterpreterTracer;
         }
 
