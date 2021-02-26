@@ -55,7 +55,7 @@ namespace YangInterpreter.Statements.BaseStatements
     /// | type             | 7.4     | 0..n        |
     /// +------------------+---------+-------------+
 
-    public abstract class TypeStatement : ContainerStatementBase
+    public abstract class TypeStatement : StatementBase
     {
         /// <summary>
         /// List of allowed substatements and the maximum allowed occurence of them.

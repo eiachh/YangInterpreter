@@ -10,7 +10,7 @@ namespace YangInterpreter.Statements
     /// <summary>
     /// Choice statement itself.
     /// </summary>
-    public class Choices : ContainerStatementBase
+    public class Choices : StatementBase
     { 
         public Choices(string Value) : base("Choices",Value){ }
 

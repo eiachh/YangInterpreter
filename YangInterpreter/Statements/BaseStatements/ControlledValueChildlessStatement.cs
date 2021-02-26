@@ -7,10 +7,10 @@ namespace YangInterpreter.Statements.BaseStatements
     /// <summary>
     /// Base class for any statement that needs to validate its value and needs an empty container formatting.
     /// </summary>
-    public abstract class ControlledValueChildlessContainerStatement : ControlledValueContainerStatement
+    public abstract class ControlledValueChildlessStatement : ControlledValueStatement
     {
-        public ControlledValueChildlessContainerStatement(string Name) : base(Name) { }
-        public ControlledValueChildlessContainerStatement(string Name, string Value) : base(Name) { base.Value = Value; }
+        public ControlledValueChildlessStatement(string Name) : base(Name) { }
+        public ControlledValueChildlessStatement(string Name, string Value) : base(Name) { base.Value = Value; }
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             return new Dictionary<Type, Tuple<int, int>>();

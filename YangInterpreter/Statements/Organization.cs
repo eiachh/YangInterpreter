@@ -14,7 +14,7 @@ namespace YangInterpreter.Statements
     /// description of the organization(s) under whose auspices this module
     /// was developed.
     ///</summary>
-    public class Organization : ChildlessContainerStatement
+    public class Organization : ChildlessStatement
     {
         internal override bool IsQuotedValue => true;
         public Organization() : base("Organization") { }

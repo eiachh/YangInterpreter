@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
-    public class EmptyLineStatement : ChildlessContainerStatement
+    public class EmptyLineStatement : ChildlessStatement
     {
         public EmptyLineStatement() : base("") { }
         public EmptyLineStatement(string empty) : base("","") { }

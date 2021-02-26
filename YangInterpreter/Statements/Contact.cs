@@ -7,7 +7,7 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Contact : ChildlessContainerStatement
+    public class Contact : ChildlessStatement
     {
         public Contact() : base("Contact") { }
         public Contact(string Value) : base("Contact", Value) { }

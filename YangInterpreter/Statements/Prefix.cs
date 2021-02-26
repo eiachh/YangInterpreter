@@ -7,7 +7,7 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    public class Prefix : ChildlessContainerStatement
+    public class Prefix : ChildlessStatement
     {
         internal override bool IsQuotedValue => true;
         public Prefix() : base("Prefix") { }

@@ -11,7 +11,7 @@ namespace YangInterpreter.Statements
     /// The "status" statement takes as an argument one of the strings
     /// "current", "deprecated", or "obsolete".
     /// </summary>
-    public class StatusStatement : ContainerStatementBase
+    public class StatusStatement : StatementBase
     {
         public StatusStatement() : base("Status") { }
         public StatusStatement(string Value) : base("Status", Value) { this.Value = Value; }

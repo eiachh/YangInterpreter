@@ -5,7 +5,7 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter
 {
-    public class Leaf : ContainerStatementBase
+    public class Leaf : StatementBase
     {
         //public bool Config { get; set; }
 

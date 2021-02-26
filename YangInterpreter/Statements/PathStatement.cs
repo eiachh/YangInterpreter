@@ -13,7 +13,7 @@ namespace YangInterpreter.Statements
     /// statement, MUST be present if the type is "leafref". It takes as an
     /// argument a string that MUST refer to a leaf or leaf-list node.
     /// </summary>
-    public class PathStatement : ChildlessContainerStatement
+    public class PathStatement : ChildlessStatement
     {
         internal override bool IsQuotedValue => true;
         public PathStatement() : base("Path") { }

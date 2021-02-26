@@ -216,7 +216,7 @@ namespace YangInterpreter.Interpreter
             }
             
             instantiatedobj = TracerCurrentNode.AddStatement(instantiatedobj);
-            if (opt == YangAddingOption.None && !typeof(ChildlessContainerStatement).IsAssignableFrom(instantiatedobj.GetType()))
+            if (opt == YangAddingOption.None && !typeof(ChildlessStatement).IsAssignableFrom(instantiatedobj.GetType()))
             {
                 TracerCurrentNode = instantiatedobj;
                 NewInterpreterStatus(InputToken.TokenAsSingleLine);
@@ -258,7 +258,7 @@ namespace YangInterpreter.Interpreter
         /// <returns></returns>
         private bool ParentFallbackIsNeeded(TokenTypes currenttokentype)
         {
-            return (typeof(ContainerStatementBase).IsInstanceOfType(TracerCurrentNode) && TracerCurrentNode.Elements().Count() > 0);
+            return (TracerCurrentNode.Elements().Count() > 0);
         }
         private void ProcessToken(Token InputToken)
         {
@@ -295,29 +295,20 @@ namespace YangInterpreter.Interpreter
                 NewInterpreterStatus(TokenTypes.SameLineStart);
             }
 
-            ///CONTAINER WITH NO ELEMENT
-            else if ((typeof(ContainerStatementBase).IsAssignableFrom(InputToken.TokenAsType) || typeof(TypeStatement).IsAssignableFrom(InputToken.TokenAsType)) && 
-                     InputToken.IsChildlessContainer)
+            ///STATEMENT WITH NO ELEMENT
+            else if (InputToken.IsChildlessContainer)
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
                 InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
             }
                
 
-            ///CONTAINER BASED STATEMENT
-            else if (typeof(ContainerStatementBase).IsAssignableFrom(InputToken.TokenAsType)  || typeof(TypeStatement).IsAssignableFrom(InputToken.TokenAsType))
+            ///STATEMENT BASE
+            else if (typeof(StatementBase).IsAssignableFrom(InputToken.TokenAsType))
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken);
                 InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
             }
-                
-
-            ///SINGLE VALUE HOLDER STATEMENT
-            /*else if (typeof(StatementWithSingleValueBase).IsAssignableFrom(InputToken.TokenAsType))
-            {
-                var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
-                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
-            }*/
 
             ///No search scheme match => Incorrect inputline;
             else

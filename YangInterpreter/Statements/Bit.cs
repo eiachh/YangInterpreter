@@ -18,7 +18,7 @@ namespace YangInterpreter.Statements
     /// | position     | 9.7.4.2 | 0..1        |
     /// +--------------+---------+-------------+
     /// </summary>
-    public class Bit : ContainerStatementBase
+    public class Bit : StatementBase
     {
         public Bit() : base("Bit") { }
         public Bit(string Value) : base("Bit", Value) { }

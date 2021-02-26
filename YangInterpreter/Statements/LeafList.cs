@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class LeafList : ContainerStatementBase
+    public class LeafList : StatementBase
     {
         public LeafList(string Value) : base("Leaf-list",Value) { }
 

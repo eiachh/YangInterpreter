@@ -26,7 +26,7 @@ namespace YangInterpreter.Statements
     /// | status       | 7.19.2  | 0..1        |
     /// | value        | 9.6.4.2 | 0..1        |
     /// +--------------+---------+-------------+
-    public class EnumStatement : ContainerStatementBase
+    public class EnumStatement : StatementBase
     {
         public EnumStatement() : base("Enum") { }
         public EnumStatement(string Value) : base("Enum", Value) { }

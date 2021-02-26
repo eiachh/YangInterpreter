@@ -32,7 +32,7 @@ module BitTypeCorrect {
 		type empty;
 	}
 
-	leaf mybits {
+	leaf mybits1 {
 		type bits {
 			bit disable-nagle {
 				position 0;

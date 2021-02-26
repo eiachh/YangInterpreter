@@ -18,7 +18,7 @@ namespace YangInterpreter.Statements
     /// | revision-date | 7.1.5.1 | 0..1        |
     /// +---------------+---------+-------------+
     /// </summary>
-    public class Import : ContainerStatementBase
+    public class Import : StatementBase
     {
         public Import() : base("Import") { }
         public Import(string Value) : base("Import", Value) { }

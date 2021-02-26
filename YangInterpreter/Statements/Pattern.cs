@@ -25,7 +25,7 @@ namespace YangInterpreter.Statements
     /// | reference     | 7.19.4  | 0..1        |
     /// +---------------+---------+-------------+
     ///
-    public class Pattern : ContainerStatementBase
+    public class Pattern : StatementBase
     {      
         public Pattern() : base("Pattern") { }
         public Pattern(string Value) : base("Pattern", Value) { }

@@ -5,7 +5,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Position : ChildlessContainerStatement
+    public class Position : ChildlessStatement
     {
         internal override bool IsQuotedValue => true;
         public Position(string Value) : base("Position",Value) { }

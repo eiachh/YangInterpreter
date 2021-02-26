@@ -12,7 +12,7 @@ namespace YangInterpreter.Statements
     /// an argument.If the constraint evaluates to false, the string is
     /// passed as <error-message> in the<rpc-error>.
     /// </summary>
-    public class ErrorMessageStatement : ChildlessContainerStatement
+    public class ErrorMessageStatement : ChildlessStatement
     {
         internal override bool IsQuotedValue => true;
         public ErrorMessageStatement() : base("Error-Message") { }

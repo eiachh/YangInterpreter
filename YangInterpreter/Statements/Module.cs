@@ -41,7 +41,7 @@ namespace YangInterpreter
     /// | uses        | 7.12    | 0..n  |
     /// | yang-version | 7.1.2  | 0..1  |
     ///+--------------+---------+-------------+
-    public class Module : ContainerStatementBase
+    public class Module : StatementBase
     {
         /// <summary>
         /// The prefix for SELF namespace.faddchil

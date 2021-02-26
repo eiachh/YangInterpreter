@@ -25,7 +25,7 @@ namespace YangInterpreter.Statements
     /// | reference     | 7.19.4  | 0..1        |
     /// +---------------+---------+-------------+
     ///
-    public class RangeStatement : ControlledValueContainerStatement
+    public class RangeStatement : ControlledValueStatement
     {
         public RangeStatement() : base("Range") { }
         public RangeStatement(string Value) : base("Range", Value) { }

@@ -8,10 +8,10 @@ namespace YangInterpreter.Statements.BaseStatements
     /// <summary>
     /// Base class for any statement that can have substatements and needs to validate its value. 
     /// </summary>
-    public abstract class ControlledValueContainerStatement : ContainerStatementBase
+    public abstract class ControlledValueStatement : StatementBase
     {
-        public ControlledValueContainerStatement(string Name) : base(Name) { }
-        public ControlledValueContainerStatement(string Name, string Value) : base(Name) { this.Value = Value; }
+        public ControlledValueStatement(string Name) : base(Name) { }
+        public ControlledValueStatement(string Name, string Value) : base(Name) { this.Value = Value; }
         protected abstract string ImproperValueErrorMessage { get; }
         public override string Value
         {

@@ -13,7 +13,7 @@ namespace YangInterpreter.Statements
     /// identity is derived.If no "base" statement is present, the identity
     /// is defined from scratch.
     /// </summary>
-    public class BaseStatement : ChildlessContainerStatement
+    public class BaseStatement : ChildlessStatement
     {
         public BaseStatement() : base("Base") { }
         public BaseStatement(string Argument) : base("Base",Argument) { }

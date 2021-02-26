@@ -34,6 +34,10 @@ namespace YangInterpreter.Statements.BaseStatements
         public virtual StatementBase Root { get; set; }
 
         internal bool BuildIntoOutput = true;
+        /// <summary>
+        /// Defines if the value should be beetween quote symbols at toString()
+        /// </summary>
+        internal virtual bool IsQuotedValue { get; } = false;
 
         protected List<StatementBase> StatementList = new List<StatementBase>();
 
@@ -41,14 +45,77 @@ namespace YangInterpreter.Statements.BaseStatements
         /// Returns the Statement as an XML example Array.
         /// </summary>
         /// <returns></returns>
-        public abstract XElement[] StatementAsXML();
+        public virtual XElement[] StatementAsXML()
+        {
+            XElement ThisStatementAsXml = new XElement(Name, Value );
+            foreach (var desc in Descendants())
+            {
+                ThisStatementAsXml.Add(desc.StatementAsXML());
+            }
+            return new XElement[] { ThisStatementAsXml };
+        }
 
         /// <summary>
         /// The Yang statement converted into string.
         /// </summary>
         /// <param name="indentationlevel"></param>
         /// <returns></returns>
-        public abstract string StatementAsYangString(int indentationlevel);
+        public virtual string StatementAsYangString(int IndentationLevel)
+        {
+            if (Elements().Count() > 0)
+            {
+                if (!IsQuotedValue)
+                {
+                    var indent = GetIndentation(IndentationLevel);
+                    var stringBuilder = indent + Name.ToLower() + " " + Value + " {" + Environment.NewLine;
+                    stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
+                    stringBuilder += indent + "}";
+                    return stringBuilder;
+                }
+                else
+                {
+                    if (IsValueStartAtSameLine())
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        var stringBuilder = indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\"; {" + Environment.NewLine;
+                        stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
+                        stringBuilder += indent + "}";
+                        return stringBuilder;
+                    }
+                    else
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        var stringBuilder = indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\"; {" + Environment.NewLine;
+                        stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
+                        stringBuilder += indent + "}";
+                        return stringBuilder;
+                    }
+
+                }
+            }
+            else
+            {
+                if (!IsQuotedValue)
+                {
+                    var indent = GetIndentation(IndentationLevel);
+                    return indent + Name.ToLower() + " " + Value.ToLower() + ";";
+                }
+                else
+                {
+                    if (IsValueStartAtSameLine())
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        return indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
+                    }
+                    else
+                    {
+                        var indent = GetIndentation(IndentationLevel);
+                        return indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
+                    }
+                }
+            }
+        }
+
         internal virtual string StatementAsYangString()
         {
             return StatementAsYangString(0);
@@ -112,6 +179,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         protected StatementBase() { }
         public StatementBase(string name) { Name = name; }
+        public StatementBase(string name,string argument) { Name = name; Value = argument; }
 
         /// <summary>
         /// Adds the given Statement as child.

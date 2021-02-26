@@ -25,7 +25,7 @@ namespace YangInterpreter.Statements
     /// | reference     | 7.19.4  | 0..1        |
     /// +---------------+---------+-------------+
     /// 
-    public class Length : ControlledValueContainerStatement
+    public class Length : ControlledValueStatement
     {
         public Length() : base("Length") { }
         public Length(string Value) : base("Length",Value) { }

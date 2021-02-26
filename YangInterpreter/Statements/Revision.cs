@@ -24,7 +24,7 @@ namespace YangInterpreter.Statements
     ///| reference    | 7.19.4  | 0..1        |
     ///+--------------+---------+-------------+
 
-    public class Revision : ControlledValueContainerStatement
+    public class Revision : ControlledValueStatement
     {
         protected override string ImproperValueErrorMessage => "The given value for reference was not a proper date format \"YYY-MM-DD\"";
 

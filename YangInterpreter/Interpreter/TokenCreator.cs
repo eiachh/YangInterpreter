@@ -16,7 +16,7 @@ namespace YangInterpreter.Interpreter
         private static List<SearchScheme> InterpreterSearchSchemeList;
         private static SearchScheme InnerBlockParser = new SearchScheme(new Regex("\\s*{\\s*(?<argument>[^}]*\\s*})\\s*$"), null);
         private static SearchScheme InnerEndlineParser = new SearchScheme(new Regex(@".(?<argument>})\s*$"), null, TokenTypes.NodeEndingBracket);
-
+        private static readonly string ArgumentParser = "";
         internal static void Init()
         {
             InterpreterSearchSchemeList = new List<SearchScheme>
@@ -32,7 +32,9 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*leaf-list (?<argument>[a-z0-9A-Z-]*) {\s*$",                           RegexOptions.IgnoreCase),typeof(LeafList)                 ),
                 new SearchScheme(new Regex(@"^\s*list (?<argument>[a-z0-9A-Z-]*) {\s*$",                                RegexOptions.IgnoreCase),typeof(ListNode)                      ),
 
-                new SearchScheme(new Regex("^\\s*pattern\\s*\"(?<argument>[^{\\s\"]+)\"(;|(?<bracket>.*{.*)*)$",        RegexOptions.IgnoreCase),typeof(Pattern)),
+                new SearchScheme(new Regex("^\\s*anyxml\\s*\"(?<argument>[^{\\s\"]+)\"(;|(?<bracket>.*{.*)*)$",        RegexOptions.IgnoreCase),typeof(Pattern),true),
+                
+                new SearchScheme(new Regex("^\\s*pattern\\s*\"(?<argument>[^{\\s\"]+)\"(;|(?<bracket>.*{.*)*)$",        RegexOptions.IgnoreCase),typeof(Pattern), true),
                 new SearchScheme(new Regex(@"^\s*revision\s*(?<argument>[a-z0-9A-Z-]+)(;|(?<bracket>.*{.*)*)$",         RegexOptions.IgnoreCase),typeof(Revision)                 ,true),
                 new SearchScheme(new Regex(@"^\s*status\s*(?<argument>[a-z0-9A-Z-]*)\s*;\s*$",                          RegexOptions.IgnoreCase),typeof(StatusStatement)                    ,true),
                 new SearchScheme(new Regex(@"^\s*value\s*(?<argument>[a-z0-9A-Z-]*)\s*;\s*$",                           RegexOptions.IgnoreCase),typeof(ValueStatement)                      ,true),

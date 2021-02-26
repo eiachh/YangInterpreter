@@ -12,7 +12,7 @@ namespace YangInterpreter.Statements
     /// an argument.If the constraint evaluates to false, the string is
     /// passed as <error-app-tag> in the<rpc-error>.
     /// </summary>
-    public class ErrorAppTagStatement : ChildlessContainerStatement
+    public class ErrorAppTagStatement : ChildlessStatement
     {
         internal override bool IsQuotedValue => true;
         public ErrorAppTagStatement() : base("Error-App-Tag") { }

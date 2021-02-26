@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class ValueStatement : ControlledValueChildlessContainerStatement
+    public class ValueStatement : ControlledValueChildlessStatement
     {
         /// Revision Statement RFC 6020 9.6.4.2.
         ///

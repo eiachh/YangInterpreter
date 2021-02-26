@@ -6,7 +6,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
-    public class Grouping : ContainerStatementBase
+    public class Grouping : StatementBase
     {
         public static List<Grouping> GruopingList = new List<Grouping>();
         public static List<Uses> UsesWaitingForSpecifiedGrouping = new List<Uses>();

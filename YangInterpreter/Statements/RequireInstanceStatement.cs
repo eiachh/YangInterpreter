@@ -9,7 +9,7 @@ namespace YangInterpreter.Statements
     /// "instance-identifier". It takes as an argument the string "true" or
     /// "false". If this statement is not present, it defaults to "true".
     /// </summary>
-    public class RequireInstanceStatement : ControlledValueChildlessContainerStatement
+    public class RequireInstanceStatement : ControlledValueChildlessStatement
     {
         public RequireInstanceStatement() : base("RequireInstance") { }
         public RequireInstanceStatement(string Argument) : base("RequireInstance") { Value = Argument; }
