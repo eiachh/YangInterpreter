@@ -106,7 +106,7 @@ namespace YangInterpreter.Interpreter
         private static void FillModuleSntatementAllowanceList()
         {
             ModuleStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
-            //ModuleStatementAllowedSubstatements.Add(typeof(AnyXml), -1);
+            ModuleStatementAllowedSubstatements.Add(typeof(AnyXmlStatement), new Tuple<int, int>(0, -1));
             //ModuleStatementAllowedSubstatements.Add(typeof(Augment), -1);
             ModuleStatementAllowedSubstatements.Add(typeof(Choices), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(Contact), new Tuple<int, int>(0, 1));

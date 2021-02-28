@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using YangInterpreter.Statements;
@@ -13,12 +15,26 @@ namespace YangInterpreter.Interpreter
     /// </summary>
     internal static class TokenCreator
     {
+        private static bool IsMultilineToken = false;
+
         private static List<SearchScheme> InterpreterSearchSchemeList;
         private static SearchScheme InnerBlockParser = new SearchScheme(new Regex("\\s*{\\s*(?<argument>[^}]*\\s*})\\s*$"), null);
         private static SearchScheme InnerEndlineParser = new SearchScheme(new Regex(@".(?<argument>})\s*$"), null, TokenTypes.NodeEndingBracket);
-        private static readonly string ArgumentParser = "";
+        private static string ArgumentParser;
         internal static void Init()
         {
+            Assembly assem = typeof(TokenCreator).Assembly;
+            foreach (string resourceName in assem.GetManifestResourceNames())
+            {
+                if(resourceName.Contains("ArgumentParserManifest"))
+                {
+                    Stream stream = assem.GetManifestResourceStream(resourceName);
+                    StreamReader r = new StreamReader(stream);
+                    ArgumentParser = r.ReadLine();
+                }
+            }
+            
+
             InterpreterSearchSchemeList = new List<SearchScheme>
             {
                 new SearchScheme(new Regex(@"^\s*module (?<argument>[a-z0-9A-Z-]*) {\s*$",                              RegexOptions.IgnoreCase),typeof(Module)),
@@ -32,7 +48,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*leaf-list (?<argument>[a-z0-9A-Z-]*) {\s*$",                           RegexOptions.IgnoreCase),typeof(LeafList)                 ),
                 new SearchScheme(new Regex(@"^\s*list (?<argument>[a-z0-9A-Z-]*) {\s*$",                                RegexOptions.IgnoreCase),typeof(ListNode)                      ),
 
-                new SearchScheme(new Regex("^\\s*anyxml\\s*\"(?<argument>[^{\\s\"]+)\"(;|(?<bracket>.*{.*)*)$",        RegexOptions.IgnoreCase),typeof(Pattern),true),
+                new SearchScheme(new Regex("^\\s*anyxml\\s+"+ArgumentParser,        RegexOptions.IgnoreCase),typeof(AnyXmlStatement),true),
                 
                 new SearchScheme(new Regex("^\\s*pattern\\s*\"(?<argument>[^{\\s\"]+)\"(;|(?<bracket>.*{.*)*)$",        RegexOptions.IgnoreCase),typeof(Pattern), true),
                 new SearchScheme(new Regex(@"^\s*revision\s*(?<argument>[a-z0-9A-Z-]+)(;|(?<bracket>.*{.*)*)$",         RegexOptions.IgnoreCase),typeof(Revision)                 ,true),
@@ -141,8 +157,23 @@ namespace YangInterpreter.Interpreter
 
                     if (match.Groups["bracket"].Value != "")
                     {
-                        //if (currentToken != null)
-                          //  MatchResultToken.TokenAsSingleLine = currentToken.TokenAsSingleLine;
+                        MatchResultToken.IsChildlessContainer = false;
+                    }
+
+
+
+                    if(match.Groups["nonQuoted"].Value != "")
+                    {
+                        MatchResultToken.TokenArgument = match.Groups["nonQuoted"].Value;
+                    }
+                    if(match.Groups["ending"].Value != "")
+                    {
+                        GetArgumentFromMatch(match);
+                        if (IsMultilineToken)
+                        {
+                            IsMultilineToken = false;
+                            MatchResultToken.TokenAsSingleLine = TokenTypes.SameLineStart;
+                        }
                         MatchResultToken.IsChildlessContainer = false;
                     }
                     return MatchResultToken;
@@ -167,6 +198,56 @@ namespace YangInterpreter.Interpreter
                 return InnerEndlineParser.Reg.Replace(row, "", 1);
             }
             return row;
+        }
+
+        private static string GetArgumentFromMatch(Match match)
+        {
+            string arg = GetArgumentBegginingFromMatch(match);
+            if(!string.IsNullOrEmpty(arg))
+
+
+            if (match.Groups["nonQuoted"].Value != "")
+                arg += match.Groups["nonQuoted"].Value;
+
+            if (match.Groups["quotedContent"].Value != "")
+                arg += match.Groups["quotedContent"].Value;
+
+            else if (match.Groups["singleQuotedContent"].Value != "")
+                arg += match.Groups["singleQuotedContent"].Value;
+
+            if (match.Groups["remainingArgs"].Value != "")
+                arg += GetArgumentFromRemainingArgs(match);
+
+            return arg;
+        }
+
+        private static string GetArgumentBegginingFromMatch(Match match)
+        {
+            string arg = string.Empty;
+
+            if (match.Groups["halfSingleQuoteBegginingContent"].Value != "")
+                arg += match.Groups["halfSingleQuoteBegginingContent"].Value;
+
+            if (match.Groups["halfNormalQuoteBegginingContent"].Value != "")
+                arg += match.Groups["halfNormalQuoteBegginingContent"].Value;
+
+            return arg;
+        }
+
+        private static string GetArgumentFromRemainingArgs(Match match)
+        {
+            string remainingArg = match.Groups["remainingArgs"].Value.Trim();
+            if (!remainingArg.StartsWith("++"))
+                throw new Exception("The argument did not contain ++ sign! " + match.Groups[0].Value);
+            remainingArg = remainingArg.Remove(0, 2);
+            Match innerMatch = new Regex(ArgumentParser).Match(remainingArg);
+
+            return GetArgumentFromMatch(innerMatch);
+        }
+
+        private static void HandleArgumentBeggining()
+        {
+            IsMultilineToken = true;
         }
     }
 }

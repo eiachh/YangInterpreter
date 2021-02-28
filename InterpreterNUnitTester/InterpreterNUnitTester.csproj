@@ -17,6 +17,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <None Update="TestFiles\AnyXml\AnyXmlStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\BaseStatement\BaseStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
