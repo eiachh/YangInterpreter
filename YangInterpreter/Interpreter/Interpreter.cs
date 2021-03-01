@@ -99,9 +99,12 @@ namespace YangInterpreter.Interpreter
 
         private bool IsInvalidStateAfterMultilineToken(Token tokenForCurrentRow, TokenTypes previousState,bool multilineBegWasPresent)
         {
-            return (!(previousState == TokenTypes.ValueForPreviousLineBeg || previousState == TokenTypes.ValueForPreviousLineMultiline)
+            return ((!(previousState == TokenTypes.ValueForPreviousLineBeg || previousState == TokenTypes.ValueForPreviousLineMultiline)
                         && tokenForCurrentRow.TokenAsSingleLine == TokenTypes.ValueForPreviousLineEnd
-                        && multilineBegWasPresent);
+                        && multilineBegWasPresent)
+
+                        || ( previousState == TokenTypes.SameLineStart && tokenForCurrentRow.TokenAsSingleLine != TokenTypes.ValueForPreviousLineEnd)
+                        || ( previousState == TokenTypes.NextLineStart && tokenForCurrentRow.TokenAsSingleLine != TokenTypes.ValueForPreviousLine));
         }
 
         private string HandleMultilineToken(Token tokenForCurrentRow, ref TokenTypes previousState)

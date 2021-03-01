@@ -17,11 +17,15 @@ second half (?<secondHalf>\s*\+\s*\+\s*(?:(?:'(?<arg3>[^']+)'){1}|(?:\"(?<arg4>(
 remaining (?<remainingArgs>(?:\s*\+\s*\+\s*(?:(?:'(?:[^']+)'){1}|(?:\"(?:(?:\\"|[^\"])+)\")))*))*){1}
 ending (?<ending>(?:\s*;){1}|(?:\s*{\s*){1}){1}\s*$
 
+
+
+^\s*anyxml\s*(?:(?<halfQuoteBeggining>(?:\"(?<halfNormalQuoteBegginingContent>(?:\\"|[^\"])+))|(?:'(?<halfSingleQuoteBegginingContent>[^']+))){1}|(?<quotEnd>(?<quotEnd1>(?<kekeke>(?:\\"|[^\"])+)\")|(?<quotEnd2>[^']+'){1}){1}|(?<wholeArg>(?<nonQuoted>[^"'{} \t;]+){1}|(?:|(?<quotedArg>(?:'(?<singleQuotedContent>[^']+)'){1}|(?:\"(?<quotedContent>(?:\\"|[^\"]+)+)\"){1})(?<remainingArgs>(?:\s*\+\s*\+\s*(?:(?:'(?:[^']+)'){1}|(?:\"(?:(?:\\"|[^\"])+)\")))*))){1}(?<ending>(?:\s*;){1}|(?:\s*{\s*){1}){0,1})\s*$
+
 final?
-^\s*anyxml\s*(?:(?<halfQuoteBeggining>(?:\"(?<halfNormalQuoteBegginingContent>(?:\\"|[^\"])+))|(?:'(?<halfSingleQuoteBegginingContent>[^']+))){1}|(?<quotEnd>(?<quotEnd1>(?<kekeke>(?:\\"|[^\"])+)\")|(?<quotEnd2>[^']+'){1}){1}|(?<wholeArg>(?<nonQuoted>[^"'{} \t;]+){1}|(?:|(?<quotedArg>(?:'(?<singleQuotedContent>[^']+)'){1}|(?:\"(?<quotedContent>(?:\\"|[^\"]+)+)\"){1})(?<remainingArgs>(?:\s*\+\s*\+\s*(?:(?:'(?:[^']+)'){1}|(?:\"(?:(?:\\"|[^\"])+)\")))*))){1}(?<ending>(?:\s*;){1}|(?:\s*{\s*){1}){1})\s*$
+^\s*anyxml\s*(?:(?<halfQuoteBeggining>(?:\"(?<halfNormalQuoteBegginingContent>(?:\\"|[^\"])+))|(?:'(?<halfSingleQuoteBegginingContent>[^']+))){1}|(?<quotEnd>(?<quotEnd1>(?:(?:\\"|[^\"])+)\")|(?<quotEnd2>[^']+'){1}){1}|(?<wholeArg>(?<nonQuoted>[^"'{} \t;]+){1}|(?:|(?<quotedArg>(?:'(?<singleQuotedContent>[^']+)'){1}|(?:\"(?<quotedContent>(?:\\"|[^\"]+)+)\"){1})(?<remainingArgs>(?:\s*\+\s*\+\s*(?:(?:'(?:[^']+)'){1}|(?:\"(?:(?:\\"|[^\"])+)\")))*))){1}(?<ending>(?:\s*;){1}|(?:\s*{\s*){1}){1})\s*$
+             (?:(?<halfQuoteBeggining>(?:\"(?<halfNormalQuoteBegginingContent>(?:\\"|[^\"])+))|(?:'(?<halfSingleQuoteBegginingContent>[^']+))){1}|(?<quotEnd>(?<quotEnd1>(?:(?:\\"|[^\"])+)\")|(?<quotEnd2>[^']+'){1}){1}|(?<wholeArg>(?<nonQuoted>[^"'{} \t;]+){1}|(?:|(?<quotedArg>(?:'(?<singleQuotedContent>[^']+)'){1}|(?:\"(?<quotedContent>(?:\\"|[^\"]+)+)\"){1})(?<remainingArgs>(?:\s*\+\s*\+\s*(?:(?:'(?:[^']+)'){1}|(?:\"(?:(?:\\"|[^\"])+)\")|(?:(?:\"(?:(?:\\"|[^\"])+))|(?:'(?:[^']+)))))*))){1}(?<ending>(?:\s*;){1}|(?:\s*{\s*){1}){0,1})\s*$
 
-
-
-
+01. 11:35
+^\s*anyxml\s*(?:(?<halfQuoteBeggining>(?:\"(?<halfNormalQuoteBegginingContent>(?:\\"|[^\"])+))|(?:'(?<halfSingleQuoteBegginingContent>[^']+))){1}|(?:(?:(?<normalQuoteEnd>(?:\\"|[^\"])+)(?<quoteType1>\"))|(?:(?<singleQuoteEnd>[^']+)(?<quoteType2>')){1}){1}|(?<wholeArg>(?<nonQuoted>[^"'{} \t;]+){1}|(?:|(?<quotedArg>(?:'(?<singleQuotedContent>[^']+)'){1}|(?:\"(?<quotedContent>(?:\\"|[^\"]+)+)\"){1})(?<remainingArgs>(?:\s*\+\s*\+\s*(?:(?:'(?:[^']+)'){1}|(?:\"(?:(?:\\"|[^\"])+)\")|(?:(?:\"(?:(?:\\"|[^\"])+))|(?:'(?:[^']+)))))*))){1})(?<ending>(?:\s*;){1}|(?:\s*{\s*){1}){0,1}\s*$
 
 

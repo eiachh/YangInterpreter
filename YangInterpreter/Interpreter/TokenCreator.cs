@@ -15,7 +15,10 @@ namespace YangInterpreter.Interpreter
     /// </summary>
     internal static class TokenCreator
     {
-        private static bool IsMultilineToken = false;
+        private static bool IsArgBeggining = false;
+        private static bool IsArgEnding = false;
+        //private static bool IsMultilineToken = false;
+        private static string QuoteType = string.Empty;
 
         private static List<SearchScheme> InterpreterSearchSchemeList;
         private static SearchScheme InnerBlockParser = new SearchScheme(new Regex("\\s*{\\s*(?<argument>[^}]*\\s*})\\s*$"), null);
@@ -37,25 +40,25 @@ namespace YangInterpreter.Interpreter
 
             InterpreterSearchSchemeList = new List<SearchScheme>
             {
-                new SearchScheme(new Regex(@"^\s*module (?<argument>[a-z0-9A-Z-]*) {\s*$",                              RegexOptions.IgnoreCase),typeof(Module)),
-                new SearchScheme(new Regex(@"^\s*grouping (?<argument>[a-z0-9A-Z-]*) {\s*$",                            RegexOptions.IgnoreCase),typeof(Grouping)),
-                new SearchScheme(new Regex(@"^\s*uses (?<argument>[a-z0-9A-Z-]*);\s*$",                                 RegexOptions.IgnoreCase),typeof(Uses)                      ),
-                new SearchScheme(new Regex(@"^\s*choice (?<argument>[a-z0-9A-Z-]*) {\s*$",                              RegexOptions.IgnoreCase),typeof(Choices)                   ),
-                new SearchScheme(new Regex(@"^\s*case (?<argument>[a-z0-9A-Z-]*) {\s*$",                                RegexOptions.IgnoreCase),typeof(ChoiceCase)               ),
-                new SearchScheme(new Regex("^\\s*prefix \"?(?<argument>[^;\"]*)\"?;\\s*$",                             RegexOptions.IgnoreCase),typeof(Prefix)                   ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>module)\s+"+ArgumentParser,                              RegexOptions.IgnoreCase),typeof(Module)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>grouping)\s*"+ArgumentParser,                            RegexOptions.IgnoreCase),typeof(Grouping)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>uses)\s*"+ArgumentParser,                                 RegexOptions.IgnoreCase),typeof(Uses)                      ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>choice)\s*"+ArgumentParser,                              RegexOptions.IgnoreCase),typeof(Choices)                   ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>case)\s*"+ArgumentParser,                                RegexOptions.IgnoreCase),typeof(ChoiceCase)               ),
+                new SearchScheme(new Regex("^\\s*(?<statementName>prefix)\\s*"+ArgumentParser,                             RegexOptions.IgnoreCase),typeof(Prefix)                   ),
                 new SearchScheme(new Regex(@"^\s*container (?<argument>[a-z0-9A-Z-]*) {\s*$",                           RegexOptions.IgnoreCase),typeof(Container)                ),
-                new SearchScheme(new Regex(@"^\s*leaf\s*(?<argument>[a-z0-9A-Z-]*)\s*{\s*$",                            RegexOptions.IgnoreCase),typeof(Leaf)                     ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>leaf)\s+"+ArgumentParser,                            RegexOptions.IgnoreCase),typeof(Leaf)                     ),
                 new SearchScheme(new Regex(@"^\s*leaf-list (?<argument>[a-z0-9A-Z-]*) {\s*$",                           RegexOptions.IgnoreCase),typeof(LeafList)                 ),
                 new SearchScheme(new Regex(@"^\s*list (?<argument>[a-z0-9A-Z-]*) {\s*$",                                RegexOptions.IgnoreCase),typeof(ListNode)                      ),
 
                 new SearchScheme(new Regex("^\\s*anyxml\\s+"+ArgumentParser,        RegexOptions.IgnoreCase),typeof(AnyXmlStatement),true),
                 
                 new SearchScheme(new Regex("^\\s*pattern\\s*\"(?<argument>[^{\\s\"]+)\"(;|(?<bracket>.*{.*)*)$",        RegexOptions.IgnoreCase),typeof(Pattern), true),
-                new SearchScheme(new Regex(@"^\s*revision\s*(?<argument>[a-z0-9A-Z-]+)(;|(?<bracket>.*{.*)*)$",         RegexOptions.IgnoreCase),typeof(Revision)                 ,true),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>revision)\s+"+ArgumentParser,         RegexOptions.IgnoreCase),typeof(Revision)                 ),
                 new SearchScheme(new Regex(@"^\s*status\s*(?<argument>[a-z0-9A-Z-]*)\s*;\s*$",                          RegexOptions.IgnoreCase),typeof(StatusStatement)                    ,true),
                 new SearchScheme(new Regex(@"^\s*value\s*(?<argument>[a-z0-9A-Z-]*)\s*;\s*$",                           RegexOptions.IgnoreCase),typeof(ValueStatement)                      ,true),
                 new SearchScheme(new Regex("^\\s*require-instance\\s*\"(?<argument>[^;\"]*)\";\\s*$",                  RegexOptions.IgnoreCase),typeof(RequireInstanceStatement)                      ,true),
-                new SearchScheme(new Regex("^\\s*base\\s*\"(?<argument>[^;\"]*)\";\\s*$",                  RegexOptions.IgnoreCase),typeof(BaseStatement)                      ,true),
+                new SearchScheme(new Regex("^\\s*(?<statementName>base)\\s+"+ArgumentParser,                  RegexOptions.IgnoreCase),typeof(BaseStatement)                      ,true),
                 new SearchScheme(new Regex(@"^\s*position\s*(?<argument>[0-9])*;\s*$",                                  RegexOptions.IgnoreCase),typeof(Position)                 ),
 
                 new SearchScheme(new Regex(@"^\s*type enumeration\s*{\s*$",                                             RegexOptions.IgnoreCase),typeof(EnumTypeStatement)                  ),
@@ -100,35 +103,42 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex("^\\s*path \"(?<argument>[^;\"]*)\";\\s*$",                                  RegexOptions.IgnoreCase),typeof(PathStatement),true          ),
                 new SearchScheme(new Regex("^\\s*path \"(?<argument>[^;\"]*)\\s*$",                                     RegexOptions.IgnoreCase),typeof(PathStatement),TokenTypes.SameLineStart),
                 new SearchScheme(new Regex("^\\s*path\\s*$",                                                            RegexOptions.IgnoreCase),typeof(PathStatement),TokenTypes.NextLineStart),
-                new SearchScheme(new Regex("^\\s*contact \"(?<argument>[^;\"]*)\";\\s*$",                               RegexOptions.IgnoreCase),typeof(Contact),true       ),
-                new SearchScheme(new Regex("^\\s*contact \"(?<argument>[^;\"]*)\\s*$",                                  RegexOptions.IgnoreCase),typeof(Contact),TokenTypes.SameLineStart),
-                new SearchScheme(new Regex("^\\s*contact\\s*$",                                                         RegexOptions.IgnoreCase),typeof(Contact),TokenTypes.NextLineStart),
-                new SearchScheme(new Regex("^\\s*namespace \"(?<argument>[^;\"]*)\";\\s*$",                             RegexOptions.IgnoreCase),typeof(NamespaceStatement),TokenTypes.SameLineStart    ),
-                new SearchScheme(new Regex("^\\s*namespace \"(?<argument>[^;\"]*)\\s*$",                                RegexOptions.IgnoreCase),typeof(NamespaceStatement),TokenTypes.SameLineStart),
-                new SearchScheme(new Regex("^\\s*namespace\\s*$",                                                       RegexOptions.IgnoreCase),typeof(NamespaceStatement),TokenTypes.NextLineStart),
-                new SearchScheme(new Regex("^\\s*organization \"(?<argument>[^;\"]*)\";\\s*$",                          RegexOptions.IgnoreCase),typeof(Organization)),
-                new SearchScheme(new Regex("^\\s*organization \"(?<argument>[^;\"]*)\\s*$",                             RegexOptions.IgnoreCase),typeof(Organization),TokenTypes.SameLineStart),
-                new SearchScheme(new Regex("^\\s*organization\\s*$",                                                    RegexOptions.IgnoreCase),typeof(Organization),TokenTypes.NextLineStart),
+                new SearchScheme(new Regex("^\\s*(?<statementName>contact)\\s*"+ArgumentParser,                               RegexOptions.IgnoreCase),typeof(Contact),true       ),
+                //new SearchScheme(new Regex("^\\s*contact \"(?<argument>[^;\"]*)\\s*$",                                  RegexOptions.IgnoreCase),typeof(Contact),TokenTypes.SameLineStart),
+                //new SearchScheme(new Regex("^\\s*contact\\s*$",                                                         RegexOptions.IgnoreCase),typeof(Contact),TokenTypes.NextLineStart),
+                new SearchScheme(new Regex("^\\s*(?<statementName>namespace)\\s*"+ArgumentParser,                             RegexOptions.IgnoreCase),typeof(NamespaceStatement),TokenTypes.SameLineStart    ),
+                //new SearchScheme(new Regex("^\\s*namespace \"(?<argument>[^;\"]*)\\s*$",                                RegexOptions.IgnoreCase),typeof(NamespaceStatement),TokenTypes.SameLineStart),
+                //new SearchScheme(new Regex("^\\s*namespace\\s*$",                                                       RegexOptions.IgnoreCase),typeof(NamespaceStatement),TokenTypes.NextLineStart),
+                new SearchScheme(new Regex("^\\s*(?<statementName>organization\\s+"+ArgumentParser+"|organization)\\s*",                          RegexOptions.IgnoreCase),typeof(Organization)),
+                //new SearchScheme(new Regex("^\\s*organization \"(?<argument>[^;\"]*)\\s*$",                             RegexOptions.IgnoreCase),typeof(Organization),TokenTypes.SameLineStart),
+                //new SearchScheme(new Regex("^\\s*organization\\s*$",                                                    RegexOptions.IgnoreCase),typeof(Organization),TokenTypes.NextLineStart),
                 new SearchScheme(new Regex("^\\s*reference \"(?<argument>[^;\"]*)\";\\s*$",                             RegexOptions.IgnoreCase),typeof(Reference)     ),
                 new SearchScheme(new Regex("^\\s*reference \"(?<argument>[^;\"]*)\\s*$",                                RegexOptions.IgnoreCase),typeof(Reference),TokenTypes.SameLineStart),
                 new SearchScheme(new Regex("^\\s*reference\\s*$",                                                       RegexOptions.IgnoreCase),typeof(Reference),TokenTypes.NextLineStart),
 
-                new SearchScheme(new Regex("^\\s*description \"(?<argument>[^;\"]*)\";\\s*$",                           RegexOptions.IgnoreCase),typeof(Description)),
-                new SearchScheme(new Regex("^\\s*description \"(?<argument>[^;\"]*)\\s*$",                              RegexOptions.IgnoreCase),typeof(Description),TokenTypes.SameLineStart),
-                new SearchScheme(new Regex("^\\s*description\\s*$",                                                     RegexOptions.IgnoreCase),typeof(Description),TokenTypes.NextLineStart),
+                new SearchScheme(new Regex("^\\s*(?<statementName>description)\\s*"+ArgumentParser,                           RegexOptions.IgnoreCase),typeof(Description)),
+                //new SearchScheme(new Regex("^\\s*description \"(?<argument>[^;\"]*)\\s*$",                              RegexOptions.IgnoreCase),typeof(Description),TokenTypes.SameLineStart),
+                //new SearchScheme(new Regex("^\\s*description\\s*$",                                                     RegexOptions.IgnoreCase),typeof(Description),TokenTypes.NextLineStart),
 
-                new SearchScheme(new Regex("^\\s*\"(?<argument>[^;]*)\";\\s*$"),                                        null,TokenTypes.ValueForPreviousLine                               ),
-                new SearchScheme(new Regex("^\\s*\"(?<argument>[^\"]*)\\s*$"),                                          null,TokenTypes.ValueForPreviousLineBeg),
-                new SearchScheme(new Regex("^\\s*(?<argument>[^;]*)\";(?<bracket>.*{.*)*\\s*$"),                        null,TokenTypes.ValueForPreviousLineEnd),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>yang-version)\s*"+ArgumentParser),                        typeof(YangVersionStatement)                                       ),
+                new SearchScheme(new Regex("^\\s*(?<statementName>import)\\s+"+ArgumentParser),                      typeof(Import)                                            ),
 
-                new SearchScheme(new Regex(@"^\s*yang-version (?<argument>[a-z0-9A-Z-]*);\s*$"),                        typeof(YangVersionStatement)                                       ),
-                new SearchScheme(new Regex("^\\s*import\\s*(?<argument>[a-z0-9A-Z-]*)\\s*{\\s*$"),                      typeof(Import)                                            ),
-
-                new SearchScheme(new Regex(@"^\s* *$"),                                                                 null,TokenTypes.Skip),
                 new SearchScheme(new Regex(@"^\s*}\s*$"),                                                               null,TokenTypes.NodeEndingBracket),
+                new SearchScheme(new Regex(@"^\s* *$"),                                                                 null,TokenTypes.Skip),
+
+                new SearchScheme(new Regex("(?s)^(?!.*[\";])[\\s\\t]*(?<argument>.*)$"),                                null, TokenTypes.ValueForPreviousLineMultiline),
+                new SearchScheme(new Regex("^\\s*"+ArgumentParser),                                        null,TokenTypes.ValueForPreviousLine                               ),
+                //new SearchScheme(new Regex("^\\s*\"(?<argument>[^\"]*)\\s*$"),                                          null,TokenTypes.ValueForPreviousLineBeg),
+                new SearchScheme(new Regex("^\\s*"+ArgumentParser),                        null,TokenTypes.ValueForPreviousLineEnd),
+                //new SearchScheme(new Regex("^\\s*(?<argument>[^;]*)\";(?<bracket>.*{.*)*\\s*$"),                        null,TokenTypes.ValueForPreviousLineEnd),
+
+
+
+               
+
 
                 //Multiline of value or error based on previous state
-                new SearchScheme(new Regex("(?s)^(?!.*[\";])[\\s\\t]*(?<argument>.*)$"),                                null, TokenTypes.ValueForPreviousLineMultiline),
+                //new SearchScheme(new Regex("(?s)^(?!.*[\";])[\\s\\t]*(?<argument>.*)$"),                                null, TokenTypes.ValueForPreviousLineMultiline),
             };
         }
 
@@ -160,22 +170,44 @@ namespace YangInterpreter.Interpreter
                         MatchResultToken.IsChildlessContainer = false;
                     }
 
+                    var a = GetArgumentFromMatch(match);
+                    if(!string.IsNullOrEmpty(a))
+                        MatchResultToken.TokenArgument = GetArgumentFromMatch(match);
 
-
-                    if(match.Groups["nonQuoted"].Value != "")
+                    if (IsArgBeggining)
                     {
-                        MatchResultToken.TokenArgument = match.Groups["nonQuoted"].Value;
-                    }
-                    if(match.Groups["ending"].Value != "")
-                    {
-                        GetArgumentFromMatch(match);
-                        if (IsMultilineToken)
-                        {
-                            IsMultilineToken = false;
+                        IsArgBeggining = false;
+                        if (match.Groups["statementName"].Value != "")
                             MatchResultToken.TokenAsSingleLine = TokenTypes.SameLineStart;
-                        }
-                        MatchResultToken.IsChildlessContainer = false;
+                        else
+                            MatchResultToken.TokenAsSingleLine = TokenTypes.ValueForPreviousLineBeg;
                     }
+                    else if (IsArgEnding)
+                    {
+                        IsArgEnding = false;
+                        if (match.Groups["ending"].Value == "")
+                            return null;
+                        MatchResultToken.TokenAsSingleLine = TokenTypes.ValueForPreviousLineEnd;
+                    }
+                    else if (MatchResultToken.TokenArgument != "" && MatchResultToken.TokenAsSingleLine != TokenTypes.ValueForPreviousLineMultiline)
+                        if (match.Groups["ending"].Value == "")
+                            return null;
+
+                    
+
+
+
+                    if (match.Groups["nonQuoted"].Value != "")
+                        MatchResultToken.TokenArgument = match.Groups["nonQuoted"].Value;
+
+                    if(match.Groups["ending"].Value == "{")                       
+                        MatchResultToken.IsChildlessContainer = false;
+                    if (match.Groups["ending"].Value == ";")
+                        MatchResultToken.IsChildlessContainer = true;
+
+                    if (match.Groups["statementName"].Value != "" && match.Groups["ending"].Value == "" && MatchResultToken.TokenArgument == "")
+                        MatchResultToken.TokenAsSingleLine = TokenTypes.NextLineStart;
+
                     return MatchResultToken;
                 }
             }
@@ -203,8 +235,6 @@ namespace YangInterpreter.Interpreter
         private static string GetArgumentFromMatch(Match match)
         {
             string arg = GetArgumentBegginingFromMatch(match);
-            if(!string.IsNullOrEmpty(arg))
-
 
             if (match.Groups["nonQuoted"].Value != "")
                 arg += match.Groups["nonQuoted"].Value;
@@ -215,8 +245,12 @@ namespace YangInterpreter.Interpreter
             else if (match.Groups["singleQuotedContent"].Value != "")
                 arg += match.Groups["singleQuotedContent"].Value;
 
+            arg += GetArgumentEndingFromMatch(match);
+
             if (match.Groups["remainingArgs"].Value != "")
                 arg += GetArgumentFromRemainingArgs(match);
+
+            
 
             return arg;
         }
@@ -231,6 +265,31 @@ namespace YangInterpreter.Interpreter
             if (match.Groups["halfNormalQuoteBegginingContent"].Value != "")
                 arg += match.Groups["halfNormalQuoteBegginingContent"].Value;
 
+            if(match.Groups["quoteType1"].Value != "")
+                 QuoteType = match.Groups["quoteType1"].Value;
+            if (match.Groups["quoteType2"].Value != "")
+                QuoteType = match.Groups["quoteType2"].Value;
+            if (!string.IsNullOrEmpty(arg))
+                IsArgBeggining = true;
+            return arg;
+        }
+
+        private static string GetArgumentEndingFromMatch(Match match)
+        {
+            string arg = string.Empty;
+
+            if (match.Groups["normalQuoteEnd"].Value != "")
+                arg += match.Groups["normalQuoteEnd"].Value;
+
+            if (match.Groups["singleQuoteEnd"].Value != "")
+                arg += match.Groups["singleQuoteEnd"].Value;
+
+            if (match.Groups["quoteType1"].Value != "")
+                QuoteType = match.Groups["quoteType1"].Value;
+            if (match.Groups["quoteType2"].Value != "")
+                QuoteType = match.Groups["quoteType2"].Value;
+            if (!string.IsNullOrEmpty(arg))
+                IsArgEnding = true;
             return arg;
         }
 
@@ -243,11 +302,6 @@ namespace YangInterpreter.Interpreter
             Match innerMatch = new Regex(ArgumentParser).Match(remainingArg);
 
             return GetArgumentFromMatch(innerMatch);
-        }
-
-        private static void HandleArgumentBeggining()
-        {
-            IsMultilineToken = true;
         }
     }
 }
