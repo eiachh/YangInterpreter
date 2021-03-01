@@ -30,7 +30,7 @@ module TypeStatementStringTypeCorrect {
 
 	leaf mybits {
 		type string{
-			length "2323..5690"; {
+			length "2323..5690" {
 				description 
 					"description of 
 					pattern.";

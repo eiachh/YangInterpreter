@@ -7,7 +7,7 @@ module AnyXmlStatementCorrect {
 
 	import yang-interpreter { prefix "yani"; }
 
-	anyxml "aaa" ++ 'bbb' ++ "ccc" ++ 'asdd   
-		sdfdsfsfdsf';
+	anyxml "aaa" + 'bbb' + "ccc" + 'dd   
+		eeeeee';
 	
 }

@@ -48,7 +48,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void EmptyTypeStatementMalformed()
         { 
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementMalformed.yang"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementMalformed.yang"));
         }
 
         /// <summary>

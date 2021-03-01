@@ -20,10 +20,10 @@ namespace InterpreterNUnitTester
         }
 
         /// <summary>
-        /// Checks if the revision value is parsed correctly.
+        /// Checks if the anyxml is parsed correctly.
         /// </summary>
         [Test]
-        public void RevisionIsParsedCorrectly()
+        public void AnyXmlStatementIsParsedCorrectly()
         {
             var dsdsds = 2;
             //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);

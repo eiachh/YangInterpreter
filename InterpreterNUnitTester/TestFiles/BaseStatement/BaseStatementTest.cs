@@ -23,7 +23,7 @@ namespace InterpreterNUnitTester
         /// Checks if the revision value is parsed correctly.
         /// </summary>
         [Test]
-        public void RevisionIsParsedCorrectly()
+        public void BaseStatementIsParsedCorrectly()
         {
             var identityType = InterpreterCorrect.Root.Descendants("type").Where(stat => stat.Value == "identityref").Single();
             Assert.AreEqual(1, identityType.Elements().Count());

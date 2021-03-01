@@ -17,7 +17,7 @@ module BaseStatementCorrect {
 
 	description 
 		"Description of correctly formatted
-		module,
+		module asd
 		with multiline value.";
 
 	reference

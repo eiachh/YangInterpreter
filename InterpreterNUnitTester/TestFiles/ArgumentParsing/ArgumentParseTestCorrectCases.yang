@@ -1,0 +1,82 @@
+module ArgumentParseTestCorrectCases {
+	yang-version 1;
+	namespace
+		"NamespaceArgumentParseTestCorrectCases";
+
+	prefix naptcc;
+
+	leaf nonQuotedValid {
+		description desc;
+	}
+
+	leaf singleQuotedValid {
+		description 'desc';
+	}
+
+	leaf normalQuotedValid {
+		description "desc";
+	}
+
+	leaf NormalQuoteConcatNormalQuoteValid {
+		description "a" + "b";
+	}
+
+	leaf NormalQuoteConcatSingleQuoteValid {
+		description "a"+'b';
+	}
+
+	leaf SingleQuoteConcatNormalQuoteValid {
+		description 'a'+"b";
+	}
+
+	leaf SingleQuoteConcatSingleQuoteValid {
+		description 'a'+'b';
+	}
+
+	leaf RecursiveLongRandomConcatValid {
+		description 'a'+'b' + "c" +"d"+'e' +      "f"       +     "g";
+	}
+
+	leaf nonQuotedNextLineStartValid {
+		description 
+			desc;
+	}
+
+	leaf normalQuotedNextLineStartValid {
+		description 
+			"desc";
+	}
+
+	leaf singleQuotedNextLineStartValid {
+		description 
+			'desc';
+	}
+
+	leaf normalQuotedNextLineStartMultilineValid {
+		description 
+			"desc
+			middle
+			also desc";
+	}
+
+	leaf singleQuotedNextLineStartMultilineValid {
+		description 
+			'desc
+			middle
+			also desc';
+	}
+
+	leaf normalQuotedSameLineStartMultilineValid {
+		description "desc
+			middle
+			middle2
+			also desc";
+	}
+
+	leaf singleQuotedSameLineStartMultilineValid {
+		description 'desc
+			middle
+			middle2
+			also desc';
+	}
+}

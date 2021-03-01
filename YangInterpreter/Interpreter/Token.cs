@@ -122,7 +122,7 @@ namespace YangInterpreter.Interpreter
         /// <summary>
         /// The given token as SingleLine token if the current one is Multiline.
         /// </summary>
-        public TokenTypes TokenAsSingleLine { get; set; }
+        public TokenTypes TokenTypeSpecialInfo { get; set; }
 
         /// <summary>
         /// The token as a Type.
@@ -137,16 +137,19 @@ namespace YangInterpreter.Interpreter
         /// Defines if the matched container type is childless. e.g.: type string;
         /// </summary>
         public bool IsChildlessContainer { get; set; } = false;
-        public Token(/*TokenTypes _TokenType, */string _TokenValue, Type _TokenAsType,bool _ChildlessContainer = false)
+        /// <summary>
+        /// Stores the quote type of the previous line to prevent malformed multiline quotes e.g.: 'aaa \r\n bbb";
+        /// </summary>
+        public string MultilinePreviousQuote { get; set; }
+        public Token(string _TokenValue, Type _TokenAsType,bool _ChildlessContainer = false)
         {
-            //TokenType = _TokenType;
             TokenArgument = _TokenValue;
             TokenAsType = _TokenAsType;
             IsChildlessContainer = _ChildlessContainer;
         }
-        public Token(/*TokenTypes _TokenType,*/ string _TokenArgument, Type _TokenAsType, TokenTypes _TokenAsSingleLine, bool _ChildlessContainer = false) :  this(/*_TokenType,*/_TokenArgument,_TokenAsType, _ChildlessContainer)
+        public Token(string _TokenArgument, Type _TokenAsType, TokenTypes _TokenTypeSpecialInfo, bool _ChildlessContainer = false) :  this(_TokenArgument,_TokenAsType, _ChildlessContainer)
         { 
-            TokenAsSingleLine = _TokenAsSingleLine;
+            TokenTypeSpecialInfo = _TokenTypeSpecialInfo;
         }
     }
 }

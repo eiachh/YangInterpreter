@@ -30,7 +30,7 @@ module Decimal64TypeCorrect {
 
 	leaf decimalTest1 {
 		type decimal64 {
-			range "3..11 | 52..344"; {
+			range "3..11 | 52..344" {
 				description "something";
 			}
 		}

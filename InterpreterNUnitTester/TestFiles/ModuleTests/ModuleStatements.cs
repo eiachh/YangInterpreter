@@ -111,7 +111,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void ModuleDescriptionParsedCorrectlyTest()
         {
-            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Elements("description").Single().Value);
+            var desc = InterpreterCorrect.Root.Elements("description").Single();
+            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", desc.Value);
         }
 
         /// <summary>

@@ -52,7 +52,7 @@ module UnionTypeStatementCorrect {
 			}
 			type boolean;
 			type decimal64 {
-				range "3..11 | 52..344"; {
+				range "3..11 | 52..344" {
 					description "something";
 				}
 			}

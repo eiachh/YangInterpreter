@@ -185,6 +185,8 @@ namespace YangInterpreter.Interpreter
             LeafStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, -1));
             LeafStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, -1));
+
+            LeafStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, -1));
         }
 
         private static void FillRevisionSntatementAllowanceList()

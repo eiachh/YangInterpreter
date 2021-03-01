@@ -72,7 +72,7 @@ namespace YangInterpreter.Interpreter
             var TokenForCurrentRow = TokenCreator.GetTokenForRow(RowOfYangText,PreviousToken);
             if (TokenForCurrentRow != null)
             {
-                if (TokenForCurrentRow.TokenAsSingleLine == TokenTypes.ValueForPreviousLineBeg)
+                if (TokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineBeg)
                     MultilineBeginingWasPresent = true;
 
                 if (IsMultiLineToken(TokenForCurrentRow))
@@ -93,18 +93,22 @@ namespace YangInterpreter.Interpreter
 
         private bool IsInvalidState(Token tokenForCurrentRow, TokenTypes previousState)
         {
-            return tokenForCurrentRow.TokenAsSingleLine == TokenTypes.ValueForPreviousLineMultiline && !IsMultiLineTokentype(previousState) ||
-                        (previousState != TokenTypes.ValueForPreviousLineBeg && tokenForCurrentRow.TokenAsSingleLine == TokenTypes.ValueForPreviousLineMultiline);
+            if ((previousState == TokenTypes.Start && tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineEnd)
+                || (previousState == TokenTypes.Start && tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineMultiline))
+                return true;
+            else if (tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineMultiline && !IsMultiLineTokentype(previousState))
+                return true;
+            return false;
         }
 
         private bool IsInvalidStateAfterMultilineToken(Token tokenForCurrentRow, TokenTypes previousState,bool multilineBegWasPresent)
         {
             return ((!(previousState == TokenTypes.ValueForPreviousLineBeg || previousState == TokenTypes.ValueForPreviousLineMultiline)
-                        && tokenForCurrentRow.TokenAsSingleLine == TokenTypes.ValueForPreviousLineEnd
+                        && tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineEnd
                         && multilineBegWasPresent)
 
-                        || ( previousState == TokenTypes.SameLineStart && tokenForCurrentRow.TokenAsSingleLine != TokenTypes.ValueForPreviousLineEnd)
-                        || ( previousState == TokenTypes.NextLineStart && tokenForCurrentRow.TokenAsSingleLine != TokenTypes.ValueForPreviousLine));
+                        || ( previousState == TokenTypes.SameLineStart && tokenForCurrentRow.TokenTypeSpecialInfo != TokenTypes.ValueForPreviousLineEnd)
+                        || ( previousState == TokenTypes.NextLineStart && tokenForCurrentRow.TokenTypeSpecialInfo != TokenTypes.ValueForPreviousLine));
         }
 
         private string HandleMultilineToken(Token tokenForCurrentRow, ref TokenTypes previousState)
@@ -112,7 +116,7 @@ namespace YangInterpreter.Interpreter
             if (IsInvalidState(tokenForCurrentRow, previousState))
                 NodeProcessionFail(tokenForCurrentRow, LineNumber);
 
-            previousState = tokenForCurrentRow.TokenAsSingleLine;
+            previousState = tokenForCurrentRow.TokenTypeSpecialInfo;
             SetPreviousToken(tokenForCurrentRow);
             return tokenForCurrentRow.InnerBlock;
         }
@@ -126,7 +130,8 @@ namespace YangInterpreter.Interpreter
             var prevtoken = GetpreviousToken();
 
             prevtoken.TokenArgument += tokenForCurrentRow.TokenArgument;
-            prevtoken.TokenType = prevtoken.TokenAsSingleLine;
+            prevtoken.IsChildlessContainer = tokenForCurrentRow.IsChildlessContainer;
+            prevtoken.TokenType = prevtoken.TokenTypeSpecialInfo;
 
             return prevtoken;
         }
@@ -138,7 +143,7 @@ namespace YangInterpreter.Interpreter
         /// <returns></returns>
         private bool IsMultiLineToken(Token token)
         {
-            return IsMultiLineTokentype(token.TokenAsSingleLine);
+            return IsMultiLineTokentype(token.TokenTypeSpecialInfo);
         }
 
         /// <summary>
@@ -165,7 +170,11 @@ namespace YangInterpreter.Interpreter
                 PreviousToken = previoustoken;
             }
             else
+            {
                 PreviousToken.TokenArgument += previoustoken.TokenArgument + Environment.NewLine;
+                PreviousToken.MultilinePreviousQuote = previoustoken.MultilinePreviousQuote;
+            }
+                
         }
 
         /// <summary>
@@ -222,10 +231,10 @@ namespace YangInterpreter.Interpreter
             if (opt == YangAddingOption.None && !typeof(ChildlessStatement).IsAssignableFrom(instantiatedobj.GetType()))
             {
                 TracerCurrentNode = instantiatedobj;
-                NewInterpreterStatus(InputToken.TokenAsSingleLine);
+                NewInterpreterStatus(InputToken.TokenTypeSpecialInfo);
             }
             else if (opt == YangAddingOption.ChildIncapable)
-                NewInterpreterStatus(InputToken.TokenAsSingleLine);
+                NewInterpreterStatus(InputToken.TokenTypeSpecialInfo);
 
             return instantiatedobj;
 
@@ -266,15 +275,15 @@ namespace YangInterpreter.Interpreter
         private void ProcessToken(Token InputToken)
         {
             ///MODULE ENDED AND THERE ARE UNPROCESSED NOT EMPTY ROWS
-            if (ModulEnded && InputToken.TokenAsSingleLine != TokenTypes.Skip)
+            if (ModulEnded && InputToken.TokenTypeSpecialInfo != TokenTypes.Skip)
                 NodeProcessionFail(InputToken, LineNumber);
 
             ///EMPTY LINE FORMATTING
-            else if (InputToken.TokenAsSingleLine == TokenTypes.Skip)
+            else if (InputToken.TokenTypeSpecialInfo == TokenTypes.Skip)
                 AddNewStatement(typeof(EmptyLineStatement), InputToken, YangAddingOption.ChildAndStatusless);
 
             ///NODE END 
-            else if (InputToken.TokenAsSingleLine == TokenTypes.NodeEndingBracket)
+            else if (InputToken.TokenTypeSpecialInfo == TokenTypes.NodeEndingBracket)
                 FallbackToPreviousInterpreterStatus();
 
             ///ROW PARSE ERROR
@@ -302,7 +311,7 @@ namespace YangInterpreter.Interpreter
             else if (InputToken.IsChildlessContainer)
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
-                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
+                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenTypeSpecialInfo;
             }
                
 
@@ -310,7 +319,7 @@ namespace YangInterpreter.Interpreter
             else if (typeof(StatementBase).IsAssignableFrom(InputToken.TokenAsType))
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken);
-                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenAsSingleLine;
+                InstantiatedNewStatement.GeneratedFrom = InputToken.TokenTypeSpecialInfo;
             }
 
             ///No search scheme match => Incorrect inputline;
