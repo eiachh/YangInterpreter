@@ -20,6 +20,36 @@
     <None Update="TestFiles\AnyXml\AnyXmlStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase10.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase9.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase8.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase7.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase6.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase5.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase4.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase3.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase2.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ArgumentParsing\ArgumentParseTestInvalidCase1.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\ArgumentParsing\ArgumentParseTestCorrectCases.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

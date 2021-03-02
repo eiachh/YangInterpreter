@@ -121,7 +121,7 @@ namespace YangInterpreter.Interpreter
                 Match match = scheme.Reg.Match(row);
                 if (match.Success)
                 {
-                    if (row.Contains("description 'a'+'b' + "))
+                    if (row.Contains("description \"x\"+'y"))
                     {
                         var sddsds = 2;
                     }
@@ -150,16 +150,19 @@ namespace YangInterpreter.Interpreter
                     else if (IsArgEnding)
                     {
                         IsArgEnding = false;
-                        
+
                         //Invalid formatting check
-                        if (match.Groups["ending"].Value == "" || 
-                           (previousTokenPartOfMultiline != null && previousTokenPartOfMultiline.MultilinePreviousQuote != QuoteType))
+                        if (match.Groups["ending"].Value == "" || (previousTokenPartOfMultiline != null && previousTokenPartOfMultiline.MultilinePreviousQuote != QuoteType))
                             return null;
                         MatchResultToken.TokenTypeSpecialInfo = TokenTypes.ValueForPreviousLineEnd;
                     }
-                    else if (MatchResultToken.TokenArgument != "" && MatchResultToken.TokenTypeSpecialInfo != TokenTypes.ValueForPreviousLineMultiline)
+                    else if (MatchResultToken.TokenArgument != "" && previousTokenPartOfMultiline!= null && string.IsNullOrEmpty(previousTokenPartOfMultiline.MultilinePreviousQuote))
+                    {
                         if (match.Groups["ending"].Value == "")
                             return null;
+                    }
+                    else if (MatchResultToken.TokenArgument != "" && previousTokenPartOfMultiline != null && !string.IsNullOrEmpty(previousTokenPartOfMultiline.MultilinePreviousQuote))
+                        MatchResultToken.TokenTypeSpecialInfo = TokenTypes.ValueForPreviousLineMultiline;
 
                     if(match.Groups["ending"].Value.Trim() == "{")                       
                         MatchResultToken.IsChildlessContainer = false;
@@ -245,10 +248,10 @@ namespace YangInterpreter.Interpreter
             if (match.Groups["singleQuoteEnd"].Value != "")
                 arg += match.Groups["singleQuoteEnd"].Value;
 
-            if (match.Groups["quoteType1"].Value != "")
-                QuoteType = match.Groups["quoteType1"].Value;
-            if (match.Groups["quoteType2"].Value != "")
-                QuoteType = match.Groups["quoteType2"].Value;
+            if (match.Groups["quoteType3"].Value != "")
+                QuoteType = match.Groups["quoteType3"].Value;
+            if (match.Groups["quoteType4"].Value != "")
+                QuoteType = match.Groups["quoteType4"].Value;
             if (!string.IsNullOrEmpty(arg))
                 IsArgEnding = true;
             return arg;

@@ -1,0 +1,12 @@
+module ArgumentParseTestInvalidCase {
+	yang-version 1;
+	namespace
+		"NamespaceArgumentParseTestInvalidCase";
+
+	prefix naptcc;
+
+	leaf singleQuotedValid {
+		description "x"+'y
+			c";
+	}
+}

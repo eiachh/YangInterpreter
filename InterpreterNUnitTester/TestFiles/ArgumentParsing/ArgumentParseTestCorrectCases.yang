@@ -1,7 +1,7 @@
-module ArgumentParseTestCorrectCases {
+module ArgumentParseTestInvalidCase {
 	yang-version 1;
 	namespace
-		"NamespaceArgumentParseTestCorrectCases";
+		"NamespaceArgumentParseTestInvalidCase";
 
 	prefix naptcc;
 
@@ -78,5 +78,40 @@ module ArgumentParseTestCorrectCases {
 			middle
 			middle2
 			also desc';
+	}
+
+	leaf normalQuotedSameLineStartMultilineConcattedValid {
+		description "a"+"desc
+			middle
+			middle2
+			also desc";
+	}
+
+	leaf singleQuotedSameLineConcattedStartMultilineValid {
+		description 'a'+'desc
+			middle
+			middle2
+			also desc';
+	}
+
+	leaf singleQuotedNextLineStartMultilineConcattedValid {
+		description 
+			'a'+'desc
+			middle
+			middle2
+			also desc';
+	}
+
+	leaf normalQuotedNextLineStartMultilineConcattedValid {
+		description 
+			"a"+"desc
+			middle
+			middle2
+			also desc";
+	}
+
+	leaf SpecialCharacterCheck {
+		description 
+			"a"+"de\{s;'c\"" + '"';
 	}
 }

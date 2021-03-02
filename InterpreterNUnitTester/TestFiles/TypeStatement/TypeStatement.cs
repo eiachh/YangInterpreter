@@ -57,7 +57,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void TypeStatementBitParsedCorrectly()
         {
-            YangInterpreterTool InterpreterCorrect = YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementBitTypeCorrect.yang");
+            YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementBitTypeCorrect.yang");
         }
 
         /// <summary>
