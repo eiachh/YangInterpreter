@@ -6,13 +6,8 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter
 {
-    public class ListNode : StatementBase { 
-        /// <summary>
-        /// The key property tells which Leaf node(s) of this list is(are) the key(s).
-        /// </summary>
-    public string Key { get; set; }
-        public ListNode(string Value) : base("List",Value) { }
-
+    public class ListStatement : StatementBase
+    {
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();

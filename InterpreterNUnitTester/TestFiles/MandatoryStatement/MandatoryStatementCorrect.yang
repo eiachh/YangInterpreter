@@ -1,0 +1,11 @@
+module MandatoryStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	anyxml tester {
+		mandatory "true";
+	}
+}

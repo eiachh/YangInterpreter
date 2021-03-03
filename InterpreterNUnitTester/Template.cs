@@ -20,10 +20,10 @@ namespace InterpreterNUnitTester
         }
 
         /// <summary>
-        /// Checks if the revision value is parsed correctly.
+        /// Checks if the revision statement is parsed correctly.
         /// </summary>
         [Test]
-        public void RevisionIsParsedCorrectly()
+        public void IsParsedCorrectly()
         {
             //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
             //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));

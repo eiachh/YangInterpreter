@@ -1,0 +1,17 @@
+module MustStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	anyxml tester {
+		must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+				 error-message "An ethernet MTU must be 1500";
+				 error-app-tag 'err app ta"g';
+				 reference 'ref';
+				 description " the description of this statement";
+		}
+	}
+}

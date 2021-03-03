@@ -107,7 +107,7 @@ namespace YangInterpreter.Interpreter
                         && tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineEnd
                         && multilineBegWasPresent)
 
-                        || ( previousState == TokenTypes.SameLineStart && tokenForCurrentRow.TokenTypeSpecialInfo != TokenTypes.ValueForPreviousLineEnd)
+                        || ( previousState == TokenTypes.SameLineStart && !(tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineEnd || tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLine))
                         || ( previousState == TokenTypes.NextLineStart && tokenForCurrentRow.TokenTypeSpecialInfo != TokenTypes.ValueForPreviousLine));
         }
 
@@ -165,13 +165,13 @@ namespace YangInterpreter.Interpreter
         {
             if (PreviousToken == null)
             {
-                if (!string.IsNullOrEmpty(previoustoken.TokenArgument))
-                    previoustoken.TokenArgument += Environment.NewLine;
+                /*if (!string.IsNullOrEmpty(previoustoken.TokenArgument))
+                    previoustoken.TokenArgument += Environment.NewLine;*/
                 PreviousToken = previoustoken;
             }
             else
             {
-                PreviousToken.TokenArgument += previoustoken.TokenArgument + Environment.NewLine;
+                PreviousToken.TokenArgument += previoustoken.TokenArgument;
                 PreviousToken.MultilinePreviousQuote = previoustoken.MultilinePreviousQuote;
             }
                 

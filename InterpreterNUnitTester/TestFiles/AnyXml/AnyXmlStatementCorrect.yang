@@ -7,7 +7,22 @@ module AnyXmlStatementCorrect {
 
 	import yang-interpreter { prefix "yani"; }
 
-	anyxml "aaa" + 'bbb' + "ccc" + 'dd   
-		eeeeee';
-	
+	anyxml "identifier" {
+		config "false";
+		description
+			'the description';
+		if-feature myFeature;
+		mandatory "true";
+		must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+				 error-message "An ethernet MTU must be 1500";
+				 error-app-tag 'err app ta"g';
+				 reference 'ref';
+				 description " the description of this statement";
+		}
+		reference "the reference";
+		status current;
+		when 
+			"xpath:xml:something/";
+	}
 }

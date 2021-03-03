@@ -1,0 +1,12 @@
+module WhenStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	anyxml tester {
+		when 
+			"xpath:xml:something/";
+	}
+}

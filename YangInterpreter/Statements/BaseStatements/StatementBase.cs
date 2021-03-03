@@ -158,9 +158,9 @@ namespace YangInterpreter.Statements.BaseStatements
         private bool IsArgumentInRange(StatementBase StatementToAdd, int AllowedAmount)
         {
             int AmountOfMatchingDescendants = 0;
-            var DescendantList = Descendants(StatementToAdd.GetType());
-            if(DescendantList != null)
-                AmountOfMatchingDescendants = DescendantList.Count();
+            var ElementsList = Elements(StatementToAdd.GetType());
+            if(ElementsList != null)
+                AmountOfMatchingDescendants = ElementsList.Count();
             if (AmountOfMatchingDescendants < AllowedAmount)
                 return true;
             if (AllowedAmount < 0)
@@ -369,6 +369,30 @@ namespace YangInterpreter.Statements.BaseStatements
         {
             var asdds = StatementList.Where(statement => !typeof(EmptyLineStatement).IsAssignableFrom(statement.GetType()));
             return StatementList.Where(statement => !typeof(EmptyLineStatement).IsAssignableFrom(statement.GetType()));
+        }
+
+        /// <summary>
+        /// Returns direct list of children of current node with same type.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
+        public IEnumerable<StatementBase> Elements(Type type)
+        {
+            List<StatementBase> MatchingElements = new List<StatementBase>();
+            bool hasAny = false;
+            foreach (var child in StatementList)
+            {
+                if (child.GetType() == type)
+                {
+                    hasAny = true;
+                    MatchingElements.Add(child);
+                }
+            }
+            if (hasAny)
+                return MatchingElements;
+            else
+                return null;
         }
 
         /// <summary>

@@ -1,0 +1,11 @@
+module ConfigStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	anyxml configHolder {
+		config "false";
+	}
+}

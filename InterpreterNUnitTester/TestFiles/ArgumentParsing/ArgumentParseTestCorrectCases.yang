@@ -114,4 +114,16 @@ module ArgumentParseTestInvalidCase {
 		description 
 			"a"+"de\{s;'c\"" + '"';
 	}
+
+	leaf MultilineConcatWithCompletedNormalQuotes {
+		description "a" +
+			+ "b" +
+			"c";
+	}
+
+	leaf MultilineConcatWithCompletedSingleQuotes {
+		description 'a' +
+			+ 'b' +
+			'c';
+	}
 }

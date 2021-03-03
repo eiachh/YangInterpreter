@@ -217,9 +217,26 @@ namespace InterpreterNUnitTester
         {
             var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "SpecialCharacterCheck").Single().Elements().First();
             Assert.AreEqual("ade\\{s;'c\\\"\"", desc.Value);
-            //var YangTestFile = YangInterpreterTool.Load("TestFiles/ModuleTests/RevisionStatementCorrect.yang");
-            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
-            //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
+        }
+
+        /// <summary>
+        /// Checks if concat is correct with completed quotes
+        /// </summary>
+        [Test]
+        public void CompletedNormalQuoteConcattedMultiline()
+        {
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "MultilineConcatWithCompletedNormalQuotes").Single().Elements().First();
+            Assert.AreEqual("abc", desc.Value);
+        }
+
+        /// <summary>
+        /// Checks if concat is correct with completed single quotes
+        /// </summary>
+        [Test]
+        public void CompletedSingleQuoteConcattedMultiline()
+        {
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "MultilineConcatWithCompletedSingleQuotes").Single().Elements().First();
+            Assert.AreEqual("abc", desc.Value);
         }
 
         /// <summary>

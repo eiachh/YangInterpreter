@@ -53,6 +53,8 @@ namespace YangInterpreter.Interpreter
         internal static Dictionary<Type, Tuple<int, int>> RangeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
 
         internal static Dictionary<Type, Tuple<int, int>> AnyXmlStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> MustStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> AugmentStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,6 +102,8 @@ namespace YangInterpreter.Interpreter
                 FillPatternStatementAllowanceList();
                 FillLengthStatementAllowanceList();
                 FillRangeStatementAllowanceList();
+                FillMustSntatementAllowanceList();
+                FillAugmentSntatementAllowanceList();
             }
         }
 
@@ -107,7 +111,7 @@ namespace YangInterpreter.Interpreter
         {
             ModuleStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(AnyXmlStatement), new Tuple<int, int>(0, -1));
-            //ModuleStatementAllowedSubstatements.Add(typeof(Augment), -1);
+            ModuleStatementAllowedSubstatements.Add(typeof(AugmentStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(Choices), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(Contact), new Tuple<int, int>(0, 1));
             ModuleStatementAllowedSubstatements.Add(typeof(Container), new Tuple<int, int>(0, -1));
@@ -121,7 +125,7 @@ namespace YangInterpreter.Interpreter
             //ModuleStatementAllowedSubstatements.Add(typeof(Include), -1);
             ModuleStatementAllowedSubstatements.Add(typeof(Leaf), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(LeafList), new Tuple<int, int>(0, -1));
-            ModuleStatementAllowedSubstatements.Add(typeof(ListNode), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(ListStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(NamespaceStatement), new Tuple<int, int>(1, 1));
             //ModuleStatementAllowedSubstatements.Add(typeof(Notification), -1);
             ModuleStatementAllowedSubstatements.Add(typeof(Organization), new Tuple<int, int>(0, 1));
@@ -340,14 +344,38 @@ namespace YangInterpreter.Interpreter
         private static void FillAnyXmlSntatementAllowanceList()
         {
             AnyXmlStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
-            //AnyXmlStatementAllowedSubstatements.Add(typeof(ConfigStatement), new Tuple<int, int>(0, 1));
+            AnyXmlStatementAllowedSubstatements.Add(typeof(ConfigStatement), new Tuple<int, int>(0, 1));
             AnyXmlStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
-            //AnyXmlStatementAllowedSubstatements.Add(typeof(IfFeatureStatement), new Tuple<int, int>(0, -1));
-            //AnyXmlStatementAllowedSubstatements.Add(typeof(MandatoryStatement), new Tuple<int, int>(0, 1));
-            //AnyXmlStatementAllowedSubstatements.Add(typeof(MustStatement), new Tuple<int, int>(0, -1));
+            AnyXmlStatementAllowedSubstatements.Add(typeof(IfFeatureStatement), new Tuple<int, int>(0, -1));
+            AnyXmlStatementAllowedSubstatements.Add(typeof(MandatoryStatement), new Tuple<int, int>(0, 1));
+            AnyXmlStatementAllowedSubstatements.Add(typeof(MustStatement), new Tuple<int, int>(0, -1));
             AnyXmlStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
             AnyXmlStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
-            //AnyXmlStatementAllowedSubstatements.Add(typeof(WhenStatement), new Tuple<int, int>(0, 1));
+            AnyXmlStatementAllowedSubstatements.Add(typeof(WhenStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillMustSntatementAllowanceList()
+        {
+            MustStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            MustStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
+            MustStatementAllowedSubstatements.Add(typeof(ErrorAppTagStatement), new Tuple<int, int>(0, 1));
+            MustStatementAllowedSubstatements.Add(typeof(ErrorMessageStatement), new Tuple<int, int>(0, 1));
+            MustStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
+        }
+        private static void FillAugmentSntatementAllowanceList()
+        {
+            AugmentStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(ChoiceCaseStatement), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(Choices), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(Container), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(Description), new Tuple<int, int>(0, 1));
+            AugmentStatementAllowedSubstatements.Add(typeof(IfFeatureStatement), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(Leaf), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(LeafList), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(ListStatement), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(Reference), new Tuple<int, int>(0, 1));
+            AugmentStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
+            AugmentStatementAllowedSubstatements.Add(typeof(Uses), new Tuple<int, int>(0, -1));
+            AugmentStatementAllowedSubstatements.Add(typeof(WhenStatement), new Tuple<int, int>(0, 1));
         }
     }
 }

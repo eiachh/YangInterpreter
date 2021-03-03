@@ -1,0 +1,11 @@
+module IfFeatureStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	anyxml tester {
+		if-feature myFeature;
+	}
+}

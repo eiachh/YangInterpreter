@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
 
@@ -15,8 +14,8 @@ namespace YangInterpreter.Statements
     /// </summary>
     public class AnyXmlStatement : StatementBase
     {
-        public AnyXmlStatement() : base("AnyXml") { }
-        public AnyXmlStatement(string Argument) : base("AnyXml", Argument) { }
+        public AnyXmlStatement() : base("anyxml") { }
+        public AnyXmlStatement(string Argument) : base("anyxml", Argument) { }
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             return SubStatementAllowanceCollection.AnyXmlStatementAllowedSubstatements;
