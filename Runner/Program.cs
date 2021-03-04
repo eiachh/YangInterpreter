@@ -16,7 +16,8 @@ namespace Runner
         static void Main(string[] args)
         {
             //typeof(NamespaceStatement).type
-            //var asdds = typeof(NamespaceStatement).IsAssignableFrom(typeof(StatementWithSingleValueBase));
+            var asdds = typeof(BinaryTypeStatement).IsAssignableFrom(typeof(TypeStatement));
+            var asdds2 = typeof(TypeStatement).IsAssignableFrom(typeof(BinaryTypeStatement));
             //var weweasdds = typeof(StatementWithSingleValueBase).IsAssignableFrom(typeof(NamespaceStatement));
             var asddsds = new Regex("^(?:[0-9]+\\.\\.[0-9]+)(?:\\s?\\|\\s?(?:[0-9]*\\.\\.[0-9]*))*$");
             var math = asddsds.Match("2323..323d23");

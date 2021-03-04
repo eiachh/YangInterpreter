@@ -47,7 +47,7 @@ namespace InterpreterNUnitTester
         public void MustWhitelistOverloadCheck()
         {
             var mustStatement = InterpreterCorrect.Root.Descendants("must").SingleOrDefault();
-            Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new Description()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new YangInterpreter.Statements.DescriptionStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new ErrorAppTagStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new ErrorMessageStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new Reference()));
@@ -60,7 +60,7 @@ namespace InterpreterNUnitTester
         public void MustNonWhitelistedElemAddError()
         {
             var mustStatement = InterpreterCorrect.Root.Descendants("must").SingleOrDefault();
-            Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new Leaf()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new LeafStatement()));
         }
     }
 }

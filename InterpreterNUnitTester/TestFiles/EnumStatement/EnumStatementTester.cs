@@ -71,7 +71,7 @@ namespace InterpreterNUnitTester
         public void EnumStatementOverloadOfDescription()
         {
             var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First();
-            Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new Description("some text in description")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new YangInterpreter.Statements.DescriptionStatement("some text in description")));
         }
 
         /// <summary>

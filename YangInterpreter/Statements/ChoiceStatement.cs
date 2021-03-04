@@ -5,38 +5,43 @@ using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements
 {
-    /// Choice`s Case Statement RFC 6020 7.9.2. 
+    /// Choice Statement RFC 6020 7.9.
     /// 
     /// <summary>
-    /// The "case" statement is used to define branches of the choice. It
-    /// takes as an argument an identifier, followed by a block of
-    /// substatements that holds detailed case information.
+    /// The "choice" statement defines a set of alternatives, only one of
+    /// which may exist at any one time.The argument is an identifier,
+    /// followed by a block of substatements that holds detailed choice
+    /// information.The identifier is used to identify the choice node in
+    /// the schema tree.A choice node does not exist in the data tree.
     /// </summary>
     /// +--------------+---------+-------------+
     /// | substatement | section | cardinality |
     /// +--------------+---------+-------------+
     /// | anyxml       | 7.10    | 0..n        |
-    /// | choice       | 7.9     | 0..n        |
+    /// | case         | 7.9.2   | 0..n        |
+    /// | config       | 7.19.1  | 0..1        |
     /// | container    | 7.5     | 0..n        |
+    /// | default      | 7.9.3   | 0..1        |
     /// | description  | 7.19.3  | 0..1        |
     /// | if-feature   | 7.18.2  | 0..n        |
     /// | leaf         | 7.6     | 0..n        |
     /// | leaf-list    | 7.7     | 0..n        |
     /// | list         | 7.8     | 0..n        |
+    /// | mandatory    | 7.9.4   | 0..1        |
     /// | reference    | 7.19.4  | 0..1        |
     /// | status       | 7.19.2  | 0..1        |
-    /// | uses         | 7.12    | 0..n        |
     /// | when         | 7.19.5  | 0..1        |
     /// +--------------+---------+-------------+
     ///
-    public class ChoiceCaseStatement : StatementBase
+
+    public class ChoiceStatement : StatementBase
     {
-        public ChoiceCaseStatement() : base("case") { }
-        public ChoiceCaseStatement(string Argument) : base("case", Argument) { }
+        public ChoiceStatement() : base("Choices") { }
+        public ChoiceStatement(string Argument) : base("Choices", Argument) { }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
-            return SubStatementAllowanceCollection.ChoiceCaseStatementAllowedSubstatements;
+            return SubStatementAllowanceCollection.ChoiceStatementAllowedSubstatements;
         }
     }
 }

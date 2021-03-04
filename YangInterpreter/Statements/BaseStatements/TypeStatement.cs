@@ -82,5 +82,16 @@ namespace YangInterpreter.Statements.BaseStatements
                 return type.ToString();
             }
         }
+
+        internal static int CountTypes(IEnumerable<StatementBase> Collection)
+        {
+            int typeAmount = 0;
+            foreach (var statement in Collection)
+            {
+                if (typeof(TypeStatement).IsAssignableFrom(statement.GetType()))
+                    typeAmount++;
+            }
+            return typeAmount;
+        }
     }
 }

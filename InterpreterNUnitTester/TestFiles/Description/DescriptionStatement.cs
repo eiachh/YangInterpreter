@@ -42,8 +42,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void ThrowErrorOnStatementAdd()
         {
-            Description desc = new Description("Some value");
-            Assert.Throws<ArgumentOutOfRangeException>(() => desc.AddStatement(new Description()));
+            YangInterpreter.Statements.DescriptionStatement desc = new YangInterpreter.Statements.DescriptionStatement("Some value");
+            Assert.Throws<ArgumentOutOfRangeException>(() => desc.AddStatement(new YangInterpreter.Statements.DescriptionStatement()));
         }
 
         /// <summary>

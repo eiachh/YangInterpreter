@@ -38,7 +38,7 @@ namespace InterpreterNUnitTester
         {
             var anyxml = InterpreterCorrect.Root.Descendants("anyxml").First();
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new ConfigStatement("true")));
-            Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new Description("desc")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new YangInterpreter.Statements.DescriptionStatement("desc")));
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new MandatoryStatement("true")));
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new Reference("ref")));
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new StatusStatement("current")));
@@ -52,7 +52,7 @@ namespace InterpreterNUnitTester
         public void AnyXmlStatementNonWhitelistedStatementAdd()
         {
             var anyxml = InterpreterCorrect.Root.Descendants("anyxml").First();
-            Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new Leaf("leaf1")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new LeafStatement("leaf1")));
         }
     }
 }

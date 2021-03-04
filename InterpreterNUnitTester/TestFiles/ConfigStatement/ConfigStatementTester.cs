@@ -46,7 +46,7 @@ namespace InterpreterNUnitTester
         public void ConfigIsChildless()
         {
             var configStatement = InterpreterCorrect.Root.Descendants("config").First();
-            Assert.Throws<ArgumentOutOfRangeException>(() => configStatement.AddStatement(new Description("text")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => configStatement.AddStatement(new YangInterpreter.Statements.DescriptionStatement("text")));
         }
 
         /// <summary>

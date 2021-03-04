@@ -1,0 +1,21 @@
+module DefaultStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	leaf tester {
+		type int8;
+		default "2";
+	}
+
+	choice tester2 {
+		default caseName;
+		case caseName{
+			leaf leafOfCase {
+				type int16;
+			}
+		}
+	}
+}

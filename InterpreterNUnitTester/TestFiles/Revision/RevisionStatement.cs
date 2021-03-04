@@ -49,8 +49,8 @@ namespace InterpreterNUnitTester
         public void RevisionMultipleDescriptionStatementError()
         {
             Revision TestRevision = new Revision("1997-09-02");
-            TestRevision.AddStatement(new Description());
-            Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new Description()));
+            TestRevision.AddStatement(new YangInterpreter.Statements.DescriptionStatement());
+            Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new YangInterpreter.Statements.DescriptionStatement()));
         }
 
         /// <summary>

@@ -46,7 +46,7 @@ namespace InterpreterNUnitTester
         public void MandatoryIsChildless()
         {
             var mandatoryStatement = InterpreterCorrect.Root.Descendants("mandatory").First();
-            Assert.Throws<ArgumentOutOfRangeException>(() => mandatoryStatement.AddStatement(new Description("text")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => mandatoryStatement.AddStatement(new YangInterpreter.Statements.DescriptionStatement("text")));
         }
 
         /// <summary>

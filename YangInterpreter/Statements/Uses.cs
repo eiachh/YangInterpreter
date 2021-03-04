@@ -8,9 +8,8 @@ namespace YangInterpreter.Statements
 {
     public class Uses : StatementBase
     {
-        public Uses(string name) : base(name) { ContainedGrouping = Grouping.GetGroupingByName(name,this); }
-        public Grouping ContainedGrouping { get; set; }
-
+        public Uses() : base("uses") { }
+        public Uses(string Argument) : base("uses", Argument) { }
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             throw new NotImplementedException();

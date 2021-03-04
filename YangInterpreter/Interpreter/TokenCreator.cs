@@ -45,13 +45,13 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>yang-version)\s+"+ArgumentParser),                        typeof(YangVersionStatement)                                       ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>import)\s+"+ArgumentParser),                      typeof(Import)                                            ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>module)\s+"+ArgumentParser),typeof(Module)),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>grouping)\s+"+ArgumentParser),typeof(Grouping)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>grouping)\s+"+ArgumentParser),typeof(GroupingStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>uses)\s+"+ArgumentParser),typeof(Uses)                      ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>choice)\s+"+ArgumentParser),typeof(Choices)                   ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>choice)\s+"+ArgumentParser),typeof(ChoiceStatement)                   ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>case)\s+"+ArgumentParser),typeof(ChoiceCaseStatement)               ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>prefix)\s*"+ArgumentParser),typeof(Prefix)                   ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>container)\s+"+ArgumentParser),typeof(Container)                ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>leaf)\s+"+ArgumentParser),typeof(Leaf)                     ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>container)\s+"+ArgumentParser),typeof(ContainerStatement)                ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>leaf)\s+"+ArgumentParser),typeof(LeafStatement)                     ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>leaf-list)\s+"+ArgumentParser),typeof(LeafList)                 ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>list)\s+"+ArgumentParser),typeof(ListStatement)                      ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>anyxml)\s+"+ArgumentParser),typeof(AnyXmlStatement)),
@@ -101,10 +101,11 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>namespace\s+"+ArgumentParser+@"|namespace)\s*"),typeof(NamespaceStatement)    ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>organization\s+"+ArgumentParser+@"|organization)\s*"),typeof(Organization)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>reference\s+"+ArgumentParser+@"|reference)\s*"),typeof(Reference)     ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>description\s+"+ArgumentParser+@"|description)\s*"),typeof(Description)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>description\s+"+ArgumentParser+@"|description)\s*"),typeof(DescriptionStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>default\s+"+ArgumentParser+@"|default)\s*"),typeof(DefaultStatement)),
 
-                
-                
+
+
                 new SearchScheme(new Regex(@"^\s* *$"),                                                                 null,TokenTypes.Skip),
 
                 new SearchScheme(new Regex("(?s)^(?!.*(?:[\";']))[\\s\\t]*(?<nonQuoted>.*)$"),                                null, TokenTypes.ValueForPreviousLineMultiline),

@@ -74,6 +74,9 @@
     <None Update="TestFiles\Decimal64Type\Decimal64TypeCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\DefaultStatement\DefaultStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\Description\DescriptionMissingSemicolon.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -209,6 +212,10 @@
     <None Update="TestFiles\WhenStatement\WhenStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="TestFiles\AugmentStatement\" />
   </ItemGroup>
 
 </Project>
