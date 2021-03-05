@@ -91,8 +91,8 @@ namespace InterpreterNUnitTester
         public void ReferenceOverFlowCheck()
         {
             var pattern = new Pattern("pattern");
-            pattern.AddStatement(new Reference("value"));
-            Assert.Throws<ArgumentOutOfRangeException>(() => pattern.AddStatement(new Reference("value")));
+            pattern.AddStatement(new ReferenceStatement("value"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => pattern.AddStatement(new ReferenceStatement("value")));
         }
     }
 }

@@ -1,0 +1,26 @@
+module LeafStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	leaf tester {
+		config "false";
+		type int8;
+		default "2";
+		description "desc";
+
+		if-feature myFeature;
+		mandatory "true";
+		must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)";
+		reference
+			"cc1fil_t - 0x0033A0000";
+		status current;
+		units "unit desc";
+
+		when 
+			"xpath:xml:something/";
+	}
+}

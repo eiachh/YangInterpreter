@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-using YangInterpreter.Interpreter;
 using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
@@ -16,10 +13,10 @@ namespace YangInterpreter.Statements
     /// document that provides additional information relevant to this
     /// definition.
     /// </summary>
-    public class Reference : ChildlessStatement
+    public class ReferenceStatement : ChildlessStatement
     {
-        public Reference() : base("Reference") { }
-        public Reference(string Value) : this() { base.Value = Value; }
+        public ReferenceStatement() : base("reference") { }
+        public ReferenceStatement(string Value) : this() { base.Value = Value; }
 
         internal override bool IsQuotedValue => true;
     }

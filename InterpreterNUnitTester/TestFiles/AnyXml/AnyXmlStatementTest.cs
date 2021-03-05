@@ -40,7 +40,7 @@ namespace InterpreterNUnitTester
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new ConfigStatement("true")));
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new YangInterpreter.Statements.DescriptionStatement("desc")));
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new MandatoryStatement("true")));
-            Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new Reference("ref")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new ReferenceStatement("ref")));
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new StatusStatement("current")));
             Assert.Throws<ArgumentOutOfRangeException>(() => anyxml.AddStatement(new WhenStatement("whenStatement")));
         }

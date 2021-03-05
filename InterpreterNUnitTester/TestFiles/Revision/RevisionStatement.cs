@@ -60,8 +60,8 @@ namespace InterpreterNUnitTester
         public void RevisionMultipleReferenceStatementError()
         {
             Revision TestRevision = new Revision("1997-09-02");
-            TestRevision.AddStatement(new Reference());
-            Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new Reference()));
+            TestRevision.AddStatement(new ReferenceStatement());
+            Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new ReferenceStatement()));
         }
 
         /// <summary>

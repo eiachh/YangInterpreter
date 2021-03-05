@@ -52,7 +52,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>prefix)\s*"+ArgumentParser),typeof(Prefix)                   ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>container)\s+"+ArgumentParser),typeof(ContainerStatement)                ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>leaf)\s+"+ArgumentParser),typeof(LeafStatement)                     ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>leaf-list)\s+"+ArgumentParser),typeof(LeafList)                 ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>leaf-list)\s+"+ArgumentParser),typeof(LeafListStatement)                 ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>list)\s+"+ArgumentParser),typeof(ListStatement)                      ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>anyxml)\s+"+ArgumentParser),typeof(AnyXmlStatement)),
                 
@@ -100,9 +100,11 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>contact\s+"+ArgumentParser+@"|contact)\s*"),typeof(Contact)       ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>namespace\s+"+ArgumentParser+@"|namespace)\s*"),typeof(NamespaceStatement)    ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>organization\s+"+ArgumentParser+@"|organization)\s*"),typeof(Organization)),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>reference\s+"+ArgumentParser+@"|reference)\s*"),typeof(Reference)     ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>reference\s+"+ArgumentParser+@"|reference)\s*"),typeof(ReferenceStatement)     ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>description\s+"+ArgumentParser+@"|description)\s*"),typeof(DescriptionStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>default\s+"+ArgumentParser+@"|default)\s*"),typeof(DefaultStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>units\s+"+ArgumentParser+@"|units)\s*"),typeof(UnitsStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>max-elements\s+"+ArgumentParser+@"|max-elements)\s*"),typeof(MaxElementsStatement)),
 
 
 

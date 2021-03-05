@@ -50,7 +50,7 @@ namespace InterpreterNUnitTester
             Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new YangInterpreter.Statements.DescriptionStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new ErrorAppTagStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new ErrorMessageStatement()));
-            Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new Reference()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => mustStatement.AddStatement(new ReferenceStatement()));
         }
 
         /// <summary>

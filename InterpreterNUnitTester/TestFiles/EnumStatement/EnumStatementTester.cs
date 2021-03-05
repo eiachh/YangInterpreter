@@ -61,7 +61,7 @@ namespace InterpreterNUnitTester
         public void EnumStatementOverloadOfReference()
         {
             var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First(); 
-            Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new Reference("some text in reference")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new ReferenceStatement("some text in reference")));
         }
 
         /// <summary>

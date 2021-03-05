@@ -92,8 +92,8 @@ namespace InterpreterNUnitTester
         public void ReferenceOverFlowCheck()
         {
             var rangeStatement1 = new RangeStatement("2..10 | 51..343");
-            rangeStatement1.AddStatement(new Reference("value"));
-            Assert.Throws<ArgumentOutOfRangeException>(() => rangeStatement1.AddStatement(new Reference("value")));
+            rangeStatement1.AddStatement(new ReferenceStatement("value"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => rangeStatement1.AddStatement(new ReferenceStatement("value")));
         }
     }
 }

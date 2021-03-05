@@ -1,0 +1,11 @@
+module UnitsStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	leaf tester {
+		units "desc of unit";
+	}
+}

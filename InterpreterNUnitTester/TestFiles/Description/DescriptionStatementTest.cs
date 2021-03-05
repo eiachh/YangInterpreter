@@ -9,7 +9,7 @@ using System;
 
 namespace InterpreterNUnitTester
 {
-    public class DescriptionStatement
+    public class DescriptionStatementTest
     {
         YangInterpreterTool InterpreterCorrect;
         [SetUp]

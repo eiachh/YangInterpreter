@@ -1,0 +1,10 @@
+module ReferenceStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceCorrectTestModule1";
+
+	prefix nctm;
+
+	reference
+		"Reference1102-2323";
+}
