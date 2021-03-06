@@ -1,0 +1,11 @@
+module OrderedByCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	leaf-list tester {
+		ordered-by "user";
+	}
+}

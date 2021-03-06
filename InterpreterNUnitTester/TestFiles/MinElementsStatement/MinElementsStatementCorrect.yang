@@ -1,0 +1,11 @@
+module MinElementsStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	leaf-list tester {
+	 min-elements "+2";
+	}
+}

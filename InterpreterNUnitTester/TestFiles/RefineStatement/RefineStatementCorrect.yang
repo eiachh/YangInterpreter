@@ -1,0 +1,11 @@
+module RefineStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	uses tmt:testContainer {
+		refine "identifier:ofThis";
+	}
+}

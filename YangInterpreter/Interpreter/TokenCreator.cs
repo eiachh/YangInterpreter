@@ -46,7 +46,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>import)\s+"+ArgumentParser),                      typeof(Import)                                            ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>module)\s+"+ArgumentParser),typeof(Module)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>grouping)\s+"+ArgumentParser),typeof(GroupingStatement)),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>uses)\s+"+ArgumentParser),typeof(Uses)                      ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>uses)\s+"+ArgumentParser),typeof(UsesStatement)                      ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>choice)\s+"+ArgumentParser),typeof(ChoiceStatement)                   ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>case)\s+"+ArgumentParser),typeof(ChoiceCaseStatement)               ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>prefix)\s*"+ArgumentParser),typeof(Prefix)                   ),
@@ -90,6 +90,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>type string)\s*"+ArgumentParser),typeof(StringTypeStatement)               ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>bit)\s+"+ArgumentParser),typeof(Bit)                 ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>enum)\s+"+ArgumentParser),typeof(EnumStatement)                 ),
+                 new SearchScheme(new Regex(@"^\s*(?<statementName>typedef)\s+"+ArgumentParser),typeof(TypedefStatement)                 ),
 
                 new SearchScheme(new Regex(@"^\s*(?<statementName>when\s+"+ArgumentParser+@"|when)\s*"),typeof(WhenStatement)                 ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>length\s+"+ArgumentParser+@"|length)\s*"),typeof(Length)      ),
@@ -105,6 +106,10 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>default\s+"+ArgumentParser+@"|default)\s*"),typeof(DefaultStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>units\s+"+ArgumentParser+@"|units)\s*"),typeof(UnitsStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>max-elements\s+"+ArgumentParser+@"|max-elements)\s*"),typeof(MaxElementsStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>min-elements\s+"+ArgumentParser+@"|min-elements)\s*"),typeof(MinElementsStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>ordered-by\s+"+ArgumentParser+@"|ordered-by)\s*"),typeof(OrderedByStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>refine\s+"+ArgumentParser+@"|refine)\s*"),typeof(RefineStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>augment\s+"+ArgumentParser+@"|augment)\s*"),typeof(AugmentStatement)),
 
 
 

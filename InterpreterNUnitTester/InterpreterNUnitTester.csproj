@@ -101,6 +101,9 @@
     <None Update="TestFiles\IntegerTypes\IntegerTypesCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\LeafListStatement\LeafListStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\LeafStatement\LeafStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -119,10 +122,16 @@
     <None Update="TestFiles\MaxElementsStatement\MaxElementsStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\MinElementsStatement\MinElementsStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\ModuleTests\ModuleStatementsCorrectYangVerMissing.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\MustStatement\MustStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\OrderedByStatement\OrderedByCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\Organization\OrganizationCorrectNextLineStart.yang">
@@ -153,6 +162,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ReferenceStatement\ReferenceStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\RefineStatement\RefineStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\RequireInstanceStatement\RequireInstanceStatementCorrect.yang">
@@ -194,6 +206,9 @@
     <None Update="TestFiles\StatusStatement\StatusStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\TypedefStatement\TypedefStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\TypeStatement\EnumStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -216,6 +231,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\UnitsStatement\UnitsStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\UsesStatement\UsesStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ValueStatement\ValueStatementCorrect.yang">

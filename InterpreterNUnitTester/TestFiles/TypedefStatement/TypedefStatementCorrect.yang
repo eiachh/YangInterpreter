@@ -1,0 +1,19 @@
+module TypedefStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	typedef testerType {
+		default "2";
+		description desc;
+		reference ref;
+		status current;
+		type int8 {
+			range "1..7";
+		}
+
+		units "desc of unit";
+	}
+}

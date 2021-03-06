@@ -30,6 +30,16 @@ namespace InterpreterNUnitTester
         }
 
         /// <summary>
+        /// Checks if the max-elements statement default value is unbounded.
+        /// </summary>
+        [Test]
+        public void MaxElementsStatementDefaultValue()
+        {
+            var maxElem = new MaxElementsStatement();
+            Assert.AreEqual("unbounded", maxElem.Value);
+        }
+
+        /// <summary>
         /// Checks if the max-elements statement is childless.
         /// </summary>
         [Test]

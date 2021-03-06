@@ -1,0 +1,20 @@
+module UsesStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	uses namespace:testContainer {
+		augment "/if:interfaces/if:ifEntry" {
+			when "if:ifType=’ds0’";
+		}
+		description "desc";
+		if-feature 'feature';
+		refine "identifier:ofThis";
+		reference ref;
+
+		status "deprecated";
+		when "arg";
+	}
+}
