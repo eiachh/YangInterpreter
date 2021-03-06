@@ -15,8 +15,8 @@ namespace YangInterpreter.Interpreter
 
         public string YangAsRawText { get; private set; }
 
-        private TokenTypes InterpreterStatus = TokenTypes.Start;
-        Stack<TokenTypes> InterpreterStatusStack = new Stack<TokenTypes>();
+        private Type InterpreterStatus = typeof(Interpreter);
+        Stack<Type> InterpreterStatusStack = new Stack<Type>();
         private StatementBase InterpreterTracer;
         private StatementBase TracerCurrentNode;
 
@@ -31,7 +31,7 @@ namespace YangInterpreter.Interpreter
             SubStatementAllowanceCollection.Init();
 
             Option = opt;
-            InterpreterStatusStack.Push(TokenTypes.Start);
+            InterpreterStatusStack.Push(typeof(Interpreter));
             TokenCreator.Init();
         }
 
@@ -53,7 +53,7 @@ namespace YangInterpreter.Interpreter
                     InnerBlock = ConvertLine(InnerBlock, ref MultilineBeginingWasPresent, ref PreviousState);
                 }
             }
-            if (InterpreterStatusStack.Pop() != TokenTypes.Start)
+            if (InterpreterStatusStack.Pop() != typeof(Interpreter))
                 throw new StatementEndIsMissing("The yang file ended but statement closing symbol(s): \"}\" were missing.");
 
             return InterpreterTracer;
@@ -165,8 +165,6 @@ namespace YangInterpreter.Interpreter
         {
             if (PreviousToken == null)
             {
-                /*if (!string.IsNullOrEmpty(previoustoken.TokenArgument))
-                    previoustoken.TokenArgument += Environment.NewLine;*/
                 PreviousToken = previoustoken;
             }
             else
@@ -196,10 +194,10 @@ namespace YangInterpreter.Interpreter
         {
             return new Module(name);
         }
-        private void NewInterpreterStatus(TokenTypes status)
+        private void NewInterpreterStatus(Type type)
         {
-            InterpreterStatusStack.Push(status);
-            InterpreterStatus = status;
+            InterpreterStatusStack.Push(type);
+            InterpreterStatus = type;
         }
 
         private static bool ValidateYangVersionCompatibility(string VersionAsString)
@@ -231,10 +229,10 @@ namespace YangInterpreter.Interpreter
             if (opt == YangAddingOption.None && !typeof(ChildlessStatement).IsAssignableFrom(instantiatedobj.GetType()))
             {
                 TracerCurrentNode = instantiatedobj;
-                NewInterpreterStatus(InputToken.TokenTypeSpecialInfo);
+                NewInterpreterStatus(InputToken.TokenAsType);
             }
             else if (opt == YangAddingOption.ChildIncapable)
-                NewInterpreterStatus(InputToken.TokenTypeSpecialInfo);
+                NewInterpreterStatus(InputToken.TokenAsType);
 
             return instantiatedobj;
 
@@ -244,9 +242,9 @@ namespace YangInterpreter.Interpreter
         /// Falls back to the parent node from the current node.
         /// </summary>
         /// <returns></returns>
-        private TokenTypes FallbackToPreviousInterpreterStatus()
+        private Type FallbackToPreviousInterpreterStatus()
         {
-            if (ParentFallbackIsNeeded(InterpreterStatus))
+            if (ParentFallbackIsNeeded())
             {
                 TracerCurrentNode = TracerCurrentNode.Parent;
             }
@@ -257,7 +255,7 @@ namespace YangInterpreter.Interpreter
                 InterpreterStatus = InterpreterStatusStack.Pop();
                 InterpreterStatusStack.Push(InterpreterStatus);
             }
-            if (InterpreterStatus == TokenTypes.Start)
+            if (InterpreterStatus == typeof(Interpreter))
                 ModulEnded = true;
 
             return InterpreterStatus;
@@ -268,7 +266,7 @@ namespace YangInterpreter.Interpreter
         /// </summary>
         /// <param name="currenttokentype"></param>
         /// <returns></returns>
-        private bool ParentFallbackIsNeeded(TokenTypes currenttokentype)
+        private bool ParentFallbackIsNeeded()
         {
             return (TracerCurrentNode.Elements().Count() > 0);
         }
@@ -300,11 +298,11 @@ namespace YangInterpreter.Interpreter
             }
 
             ///Reachable Statuses from Start status
-            else if (InterpreterStatus == TokenTypes.Start && InputToken.TokenAsType == typeof(Module) && !ModulEnded)
+            else if (InterpreterStatus == typeof(Interpreter) && InputToken.TokenAsType == typeof(Module) && !ModulEnded)
             {
                 InterpreterTracer = CreateMainModule(InputToken.TokenArgument);
                 TracerCurrentNode = InterpreterTracer;
-                NewInterpreterStatus(TokenTypes.SameLineStart);
+                NewInterpreterStatus(typeof(Module));
             }
 
             ///STATEMENT WITH NO ELEMENT

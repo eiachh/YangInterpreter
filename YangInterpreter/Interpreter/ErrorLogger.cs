@@ -39,7 +39,7 @@ namespace YangInterpreter.Interpreter
         /// </summary>
         /// <param name="StatementWithParseError"></param>
         /// <returns></returns>
-        public bool CreateLog(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken)
+        public bool CreateLog(StatementBase StatementWithParseError, Stack<Type> StatusStack, Token ParsedToken)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace YangInterpreter.Interpreter
             }
         }
 
-        public bool CreateLog(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack)
+        public bool CreateLog(StatementBase StatementWithParseError, Stack<Type> StatusStack)
         {
             try
             {
@@ -65,20 +65,20 @@ namespace YangInterpreter.Interpreter
             }
         }
 
-        private string MakeStatusStackIntoString(Stack<TokenTypes> StatusStack)
+        private string MakeStatusStackIntoString(Stack<Type> StatusStack)
         {
             string strBuilder = string.Empty;
-            Stack<TokenTypes> ReversedStatusStack = new Stack<TokenTypes>(StatusStack);
+            Stack<Type> ReversedStatusStack = new Stack<Type>(StatusStack);
 
             foreach (var status in ReversedStatusStack)
             {
-                if(status.ToString().ToLower() != "start")
-                    strBuilder += status.ToString() + "-->";
+                if(status.Name != "start")
+                    strBuilder += status.Name + "-->";
             }
             return strBuilder;
         }
 
-        private string BuildOutputString(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack, Token ParsedToken) 
+        private string BuildOutputString(StatementBase StatementWithParseError, Stack<Type> StatusStack, Token ParsedToken) 
         {
             string strBuilder = string.Empty;
             strBuilder += "Error at row: " + RowNumber + Environment.NewLine;
@@ -90,7 +90,7 @@ namespace YangInterpreter.Interpreter
             return strBuilder;
         }
 
-        private string BuildOutputString(StatementBase StatementWithParseError, Stack<TokenTypes> StatusStack)
+        private string BuildOutputString(StatementBase StatementWithParseError, Stack<Type> StatusStack)
         {
             string strBuilder = string.Empty;
             strBuilder += "Error at row: " + RowNumber + Environment.NewLine;

@@ -21,8 +21,8 @@ namespace YangInterpreter.Interpreter
         private static string QuoteType = string.Empty;
 
         private static List<SearchScheme> InterpreterSearchSchemeList;
-        private static SearchScheme InnerBlockParser = new SearchScheme(new Regex("\\s*{\\s*(?<argument>[^}]*\\s*})\\s*$"), null);
-        private static SearchScheme InnerEndlineParser = new SearchScheme(new Regex(@".(?<argument>})\s*$"), null, TokenTypes.NodeEndingBracket);
+        private static SearchScheme InnerBlockParser = new SearchScheme(new Regex("\\s*{\\s*(?<argument>.*\\s*})\\s*$"), null);
+        private static SearchScheme InnerEndlineParser = new SearchScheme(new Regex(@"(?:\s*(?<argument>}){1}\s*(?<remaining>(?:\s*}\s*)*){1})\s*$"), null, TokenTypes.NodeEndingBracket);
         private static string ArgumentParser;
         internal static void Init()
         {
@@ -128,14 +128,17 @@ namespace YangInterpreter.Interpreter
         internal static Token GetTokenForRow(string row, Token previousTokenPartOfMultiline)
         {
             Token MatchResultToken = new Token( "", null, TokenTypes.Empty, false);
-
+            if (row.Contains("container ethernet { leaf"))
+            {
+                var sddsds = 2;
+            }
             row = InnerBlockTryParse(MatchResultToken, row);
             foreach (var scheme in InterpreterSearchSchemeList)
             {
                 Match match = scheme.Reg.Match(row);
                 if (match.Success)
                 {
-                    if (row.Contains("+ \"b\" +"))
+                    if (row.Contains("container ethernet { leaf"))
                     {
                         var sddsds = 2;
                     }
@@ -217,9 +220,15 @@ namespace YangInterpreter.Interpreter
             match = InnerEndlineParser.Reg.Match(row);
             if (match.Success)
             {
-                MatchResult.InnerBlock = match.Groups["argument"].Value;
-                return InnerEndlineParser.Reg.Replace(row, "", 1);
+                MatchResult.InnerBlock = match.Groups["argument"].Value + match.Groups["remaining"].Value;
+                row = InnerEndlineParser.Reg.Replace(row, "", 1);
             }
+            if(string.IsNullOrEmpty(row))
+            {
+                MatchResult.InnerBlock = match.Groups["remaining"].Value;
+                row = match.Groups["argument"].Value;
+            }
+
             return row;
         }
 

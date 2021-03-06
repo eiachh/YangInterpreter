@@ -1,0 +1,33 @@
+module GroupingStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	grouping tester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+				+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+					error-message "An ethernet MTU must be 1500";
+					error-app-tag 'err app ta"g';
+					reference 'ref';
+					description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+		choice interface-type {
+			case ethernet {
+				container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+			}
+		}
+	}
+}

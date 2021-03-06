@@ -290,7 +290,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void NonFinishedNormalQuoteArgument()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase6.yang"));
+            Assert.Throws<StatementEndIsMissing>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase6.yang"));
         }
 
         /// <summary>
@@ -299,7 +299,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void NonFinishedSingleQuoteArgument()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase7.yang"));
+            Assert.Throws<StatementEndIsMissing>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase7.yang"));
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void NonFinishedNormalQuoteConcattedArgument()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase8.yang"));
+            Assert.Throws<StatementEndIsMissing>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase8.yang"));
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void NonFinishedSingleQuoteConcattedArgument()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase9.yang"));
+            Assert.Throws<StatementEndIsMissing>(() => YangInterpreterTool.Load("TestFiles/ArgumentParsing/ArgumentParseTestInvalidCase9.yang"));
         }
 
         /// <summary>
