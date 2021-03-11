@@ -1,0 +1,11 @@
+module UniqueStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	list tester {
+		unique "identifier identifier2";
+	}
+}

@@ -110,6 +110,9 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>ordered-by\s+"+ArgumentParser+@"|ordered-by)\s*"),typeof(OrderedByStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>refine\s+"+ArgumentParser+@"|refine)\s*"),typeof(RefineStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>augment\s+"+ArgumentParser+@"|augment)\s*"),typeof(AugmentStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>key\s+"+ArgumentParser+@"|key)\s*"),typeof(KeyStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>unique\s+"+ArgumentParser+@"|unique)\s*"),typeof(UniqueStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>presence\s+"+ArgumentParser+@"|presence)\s*"),typeof(PresenceStatement)),
 
 
 

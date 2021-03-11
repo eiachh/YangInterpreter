@@ -1,0 +1,11 @@
+module PresenceStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	container tester {
+		presence "desc of presence meaning";
+	}
+}

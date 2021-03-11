@@ -1,0 +1,11 @@
+module KeyStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	list tester {
+		key "identifier identifier2";
+	}
+}

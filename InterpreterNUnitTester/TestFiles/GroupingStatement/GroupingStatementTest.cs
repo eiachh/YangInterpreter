@@ -25,10 +25,22 @@ namespace InterpreterNUnitTester
         [Test]
         public void GroupingIsParsedCorrectly()
         {
-            var grouping = InterpreterCorrect.Root.Descendants("grouping").Single();
-            Assert.AreEqual(2, grouping.Elements().Count());
-            //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
-            //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
+            var grouping = InterpreterCorrect.Root.Descendants("grouping").Where(statement => statement.Value == "mainTester").Single();
+            Assert.AreEqual(12, grouping.Elements().Count());
+        }
+
+        /// <summary>
+        /// Checks if the grouping statement is throwing error at whitelisted item overflow.
+        /// </summary>
+        [Test]
+        public void GroupingWhitelistOverflowError()
+        {
+            var grouping = InterpreterCorrect.Root.Descendants("grouping").Where(statement => statement.Value == "mainTester").Single();
+            Assert.Throws<ArgumentOutOfRangeException>(() => grouping.AddStatement(new BooleanTypeStatement("true")));
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => grouping.AddStatement(new DescriptionStatement("desc")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => grouping.AddStatement(new ReferenceStatement("ref")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => grouping.AddStatement(new StatusStatement("current")));
         }
     }
 }
