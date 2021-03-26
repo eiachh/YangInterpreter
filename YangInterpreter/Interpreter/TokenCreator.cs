@@ -44,7 +44,7 @@ namespace YangInterpreter.Interpreter
 
                 new SearchScheme(new Regex(@"^\s*(?<statementName>yang-version)\s+"+ArgumentParser),                        typeof(YangVersionStatement)                                       ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>import)\s+"+ArgumentParser),                      typeof(Import)                                            ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>module)\s+"+ArgumentParser),typeof(Module)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>module)\s+"+ArgumentParser),typeof(ModuleStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>grouping)\s+"+ArgumentParser),typeof(GroupingStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>uses)\s+"+ArgumentParser),typeof(UsesStatement)                      ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>choice)\s+"+ArgumentParser),typeof(ChoiceStatement)                   ),
@@ -98,7 +98,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>error-message\s+"+ArgumentParser+@"|error-message)\s*"),typeof(ErrorMessageStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>error-app-tag\s+"+ArgumentParser+@"|error-app-tag)\s*"),typeof(ErrorAppTagStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>path\s+"+ArgumentParser+@"|path)\s*"),typeof(PathStatement)          ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>contact\s+"+ArgumentParser+@"|contact)\s*"),typeof(Contact)       ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>contact\s+"+ArgumentParser+@"|contact)\s*"),typeof(ContactStatement)       ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>namespace\s+"+ArgumentParser+@"|namespace)\s*"),typeof(NamespaceStatement)    ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>organization\s+"+ArgumentParser+@"|organization)\s*"),typeof(Organization)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>reference\s+"+ArgumentParser+@"|reference)\s*"),typeof(ReferenceStatement)     ),
@@ -113,6 +113,12 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>key\s+"+ArgumentParser+@"|key)\s*"),typeof(KeyStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>unique\s+"+ArgumentParser+@"|unique)\s*"),typeof(UniqueStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>presence\s+"+ArgumentParser+@"|presence)\s*"),typeof(PresenceStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>contact\s+"+ArgumentParser+@"|contact)\s*"),typeof(ContactStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>deviation\s+"+ArgumentParser+@"|deviation)\s*"),typeof(DeviationStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>deviate\s+"+ArgumentParser+@"|deviate)\s*"),typeof(DeviateStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>yin-element\s+"+ArgumentParser+@"|yin-element)\s*"),typeof(YinElementStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>argument\s+"+ArgumentParser+@"|argument)\s*"),typeof(ArgumentStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>extension\s+"+ArgumentParser+@"|extension)\s*"),typeof(ExtensionStatement)),
 
 
 

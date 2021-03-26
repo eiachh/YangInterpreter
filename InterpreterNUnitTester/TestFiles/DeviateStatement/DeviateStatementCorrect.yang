@@ -1,0 +1,28 @@
+module DeviateStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	deviation tester {
+		deviate mainTester {
+			config "true";
+			default tester;
+			mandatory true;
+			max-elements "5";
+			min-elements "2";
+
+			must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+				 error-message "An ethernet MTU must be 1500";
+				 error-app-tag 'err app ta"g';
+				 reference 'ref';
+				 description " the description of this statement";
+			}
+			type int16;
+			unique "identifier identifier2";
+			units "desc of unit";
+		}
+	}
+}

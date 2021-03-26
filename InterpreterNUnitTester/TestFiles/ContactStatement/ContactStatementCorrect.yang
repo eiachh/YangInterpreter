@@ -1,0 +1,9 @@
+module ContactStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	contact "Email: adam.sranko@gmail.com";
+}

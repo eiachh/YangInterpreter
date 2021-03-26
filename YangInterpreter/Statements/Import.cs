@@ -50,7 +50,7 @@ namespace YangInterpreter.Statements
         /// <param name="newValueOfPrefix"></param>
         private void HandleValueChange(string newValueOfPrefix)
         {
-            var module = Root as Module;
+            var module = Root as ModuleStatement;
             var childPrefix = Descendants("prefif");
 
             if (childPrefix is null)

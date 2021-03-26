@@ -1,0 +1,13 @@
+module ArgumentStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	extension tester{
+		argument mainTester {
+			yin-element "true";
+		}
+	}
+}

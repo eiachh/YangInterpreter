@@ -190,9 +190,9 @@ namespace YangInterpreter.Interpreter
         /// Creates the Root YangNode which is the module in the yang file.
         /// </summary>
         /// <param name="input"></param>
-        private Module CreateMainModule(string name)
+        private ModuleStatement CreateMainModule(string name)
         {
-            return new Module(name);
+            return new ModuleStatement(name);
         }
         private void NewInterpreterStatus(Type type)
         {
@@ -298,11 +298,11 @@ namespace YangInterpreter.Interpreter
             }
 
             ///Reachable Statuses from Start status
-            else if (InterpreterStatus == typeof(Interpreter) && InputToken.TokenAsType == typeof(Module) && !ModulEnded)
+            else if (InterpreterStatus == typeof(Interpreter) && InputToken.TokenAsType == typeof(ModuleStatement) && !ModulEnded)
             {
                 InterpreterTracer = CreateMainModule(InputToken.TokenArgument);
                 TracerCurrentNode = InterpreterTracer;
-                NewInterpreterStatus(typeof(Module));
+                NewInterpreterStatus(typeof(ModuleStatement));
             }
 
             ///STATEMENT WITH NO ELEMENT

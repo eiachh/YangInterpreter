@@ -60,6 +60,11 @@ namespace YangInterpreter.Interpreter
         internal static Dictionary<Type, Tuple<int, int>> TypedefStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> UsesStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> ListStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> DeviationStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> DeviateStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> ArgumentStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> ExtensionStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> FeatureStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,6 +120,11 @@ namespace YangInterpreter.Interpreter
                 FillTypedefStatementAllowanceList();
                 FillUsesStatementAllowanceList();
                 FillListStatementAllowanceList();
+                FillDeviationStatementAllowanceList();
+                FillDeviateStatementAllowanceList();
+                FillArgumentStatementAllowanceList();
+                FillExtensionStatementAllowanceList();
+                FillFeatureStatementAllowanceList();
             }
         }
 
@@ -124,12 +134,12 @@ namespace YangInterpreter.Interpreter
             ModuleStatementAllowedSubstatements.Add(typeof(AnyXmlStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(AugmentStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(ChoiceStatement), new Tuple<int, int>(0, -1));
-            ModuleStatementAllowedSubstatements.Add(typeof(Contact), new Tuple<int, int>(0, 1));
+            ModuleStatementAllowedSubstatements.Add(typeof(ContactStatement), new Tuple<int, int>(0, 1));
             ModuleStatementAllowedSubstatements.Add(typeof(ContainerStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
-            //ModuleStatementAllowedSubstatements.Add(typeof(Deviation), -1);
-            //ModuleStatementAllowedSubstatements.Add(typeof(Extension), -1);
-            //ModuleStatementAllowedSubstatements.Add(typeof(Feature), -1);
+            ModuleStatementAllowedSubstatements.Add(typeof(DeviationStatement), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(ExtensionStatement), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(FeatureStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(GroupingStatement), new Tuple<int, int>(0, -1));
             //ModuleStatementAllowedSubstatements.Add(typeof(Identity), -1);
             ModuleStatementAllowedSubstatements.Add(typeof(Import), new Tuple<int, int>(0, -1));
@@ -147,7 +157,7 @@ namespace YangInterpreter.Interpreter
             ModuleStatementAllowedSubstatements.Add(typeof(TypedefStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(UsesStatement), new Tuple<int, int>(0, -1));
 
-            //Handled differently maximum 1 is present
+            //Handled differently maximum 1 is present (1 is always present and overwritten if new one is added)
             ModuleStatementAllowedSubstatements.Add(typeof(YangVersionStatement), new Tuple<int, int>(0, 2));
         }
         private static void FillBitsSntatementAllowanceList()
@@ -576,6 +586,74 @@ namespace YangInterpreter.Interpreter
             ListStatementAllowedSubstatements.Add(typeof(UniqueStatement), new Tuple<int, int>(0, -1));
             ListStatementAllowedSubstatements.Add(typeof(UsesStatement), new Tuple<int, int>(0, -1));
             ListStatementAllowedSubstatements.Add(typeof(WhenStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillDeviationStatementAllowanceList()
+        {
+            DeviationStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            DeviationStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
+            DeviationStatementAllowedSubstatements.Add(typeof(DeviateStatement), new Tuple<int, int>(1, -1));
+            DeviationStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillDeviateStatementAllowanceList()
+        {
+            DeviateStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            DeviateStatementAllowedSubstatements.Add(typeof(ConfigStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(DefaultStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(MandatoryStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(MaxElementsStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(MinElementsStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(MustStatement), new Tuple<int, int>(0, -1));
+
+            #region Type Statements
+
+            DeviateStatementAllowedSubstatements.Add(typeof(BitsTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(EmptyTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(EnumTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(StringTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(LeafRefTypeStatement), new Tuple<int, int>(0, 1));
+
+            DeviateStatementAllowedSubstatements.Add(typeof(Int8TypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(Int16TypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(Int32TypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(Int64TypeStatement), new Tuple<int, int>(0, 1));
+
+            DeviateStatementAllowedSubstatements.Add(typeof(UInt8TypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(UInt16TypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(UInt32TypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(UInt64TypeStatement), new Tuple<int, int>(0, 1));
+
+            DeviateStatementAllowedSubstatements.Add(typeof(Decimal64TypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(InstanceIdentifierTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(BinaryTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, 1));
+            #endregion
+
+            DeviateStatementAllowedSubstatements.Add(typeof(UniqueStatement), new Tuple<int, int>(0, -1));
+            DeviateStatementAllowedSubstatements.Add(typeof(UnitsStatement), new Tuple<int, int>(0, 1));
+
+        }
+        private static void FillArgumentStatementAllowanceList()
+        {
+            ArgumentStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            ArgumentStatementAllowedSubstatements.Add(typeof(YinElementStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillExtensionStatementAllowanceList()
+        {
+            ExtensionStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            ExtensionStatementAllowedSubstatements.Add(typeof(ArgumentStatement), new Tuple<int, int>(0, 1));
+            ExtensionStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
+            ExtensionStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
+            ExtensionStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillFeatureStatementAllowanceList()
+        {
+            FeatureStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            FeatureStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
+            FeatureStatementAllowedSubstatements.Add(typeof(IfFeatureStatement), new Tuple<int, int>(0, -1));
+            FeatureStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
+            FeatureStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
         }
     }
 }

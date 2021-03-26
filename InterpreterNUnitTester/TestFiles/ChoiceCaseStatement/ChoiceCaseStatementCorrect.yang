@@ -1,0 +1,84 @@
+module ChoiceCaseStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	choice mainTester {
+		case testCase {
+			anyxml "identifier" {
+				config "false";
+				description
+					'the description';
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+				     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+						 error-message "An ethernet MTU must be 1500";
+						 error-app-tag 'err app ta"g';
+						 reference 'ref';
+						 description " the description of this statement";
+				}
+				reference "the reference";
+				status current;
+				when 
+					"xpath:xml:something/";
+			}
+
+			choice innerChoice {
+				case innerCase {
+					leaf innerLeaf;
+				}
+			}
+
+			container someContainer { leaf leafOfContainer { type int8; } }
+
+			description "desc";
+			if-feature myFeature;
+			leaf leafOfContainer { type int8; }
+
+			leaf-list tester {
+
+				config "true";
+
+				description 'desc';
+				if-feature myFeature;
+				max-elements "+23";
+				min-elements '0';
+				must "ifType != 'ethernet'";
+				ordered-by user;
+				reference 'ref';
+				status "current";
+				type int32 {
+					range "2..10";
+				}
+				units 
+					"desc of unit";
+				when 
+					"xpath:xml:something/";
+			}
+
+			list listInList {
+				config "true";
+			}
+
+			reference 'ref';
+			status current;
+			uses namespace:testContainer {
+				augment "/if:interfaces/if:ifEntry" {
+					when "if:ifType=’ds0’";
+				}
+				description "desc";
+				if-feature 'feature';
+				refine "identifier:ofThis";
+				reference ref;
+
+				status "deprecated";
+				when "arg";
+			}
+
+			when "arg";
+		}
+	}
+}

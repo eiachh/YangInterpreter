@@ -41,7 +41,7 @@ namespace YangInterpreter.Statements
 
         private void HandleValueChange(string originalValueOfPrefix, string newValueOfPrefix)
         {
-            var module = Root as Module;
+            var module = Root as ModuleStatement;
             if (!string.IsNullOrEmpty(originalValueOfPrefix))
             {
                 var oldValueForPrefixKey = module.NamespaceDictionary[originalValueOfPrefix];

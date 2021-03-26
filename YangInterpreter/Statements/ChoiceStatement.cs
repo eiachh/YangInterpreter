@@ -36,8 +36,8 @@ namespace YangInterpreter.Statements
 
     public class ChoiceStatement : StatementBase
     {
-        public ChoiceStatement() : base("Choices") { }
-        public ChoiceStatement(string Argument) : base("Choices", Argument) { }
+        public ChoiceStatement() : base("choices") { }
+        public ChoiceStatement(string Argument) : base("choices", Argument) { }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
