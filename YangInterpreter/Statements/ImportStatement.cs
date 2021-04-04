@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-using YangInterpreter.Statements.BaseStatements;
 using System.Linq;
 using YangInterpreter.Interpreter;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
@@ -18,10 +16,10 @@ namespace YangInterpreter.Statements
     /// | revision-date | 7.1.5.1 | 0..1        |
     /// +---------------+---------+-------------+
     /// </summary>
-    public class Import : StatementBase
+    public class ImportStatement : StatementBase
     {
-        public Import() : base("Import") { }
-        public Import(string Value) : base("Import", Value) { }
+        public ImportStatement() : base("import") { }
+        public ImportStatement(string Value) : base("import", Value) { }
 
         public override string Value 
         { 
@@ -51,7 +49,7 @@ namespace YangInterpreter.Statements
         private void HandleValueChange(string newValueOfPrefix)
         {
             var module = Root as ModuleStatement;
-            var childPrefix = Descendants("prefif");
+            var childPrefix = Descendants("prefix");
 
             if (childPrefix is null)
                 return;

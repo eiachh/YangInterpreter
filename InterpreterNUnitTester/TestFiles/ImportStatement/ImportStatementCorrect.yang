@@ -1,0 +1,12 @@
+module ImportStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	import mainTester {
+		prefix m-t;
+		revision-date "2008-08-08";
+	}
+}

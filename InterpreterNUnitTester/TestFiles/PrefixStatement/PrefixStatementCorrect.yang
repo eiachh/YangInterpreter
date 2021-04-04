@@ -1,0 +1,11 @@
+module PrefixStatementTest {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	import tester {
+		prefix "someVal";
+	}
+}

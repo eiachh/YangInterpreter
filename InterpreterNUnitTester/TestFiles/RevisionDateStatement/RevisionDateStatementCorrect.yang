@@ -1,0 +1,12 @@
+module RevisionDateStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	import tester {
+		prefix te;
+		revision-date "2008-08-08";
+	}
+}

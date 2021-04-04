@@ -119,6 +119,9 @@
     <None Update="TestFiles\ExtensionStatement\ExtensionStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\FeatureStatement\FeatureStatemenCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\GroupingStatement\GroupingStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -126,6 +129,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\IfFeature\IfFeatureStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFiles\ImportStatement\ImportStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\IntegerTypes\IntegerTypesCorrect.yang">
@@ -191,6 +197,9 @@
     <None Update="TestFiles\PathStatement\LeafRefTypeStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\PrefixStatement\PrefixStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\PresenceStatement\PresenceStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -209,6 +218,9 @@
     <None Update="TestFiles\RequireInstanceStatement\RequireInstanceStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\RevisionDateStatement\RevisionDateStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\Revision\RevisionStatementCorrectChildless.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -218,13 +230,13 @@
     <None Update="TestFiles\Revision\RevisionStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\Import\InterpreterMalformedImportInnerMissingEnd.yang">
+    <None Update="TestFiles\ImportStatement\InterpreterMalformedImportInnerMissingEnd.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\Import\InterpreterMalformedImportOutter.yang">
+    <None Update="TestFiles\ImportStatement\InterpreterMalformedImportOutter.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestFiles\Import\InterpreterMalformedImportInner.yang">
+    <None Update="TestFiles\ImportStatement\InterpreterMalformedImportInner.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestFiles\ModuleTests\InterpreterMissingSemicolonInValue.yang">

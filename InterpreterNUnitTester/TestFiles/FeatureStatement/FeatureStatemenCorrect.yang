@@ -1,0 +1,14 @@
+module FeatureStatemenCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	feature mainTester {
+		description desc;
+		if-feature myFeature;
+		status current;
+		reference ref;
+	}
+}

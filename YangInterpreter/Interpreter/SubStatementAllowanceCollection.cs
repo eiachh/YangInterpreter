@@ -142,7 +142,7 @@ namespace YangInterpreter.Interpreter
             ModuleStatementAllowedSubstatements.Add(typeof(FeatureStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(GroupingStatement), new Tuple<int, int>(0, -1));
             //ModuleStatementAllowedSubstatements.Add(typeof(Identity), -1);
-            ModuleStatementAllowedSubstatements.Add(typeof(Import), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(ImportStatement), new Tuple<int, int>(0, -1));
             //ModuleStatementAllowedSubstatements.Add(typeof(Include), -1);
             ModuleStatementAllowedSubstatements.Add(typeof(LeafStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(LeafListStatement), new Tuple<int, int>(0, -1));
@@ -150,7 +150,7 @@ namespace YangInterpreter.Interpreter
             ModuleStatementAllowedSubstatements.Add(typeof(NamespaceStatement), new Tuple<int, int>(1, 1));
             //ModuleStatementAllowedSubstatements.Add(typeof(Notification), -1);
             ModuleStatementAllowedSubstatements.Add(typeof(Organization), new Tuple<int, int>(0, 1));
-            ModuleStatementAllowedSubstatements.Add(typeof(Prefix), new Tuple<int, int>(0, 1));
+            ModuleStatementAllowedSubstatements.Add(typeof(PrefixStatement), new Tuple<int, int>(0, 1));
             ModuleStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
             ModuleStatementAllowedSubstatements.Add(typeof(Revision), new Tuple<int, int>(0, -1));
             //ModuleStatementAllowedSubstatements.Add(typeof(Rpc), new Tuple<int, int>(0, -1));
@@ -207,8 +207,8 @@ namespace YangInterpreter.Interpreter
         private static void FillImportStatementAllowanceList()
         {
             ImportStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
-            ImportStatementAllowedSubstatements.Add(typeof(Prefix), new Tuple<int, int>(1, 1));
-            //ImportStatementAllowedSubstatements.Add(typeof(RevisionDate), new Tuple<int, int>(0, 1));
+            ImportStatementAllowedSubstatements.Add(typeof(PrefixStatement), new Tuple<int, int>(1, 1));
+            ImportStatementAllowedSubstatements.Add(typeof(RevisionDateStatement), new Tuple<int, int>(0, 1));
         }
 
         private static void FillLeafStatementAllowanceList()
