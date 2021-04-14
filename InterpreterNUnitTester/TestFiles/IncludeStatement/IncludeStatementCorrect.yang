@@ -1,0 +1,11 @@
+module IncludeStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	include mainTester {
+		revision-date "2003.02.24";
+	}
+}

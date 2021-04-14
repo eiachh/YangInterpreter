@@ -9,14 +9,14 @@ using System;
 
 namespace InterpreterNUnitTester
 {
-    class RevisionStatement
+    class RevisionStatementTest
     {
         YangInterpreterTool RevisipnStatementCorrect;
         YangInterpreterTool RevisipnStatementCorrectChildless;
         [SetUp]
         public void Setup()
         {
-            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementCorrect.yang");
+            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/RevisionStatement/RevisionStatementCorrect.yang");
            
         }
 
@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionIsParsedCorrectly()
         {
-            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementCorrect.yang");
+            RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/RevisionStatement/RevisionStatementCorrect.yang");
             var Revision = RevisipnStatementCorrect.Root.Descendants("revision").Single();
             Assert.AreEqual("2019-09-11", Revision.Value);
             Assert.AreEqual("Generic Session Control parameter file.", Revision.Descendants("description").Single().Value);
@@ -39,7 +39,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionImproperValue()
         {
-            Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
+            Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/RevisionStatement/RevisionStatementImproperValue.yang"));
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionMultipleDescriptionStatementError()
         {
-            Revision TestRevision = new Revision("1997-09-02");
+            RevisionStatement TestRevision = new RevisionStatement("1997-09-02");
             TestRevision.AddStatement(new YangInterpreter.Statements.DescriptionStatement());
             Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new YangInterpreter.Statements.DescriptionStatement()));
         }
@@ -59,7 +59,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionMultipleReferenceStatementError()
         {
-            Revision TestRevision = new Revision("1997-09-02");
+            RevisionStatement TestRevision = new RevisionStatement("1997-09-02");
             TestRevision.AddStatement(new ReferenceStatement());
             Assert.Throws<ArgumentOutOfRangeException>(() => TestRevision.AddStatement(new ReferenceStatement()));
         }
@@ -70,7 +70,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionChildless()
         {
-            RevisipnStatementCorrectChildless = YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementCorrectChildless.yang");
+            RevisipnStatementCorrectChildless = YangInterpreterTool.Load("TestFiles/RevisionStatement/RevisionStatementCorrectChildless.yang");
             var rev = RevisipnStatementCorrectChildless.Root.Descendants("revision").Single();
             Assert.AreEqual("2019-09-11", rev.Value);
             Assert.AreEqual("revision 2019-09-11;", rev.ToString());

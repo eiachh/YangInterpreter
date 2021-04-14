@@ -1,0 +1,14 @@
+module IdentityStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	identity mainTester {
+		base "identifier";
+		description desc;
+		reference ref;
+		status current;
+	}
+}

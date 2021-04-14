@@ -1,11 +1,9 @@
 ﻿using NUnit.Framework;
-using YangInterpreter;
-using YangInterpreter.Statements;
-using YangInterpreter.Statements.BaseStatements;
-using System.Collections.Generic;
-using System.Linq;
-using YangInterpreter.Interpreter;
 using System;
+using System.Linq;
+using YangInterpreter;
+using YangInterpreter.Interpreter;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace InterpreterNUnitTester
 {
@@ -18,9 +16,9 @@ namespace InterpreterNUnitTester
         [SetUp]
         public void Setup()
         {
-            InterpreterOrganizationSingleLine = YangInterpreterTool.Load("TestFiles/Organization/OrganizationCorrect.yang");
-            InterpreterOrganizationSameLineStart = YangInterpreterTool.Load("TestFiles/Organization/OrganizationCorrectSameLineStart.yang");
-            InterpreterOrganizationNextLineStart = YangInterpreterTool.Load("TestFiles/Organization/OrganizationCorrectNextLineStart.yang");
+            InterpreterOrganizationSingleLine = YangInterpreterTool.Load("TestFiles/OrganizationStatement/OrganizationCorrect.yang");
+            InterpreterOrganizationSameLineStart = YangInterpreterTool.Load("TestFiles/OrganizationStatement/OrganizationCorrectSameLineStart.yang");
+            InterpreterOrganizationNextLineStart = YangInterpreterTool.Load("TestFiles/OrganizationStatement/OrganizationCorrectNextLineStart.yang");
         }
 
         /// <summary>
@@ -64,7 +62,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void OrganizationMissingFirstQuotationMark()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/Organization/OrganizationMissingFirstQuotationMark.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/OrganizationStatement/OrganizationMissingFirstQuotationMark.yang"));
         }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void OrganizationMissingSecondQuotationMark()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/Organization/OrganizationMissingSecondQuotationMark.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/OrganizationStatement/OrganizationMissingSecondQuotationMark.yang"));
         }
 
         /// <summary>
@@ -82,7 +80,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void OrganizationMissingSemicolon()
         {
-            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/Organization/OrganizationMissingSemicolon.yang"));
+            Assert.Throws<InterpreterParseFail>(() => YangInterpreterTool.Load("TestFiles/OrganizationStatement/OrganizationMissingSemicolon.yang"));
         }
 
         /// <summary>
@@ -91,7 +89,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void OrganizationAddStatementFailCheck()
         {
-            Organization org = new Organization("SomeValue");
+            YangInterpreter.Statements.OrganizationStatement org = new YangInterpreter.Statements.OrganizationStatement("SomeValue");
             Assert.Throws<ArgumentOutOfRangeException>(() => org.AddStatement(new EmptyLineStatement()));
         }
     }

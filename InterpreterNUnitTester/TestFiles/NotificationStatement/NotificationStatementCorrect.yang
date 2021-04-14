@@ -1,0 +1,87 @@
+module NotificationStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	notification mainTester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+			     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+					 error-message "An ethernet MTU must be 1500";
+					 error-app-tag 'err app ta"g';
+					 reference 'ref';
+					 description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+
+		choice tester { case case1; }
+		container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+
+		description desc;
+
+		grouping innerGrouping {container ethernet { leaf "name"{ type int8 { range "2..3"; } } }}
+		if-feature myFeature;
+		leaf "name"{ type int8 { range "2..3"; } }
+
+		leaf-list tester {
+			config "true";
+
+			description 'desc';
+			if-feature myFeature;
+			max-elements "+23";
+			min-elements '0';
+			must "ifType != 'ethernet'";
+			ordered-by user;
+			reference 'ref';
+			status "current";
+			type int32 {
+				range "2..10";
+			}
+			units 
+				"desc of unit";
+			when 
+				"xpath:xml:something/";
+		}
+		list listInList {
+			config "true";
+		}
+		reference ref;
+		status current;
+
+		typedef testerType {
+			default "2";
+			description desc;
+			reference ref;
+			status current;
+			type int8 {
+				range "1..7";
+			}
+
+			units "desc of unit";
+		}
+
+		uses namespace:testContainer {
+			augment "/if:interfaces/if:ifEntry" {
+				when "if:ifType=’ds0’";
+			}
+			description "desc";
+			if-feature 'feature';
+			refine "identifier:ofThis";
+			reference ref;
+
+			status "deprecated";
+			when "arg";
+		}
+	}
+}

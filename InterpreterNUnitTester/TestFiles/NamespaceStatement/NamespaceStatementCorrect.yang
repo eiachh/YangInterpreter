@@ -1,0 +1,9 @@
+module NamespaceStatementCorrect {
+	yang-version 1;
+	namespace
+		"selfNamespace";
+
+	prefix gtm;
+
+	
+}

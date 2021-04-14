@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Xml.Linq;
-using YangInterpreter.Statements.BaseStatements;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using YangInterpreter.Interpreter;
-using System.Linq;
-using System.Collections.Generic;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 
@@ -23,23 +21,18 @@ namespace YangInterpreter.Statements
     ///| description  | 7.19.3  | 0..1        |
     ///| reference    | 7.19.4  | 0..1        |
     ///+--------------+---------+-------------+
+    ///
 
-    public class Revision : ControlledValueStatement
+    public class RevisionStatement : ControlledValueStatement
     {
         protected override string ImproperValueErrorMessage => "The given value for reference was not a proper date format \"YYY-MM-DD\"";
 
-        public Revision(string Value) : base("Revision") { this.Value = Value; }
+        public RevisionStatement(string Value) : base("revision") { this.Value = Value; }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             return SubStatementAllowanceCollection.RevisionStatementAllowedSubstatements;
         }
-
-        /// <summary>
-        /// Revision Value has to be a valid date (of revision).
-        /// </summary>
-        /// <param name="_Value"></param>
-        /// <returns></returns>
         protected override bool IsValidValue(string _Value)
         {
             Regex validator = new Regex("([0-9]{4}-[0|1][0-9]-(?:[0-2][0-9])|3[0-1])");

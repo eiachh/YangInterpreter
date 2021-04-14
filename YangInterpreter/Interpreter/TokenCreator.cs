@@ -57,7 +57,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>anyxml)\s+"+ArgumentParser),typeof(AnyXmlStatement)),
                 
                 new SearchScheme(new Regex(@"^\s*(?<statementName>pattern)\s+"+ArgumentParser),typeof(Pattern)),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>revision)\s+"+ArgumentParser),typeof(Revision)                 ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>revision)\s+"+ArgumentParser),typeof(RevisionStatement)                 ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>status)\s+"+ArgumentParser),typeof(StatusStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>value)\s+"+ArgumentParser),typeof(ValueStatement)                      ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>require-instance)\s+"+ArgumentParser),typeof(RequireInstanceStatement)                      ),
@@ -90,7 +90,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>type string)\s*"+ArgumentParser),typeof(StringTypeStatement)               ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>bit)\s+"+ArgumentParser),typeof(Bit)                 ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>enum)\s+"+ArgumentParser),typeof(EnumStatement)                 ),
-                 new SearchScheme(new Regex(@"^\s*(?<statementName>typedef)\s+"+ArgumentParser),typeof(TypedefStatement)                 ),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>typedef)\s+"+ArgumentParser),typeof(TypedefStatement)                 ),
 
                 new SearchScheme(new Regex(@"^\s*(?<statementName>when\s+"+ArgumentParser+@"|when)\s*"),typeof(WhenStatement)                 ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>length\s+"+ArgumentParser+@"|length)\s*"),typeof(Length)      ),
@@ -100,7 +100,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>path\s+"+ArgumentParser+@"|path)\s*"),typeof(PathStatement)          ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>contact\s+"+ArgumentParser+@"|contact)\s*"),typeof(ContactStatement)       ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>namespace\s+"+ArgumentParser+@"|namespace)\s*"),typeof(NamespaceStatement)    ),
-                new SearchScheme(new Regex(@"^\s*(?<statementName>organization\s+"+ArgumentParser+@"|organization)\s*"),typeof(Organization)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>organization\s+"+ArgumentParser+@"|organization)\s*"),typeof(OrganizationStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>reference\s+"+ArgumentParser+@"|reference)\s*"),typeof(ReferenceStatement)     ),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>description\s+"+ArgumentParser+@"|description)\s*"),typeof(DescriptionStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>default\s+"+ArgumentParser+@"|default)\s*"),typeof(DefaultStatement)),
@@ -121,6 +121,12 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>extension\s+"+ArgumentParser+@"|extension)\s*"),typeof(ExtensionStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>feature\s+"+ArgumentParser+@"|feature)\s*"),typeof(FeatureStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>revision-date\s+"+ArgumentParser+@"|revision-date)\s*"),typeof(RevisionDateStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>include\s+"+ArgumentParser+@"|include)\s*"),typeof(IncludeStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>identity\s+"+ArgumentParser+@"|identity)\s*"),typeof(IdentityStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>notification\s+"+ArgumentParser+@"|notification)\s*"),typeof(NotificationStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>rpc\s+"+ArgumentParser+@"|rpc)\s*"),typeof(RpcStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>input\s+"+ArgumentParser+@"|input)\s*"),typeof(InputStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>output\s+"+ArgumentParser+@"|output)\s*"),typeof(OutputStatement)),
 
 
 
@@ -317,7 +323,7 @@ namespace YangInterpreter.Interpreter
 
         private static bool IsAllowedInMultiline(SearchScheme scheme)
         {
-            return (scheme.TokenAsSingleLine == TokenTypes.ValueForPreviousLine || scheme.TokenAsSingleLine == TokenTypes.ValueForPreviousLineBeg
+            return (   scheme.TokenAsSingleLine == TokenTypes.ValueForPreviousLine    || scheme.TokenAsSingleLine == TokenTypes.ValueForPreviousLineBeg
                     || scheme.TokenAsSingleLine == TokenTypes.ValueForPreviousLineEnd || scheme.TokenAsSingleLine == TokenTypes.ValueForPreviousLineMultiline
                     || scheme.TokenAsSingleLine == TokenTypes.ValueForPreviousLineEnd || scheme.TokenAsSingleLine == TokenTypes.Skip);
         }

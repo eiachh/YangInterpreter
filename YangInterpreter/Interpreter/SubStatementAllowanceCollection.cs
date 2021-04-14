@@ -65,6 +65,12 @@ namespace YangInterpreter.Interpreter
         internal static Dictionary<Type, Tuple<int, int>> ArgumentStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> ExtensionStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         internal static Dictionary<Type, Tuple<int, int>> FeatureStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> IncludeStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> IdentityStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> NotificationStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> RpcStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> InputStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
+        internal static Dictionary<Type, Tuple<int, int>> OutputStatementAllowedSubstatements = new Dictionary<Type, Tuple<int, int>>();
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,6 +131,12 @@ namespace YangInterpreter.Interpreter
                 FillArgumentStatementAllowanceList();
                 FillExtensionStatementAllowanceList();
                 FillFeatureStatementAllowanceList();
+                FillIncludeStatementAllowanceList();
+                FillIdentityStatementAllowanceList();
+                FillNotificationStatementAllowanceList();
+                FillRpcStatementAllowanceList();
+                FillInputStatementAllowanceList();
+                FillOutputStatementAllowanceList();
             }
         }
 
@@ -141,19 +153,19 @@ namespace YangInterpreter.Interpreter
             ModuleStatementAllowedSubstatements.Add(typeof(ExtensionStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(FeatureStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(GroupingStatement), new Tuple<int, int>(0, -1));
-            //ModuleStatementAllowedSubstatements.Add(typeof(Identity), -1);
+            ModuleStatementAllowedSubstatements.Add(typeof(IdentityStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(ImportStatement), new Tuple<int, int>(0, -1));
-            //ModuleStatementAllowedSubstatements.Add(typeof(Include), -1);
+            ModuleStatementAllowedSubstatements.Add(typeof(IncludeStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(LeafStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(LeafListStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(ListStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(NamespaceStatement), new Tuple<int, int>(1, 1));
-            //ModuleStatementAllowedSubstatements.Add(typeof(Notification), -1);
-            ModuleStatementAllowedSubstatements.Add(typeof(Organization), new Tuple<int, int>(0, 1));
-            ModuleStatementAllowedSubstatements.Add(typeof(PrefixStatement), new Tuple<int, int>(0, 1));
+            ModuleStatementAllowedSubstatements.Add(typeof(NotificationStatement), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(OrganizationStatement), new Tuple<int, int>(0, 1));
+            ModuleStatementAllowedSubstatements.Add(typeof(PrefixStatement), new Tuple<int, int>(1, 1));
             ModuleStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
-            ModuleStatementAllowedSubstatements.Add(typeof(Revision), new Tuple<int, int>(0, -1));
-            //ModuleStatementAllowedSubstatements.Add(typeof(Rpc), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(RevisionStatement), new Tuple<int, int>(0, -1));
+            ModuleStatementAllowedSubstatements.Add(typeof(RpcStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(TypedefStatement), new Tuple<int, int>(0, -1));
             ModuleStatementAllowedSubstatements.Add(typeof(UsesStatement), new Tuple<int, int>(0, -1));
 
@@ -654,6 +666,74 @@ namespace YangInterpreter.Interpreter
             FeatureStatementAllowedSubstatements.Add(typeof(IfFeatureStatement), new Tuple<int, int>(0, -1));
             FeatureStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
             FeatureStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillIncludeStatementAllowanceList()
+        {
+            IncludeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            IncludeStatementAllowedSubstatements.Add(typeof(RevisionDateStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillIdentityStatementAllowanceList()
+        {
+            IdentityStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            IdentityStatementAllowedSubstatements.Add(typeof(BaseStatement), new Tuple<int, int>(0, 1));
+            IdentityStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
+            IdentityStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
+            IdentityStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
+        }
+        private static void FillNotificationStatementAllowanceList()
+        {
+            NotificationStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(AnyXmlStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(ChoiceStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(ContainerStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
+            NotificationStatementAllowedSubstatements.Add(typeof(GroupingStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(IfFeatureStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(LeafStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(LeafListStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(ListStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
+            NotificationStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
+            NotificationStatementAllowedSubstatements.Add(typeof(TypedefStatement), new Tuple<int, int>(0, -1));
+            NotificationStatementAllowedSubstatements.Add(typeof(UsesStatement), new Tuple<int, int>(0, -1));
+        }
+        private static void FillRpcStatementAllowanceList()
+        {
+            RpcStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            RpcStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
+            RpcStatementAllowedSubstatements.Add(typeof(GroupingStatement), new Tuple<int, int>(0, -1));
+            RpcStatementAllowedSubstatements.Add(typeof(IfFeatureStatement), new Tuple<int, int>(0, -1));
+            RpcStatementAllowedSubstatements.Add(typeof(InputStatement), new Tuple<int, int>(0, 1));
+            RpcStatementAllowedSubstatements.Add(typeof(OutputStatement), new Tuple<int, int>(0, 1));
+            RpcStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
+            RpcStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
+            RpcStatementAllowedSubstatements.Add(typeof(TypedefStatement), new Tuple<int, int>(0, -1));
+        }
+        private static void FillInputStatementAllowanceList()
+        {
+            InputStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(AnyXmlStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(ChoiceStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(ContainerStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(GroupingStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(LeafStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(LeafListStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(ListStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(TypedefStatement), new Tuple<int, int>(0, -1));
+            InputStatementAllowedSubstatements.Add(typeof(UsesStatement), new Tuple<int, int>(0, -1));
+        }
+        private static void FillOutputStatementAllowanceList()
+        {
+            OutputStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(AnyXmlStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(ChoiceStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(ContainerStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(GroupingStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(LeafStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(LeafListStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(ListStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(TypedefStatement), new Tuple<int, int>(0, -1));
+            OutputStatementAllowedSubstatements.Add(typeof(UsesStatement), new Tuple<int, int>(0, -1));
         }
     }
 }

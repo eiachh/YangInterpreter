@@ -2,7 +2,7 @@
 
 namespace YangInterpreter.Statements
 {
-    /// Revision Statement RFC 6020 7.19.3.
+    /// Description Statement RFC 6020 7.19.3.
     ///
     /// <summary>
     /// The "description" statement takes as an argument a string that
