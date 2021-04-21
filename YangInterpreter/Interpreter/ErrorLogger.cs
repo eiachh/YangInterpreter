@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Interpreter
 {
+    /// <summary>
+    /// Used to set LoggingOptions on ErrorLogger
+    /// </summary>
     public enum LoggingOptions
     {
         Console,
         TextLog,
     }
+
+    /// <summary>
+    /// Class that used to output errors easily. Set LoggingOprions to TextLog for txt save (LoggingPath has to be set).
+    /// </summary>
     public class ErrorLogger
     {
         public int RowNumber { get; set; }
@@ -52,6 +58,12 @@ namespace YangInterpreter.Interpreter
             }
         }
 
+        /// <summary>
+        /// Creates log in the desired location. Returns false if failed.
+        /// </summary>
+        /// <param name="StatementWithParseError"></param>
+        /// <param name="StatusStack"></param>
+        /// <returns></returns>
         public bool CreateLog(StatementBase StatementWithParseError, Stack<Type> StatusStack)
         {
             try
@@ -65,6 +77,11 @@ namespace YangInterpreter.Interpreter
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="StatusStack"></param>
+        /// <returns></returns>
         private string MakeStatusStackIntoString(Stack<Type> StatusStack)
         {
             string strBuilder = string.Empty;
@@ -78,6 +95,13 @@ namespace YangInterpreter.Interpreter
             return strBuilder;
         }
 
+        /// <summary>
+        /// Builds the output string from the given error, token and status stack.
+        /// </summary>
+        /// <param name="StatementWithParseError"></param>
+        /// <param name="StatusStack"></param>
+        /// <param name="ParsedToken"></param>
+        /// <returns></returns>
         private string BuildOutputString(StatementBase StatementWithParseError, Stack<Type> StatusStack, Token ParsedToken) 
         {
             string strBuilder = string.Empty;
@@ -90,6 +114,12 @@ namespace YangInterpreter.Interpreter
             return strBuilder;
         }
 
+        /// <summary>
+        /// Builds the output string from the given error and status stack if the token creation wasnt successful.
+        /// </summary>
+        /// <param name="StatementWithParseError"></param>
+        /// <param name="StatusStack"></param>
+        /// <returns></returns>
         private string BuildOutputString(StatementBase StatementWithParseError, Stack<Type> StatusStack)
         {
             string strBuilder = string.Empty;
@@ -102,6 +132,11 @@ namespace YangInterpreter.Interpreter
             return strBuilder;
         }
 
+        /// <summary>
+        /// Picks the output and shows log on it.
+        /// </summary>
+        /// <param name="LogText"></param>
+        /// <returns></returns>
         private bool LogOnExpectedOutput(string LogText)
         {
             if(LoggingOption == LoggingOptions.TextLog)

@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace YangInterpreter.Interpreter
 {
-    [Serializable()]
-    public class OverflownContainer : System.Exception
-    {
-        public OverflownContainer() : base() { }
-        public OverflownContainer(string message) : base(message) { }
-        public OverflownContainer(string message, System.Exception inner) : base(message, inner) { }
-        protected OverflownContainer(System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
-    }
-
     [Serializable()]
     public class InvalidYangVersion : System.Exception
     {

@@ -1,0 +1,1103 @@
+module ModuleStatementCorrect {
+	yang-version 1;
+	namespace
+		"NamespaceGenericTestModule";
+
+	prefix gtm;
+
+	import mainTester {
+		prefix m-t;
+		revision-date "2008-08-08";
+	}
+
+	description "Description of this module";
+
+	organization "My diplomwork corp";
+
+	reference
+		"Reference1102-2323";
+
+	revision 2019-09-11 {
+		description "Generic Session Control parameter file.";
+		reference "The Reference for Revision 
+		2019-09-11";
+	}
+
+
+	anyxml "identifier" {
+		config "false";
+		description
+			'the description';
+		if-feature myFeature;
+		mandatory "true";
+		must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+				 error-message "An ethernet MTU must be 1500";
+				 error-app-tag 'err app ta"g';
+				 reference 'ref';
+				 description " the description of this statement";
+		}
+		reference "the reference";
+		status current;
+		when 
+			"xpath:xml:something/";
+	}
+
+	augment mainTester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+			     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+					 error-message "An ethernet MTU must be 1500";
+					 error-app-tag 'err app ta"g';
+					 reference 'ref';
+					 description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+		case case1;
+		choice choiceTester { case "case1"; }
+		container someContainer { leaf leafOfContainer { type int8; } }
+		description "desc";
+		if-feature "ifFeature1";
+		leaf leafOfContainer { type int8; }
+
+		leaf-list tester {
+			config "true";
+			description 'desc';
+			if-feature myFeature;
+			max-elements "+23";
+			min-elements '0';
+			must "ifType != 'ethernet'";
+			ordered-by user;
+			reference 'ref';
+			status "current";
+			type int32 {
+				range "2..10";
+			}
+			units 
+				"desc of unit";
+			when 
+				"xpath:xml:something/";
+		}
+		list listInList {
+			config "true";
+		}
+		reference "ref";
+		status current;
+		uses namespace:testContainer {
+			augment "/if:interfaces/if:ifEntry" {
+				when "if:ifType=’ds0’";
+			}
+			description "desc";
+			if-feature 'feature';
+			refine "identifier:ofThis";
+			reference ref;
+
+			status "deprecated";
+			when "arg";
+		}
+		when 'arg';
+	}
+
+
+	choice mainTester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+			     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+					 error-message "An ethernet MTU must be 1500";
+					 error-app-tag 'err app ta"g';
+					 reference 'ref';
+					 description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+		case case1;
+		case case2;
+		config "false";
+		container someContainer { leaf leafOfContainer { type int8; } }
+		default case1;
+		description "desc";
+		if-feature myFeature;
+		leaf leafOfContainer { type int8; }
+		leaf-list tester {
+			config "true";
+			description 'desc';
+			if-feature myFeature;
+			max-elements "+23";
+			min-elements '0';
+			must "ifType != 'ethernet'";
+			ordered-by user;
+			reference 'ref';
+			status "current";
+			type int32 {
+				range "2..10";
+			}
+			units 
+				"desc of unit";
+			when 
+				"xpath:xml:something/";
+		}
+		list listInList {
+			config "true";
+		}
+		mandatory "true";
+		reference "ref";
+		status current;
+		when arg;
+	}
+
+	contact "Email: adam.sranko@gmail.com";
+
+
+	container mainTester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+			     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+					 error-message "An ethernet MTU must be 1500";
+					 error-app-tag 'err app ta"g';
+					 reference 'ref';
+					 description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+		choice interface-type {
+			case ethernet {
+				container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+			}
+		}
+		config "true";
+		container someContainer { leaf leafOfContainer { type int8; } }
+		description "desc";
+		grouping groupTester {
+				anyxml "identifier" {
+					config "false";
+					description
+						'the description';
+					if-feature myFeature;
+					mandatory "true";
+					must "ifType != 'ethernet' or " 
+						+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+							error-message "An ethernet MTU must be 1500";
+							error-app-tag 'err app ta"g';
+							reference 'ref';
+							description " the description of this statement";
+					}
+					reference "the reference";
+					status current;
+					when 
+						"xpath:xml:something/";
+				}
+				choice interface-type {
+					case ethernet {
+						container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+					}
+				}
+				container someContainer { leaf leafOfContainer { type int8; } }
+				leaf tester {
+					config "false";
+					type int8;
+					default "2";
+					description "desc";
+		
+					if-feature myFeature;
+					mandatory "true";
+					must "ifType != 'ethernet' or " 
+						+ "(ifType = 'ethernet' and ifMTU = 1500)";
+					reference
+						"cc1fil_t - 0x0033A0000";
+					status current;
+					units "unit desc";
+		
+					when 
+						"xpath:xml:something/";
+				}
+				leaf-list tester {
+					config "true";
+					description 'desc';
+					if-feature myFeature;
+					max-elements "+23";
+					min-elements '0';
+					must "ifType != 'ethernet'";
+					ordered-by user;
+					reference 'ref';
+					status "current";
+					type int32 {
+						range "2..10";
+					}
+					units 
+						"desc of unit";
+					when 
+						"xpath:xml:something/";
+				}
+			}
+		if-feature myFeature;
+		leaf tester {
+			config "false";
+			type int8;
+			default "2";
+			description "desc";
+
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+			     + "(ifType = 'ethernet' and ifMTU = 1500)";
+			reference
+				"cc1fil_t - 0x0033A0000";
+			status current;
+			units "unit desc";
+
+			when 
+				"xpath:xml:something/";
+		}
+		leaf-list tester {
+			config "true";
+			description 'desc';
+			if-feature myFeature;
+			max-elements "+23";
+			min-elements '0';
+			must "ifType != 'ethernet'";
+			ordered-by user;
+			reference 'ref';
+			status "current";
+			type int32 {
+				range "2..10";
+			}
+			units 
+				"desc of unit";
+			when 
+				"xpath:xml:something/";
+		}
+		list mainTester {
+			anyxml "identifier" {
+				config "false";
+				description
+					'the description';
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+					+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+						error-message "An ethernet MTU must be 1500";
+						error-app-tag 'err app ta"g';
+						reference 'ref';
+						description " the description of this statement";
+				}
+				reference "the reference";
+				status current;
+				when 
+					"xpath:xml:something/";
+				}
+		}
+		must "ifType != 'ethernet'";
+		presence "desc of presence meaning";
+		reference 'ref';
+		status 'current';
+		typedef testerType {
+			default "2";
+			description desc;
+			reference ref;
+			status current;
+			type int8 {
+				range "1..7";
+			}
+
+			units "desc of unit";
+		}
+		uses namespace:testContainer {
+			augment "/if:interfaces/if:ifEntry" {
+				when "if:ifType=’ds0’";
+			}
+			description "desc";
+			if-feature 'feature';
+			refine "identifier:ofThis";
+			reference ref;
+
+			status "deprecated";
+			when "arg";
+		}
+		when "arg";
+	}
+
+
+	deviation mainTester {
+		description "desc";
+		deviate tester {
+			config "true";
+			default tester;
+			mandatory true;
+			max-elements "5";
+			min-elements "2";
+			must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+				 error-message "An ethernet MTU must be 1500";
+				 error-app-tag 'err app ta"g';
+				 reference 'ref';
+				 description " the description of this statement";
+			}
+			type int16;
+			unique "identifier identifier2";
+			units "desc of unit";
+		}
+		reference "ref";
+	}
+
+
+	extension mainTester{
+		argument tester {
+			yin-element "true";
+		}
+		description "desc";
+		reference "ref";
+		status current;
+	}
+
+
+	feature mainTester {
+		description desc;
+		if-feature myFeature;
+		status current;
+		reference ref;
+	}
+
+
+	grouping mainTester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+				+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+					error-message "An ethernet MTU must be 1500";
+					error-app-tag 'err app ta"g';
+					reference 'ref';
+					description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+		choice interface-type {
+			case ethernet {
+				container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+			}
+		}
+		container someContainer { leaf leafOfContainer { type int8; } }                		
+		description "desc";
+		grouping innerGrouping {container ethernet { leaf "name"{ type int8 { range "2..3"; } } }}           
+		leaf tester {
+			config "false";
+			type int8;
+			default "2";
+			description "desc";
+
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+				 + "(ifType = 'ethernet' and ifMTU = 1500)";
+			reference
+				"cc1fil_t - 0x0033A0000";
+			status current;
+			units "unit desc";
+
+			when 
+				"xpath:xml:something/";
+		}
+		leaf-list tester {
+			config "true";
+			description 'desc';
+			if-feature myFeature;
+			max-elements "+23";
+			min-elements '0';
+			must "ifType != 'ethernet'";
+			ordered-by user;
+			reference 'ref';
+			status "current";
+			type int32 {
+				range "2..10";
+			}
+			units 
+				"desc of unit";
+			when 
+				"xpath:xml:something/";
+		}
+		list mainTester {
+			anyxml "identifier" {
+				config "false";
+				description
+					'the description';
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+					+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+						error-message "An ethernet MTU must be 1500";
+						error-app-tag 'err app ta"g';
+						reference 'ref';
+						description " the description of this statement";
+				}
+				reference "the reference";
+				status current;
+				when 
+					"xpath:xml:something/";
+			}
+			choice interface-type {
+				case ethernet {
+					container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+				}
+			}
+			config "true";
+			container cont { leaf leafName { type boolean; } }
+			description "desc";
+			grouping groupTester {
+				anyxml "identifier" {
+					config "false";
+					description
+						'the description';
+					if-feature myFeature;
+					mandatory "true";
+					must "ifType != 'ethernet' or " 
+						+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+							error-message "An ethernet MTU must be 1500";
+							error-app-tag 'err app ta"g';
+							reference 'ref';
+							description " the description of this statement";
+					}
+					reference "the reference";
+					status current;
+					when 
+						"xpath:xml:something/";
+				}
+				choice interface-type {
+					case ethernet {
+						container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+					}
+				}
+				container someContainer { leaf leafOfContainer { type int8; } }			
+				leaf tester {
+					config "false";
+					type int8;
+					default "2";
+					description "desc";
+					if-feature myFeature;
+					mandatory "true";
+					must "ifType != 'ethernet' or " 
+						+ "(ifType = 'ethernet' and ifMTU = 1500)";
+					reference
+						"cc1fil_t - 0x0033A0000";
+					status current;
+					units "unit desc";
+					when 
+						"xpath:xml:something/";
+				}
+				leaf-list tester {
+					config "true";
+					description 'desc';
+					if-feature myFeature;
+					max-elements "+23";
+					min-elements '0';
+					must "ifType != 'ethernet'";
+					ordered-by user;
+					reference 'ref';
+					status "current";
+					type int32 {
+						range "2..10";
+					}
+					units 
+						"desc of unit";
+					when 
+						"xpath:xml:something/";
+				}
+			}
+			if-feature myFeature;
+			key "identifier identifier2";
+			leaf leafTester {
+				config "false";
+				type int8;
+				default "2";
+				description "desc";
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+					+ "(ifType = 'ethernet' and ifMTU = 1500)";
+				reference
+					"cc1fil_t - 0x0033A0000";
+				status current;
+				units "unit desc";
+				when 
+					"xpath:xml:something/";
+			}
+			leaf-list tester {
+				config "true";
+				description 'desc';
+				if-feature myFeature;
+				max-elements "+23";
+				min-elements '0';
+				must "ifType != 'ethernet'";
+				ordered-by user;
+				reference 'ref';
+				status "current";
+				type int32 {
+					range "2..10";
+				}
+				units 
+					"desc of unit";
+				when 
+					"xpath:xml:something/";
+			}		
+			list listInList {
+				config "true";
+			}
+			max-elements "+2";
+			min-elements "+1";
+			must "ifType != 'ethernet'";
+			ordered-by "user";
+			reference "ref";
+			status "current";
+			typedef testerType {
+				default "2";
+				description desc;
+				reference ref;
+				status current;
+				type int8 {
+					range "1..7";
+				}
+				units "desc of unit";
+			}
+			unique "identifier identifier2";
+			uses namespace:testContainer {
+				augment "/if:interfaces/if:ifEntry" {
+					when "if:ifType=’ds0’";
+				}
+				description "desc";
+				if-feature 'feature';
+				refine "identifier:ofThis";
+				reference ref;
+		
+				status "deprecated";
+				when "arg";
+			}
+			when 
+				"xpath:xml:something/";
+		}
+		reference 'ref';
+		status "current";
+		typedef testerType {
+			default "2";
+			description desc;
+			reference ref;
+			status current;
+			type int8 {
+				range "1..7";
+			}
+
+			units "desc of unit";
+		}
+		uses namespace:testContainer {
+			augment "/if:interfaces/if:ifEntry" {
+				when "if:ifType=’ds0’";
+			}
+			description "desc";
+			if-feature 'feature';
+			refine "identifier:ofThis";
+			reference ref;
+
+			status "deprecated";
+			when "arg";
+		}
+	}
+
+
+	identity mainTester {
+		base "identifier";
+		description desc;
+		reference ref;
+		status current;
+	}
+
+
+	include mainTester {
+		revision-date "2003.02.24";
+	}
+
+
+	leaf tester {
+		config "false";
+		type int8;
+		default "2";
+		description "desc";
+		if-feature myFeature;
+		mandatory "true";
+		must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)";
+		reference
+			"cc1fil_t - 0x0033A0000";
+		status current;
+		units "unit desc";
+		when 
+			"xpath:xml:something/";
+	}
+
+
+	leaf-list tester {
+		config "true";
+		description 'desc';
+		if-feature myFeature;
+		max-elements "+23";
+		min-elements '0';
+		must "ifType != 'ethernet'";
+		ordered-by user;
+		reference 'ref';
+		status "current";
+		type int32 {
+			range "2..10";
+		}
+		units 
+			"desc of unit";
+		when 
+			"xpath:xml:something/";
+	}
+
+
+	list mainTester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+				+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+					error-message "An ethernet MTU must be 1500";
+					error-app-tag 'err app ta"g';
+					reference 'ref';
+					description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+		choice interface-type {
+			case ethernet {
+				container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+			}
+		}
+		config "true";
+		container cont { leaf leafName { type boolean; } }
+		description "desc";
+		grouping groupTester {
+			anyxml "identifier" {
+				config "false";
+				description
+					'the description';
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+					+ "(ifType = 'ethernet' and ifMTU = 1500)" {
+						error-message "An ethernet MTU must be 1500";
+						error-app-tag 'err app ta"g';
+						reference 'ref';
+						description " the description of this statement";
+				}
+				reference "the reference";
+				status current;
+				when 
+					"xpath:xml:something/";
+			}
+			choice interface-type {
+				case ethernet {
+					container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+				}
+			}
+			container someContainer { leaf leafOfContainer { type int8; } }
+			leaf tester {
+				config "false";
+				type int8;
+				default "2";
+				description "desc";
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+					+ "(ifType = 'ethernet' and ifMTU = 1500)";
+				reference
+					"cc1fil_t - 0x0033A0000";
+				status current;
+				units "unit desc";
+
+				when 
+					"xpath:xml:something/";
+			}
+			leaf-list tester {
+				config "true";
+				description 'desc';
+				if-feature myFeature;
+				max-elements "+23";
+				min-elements '0';
+				must "ifType != 'ethernet'";
+				ordered-by user;
+				reference 'ref';
+				status "current";
+				type int32 {
+					range "2..10";
+				}
+				units 
+					"desc of unit";
+				when 
+					"xpath:xml:something/";
+			}
+		}
+		if-feature myFeature;
+		key "identifier identifier2";
+		leaf leafTester {
+			config "false";
+			type int8;
+			default "2";
+			description "desc";
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+				+ "(ifType = 'ethernet' and ifMTU = 1500)";
+			reference
+				"cc1fil_t - 0x0033A0000";
+			status current;
+			units "unit desc";
+			when 
+				"xpath:xml:something/";
+		}
+		leaf-list tester {
+			config "true";
+			description 'desc';
+			if-feature myFeature;
+			max-elements "+23";
+			min-elements '0';
+			must "ifType != 'ethernet'";
+			ordered-by user;
+			reference 'ref';
+			status "current";
+			type int32 {
+				range "2..10";
+			}
+			units 
+				"desc of unit";
+			when 
+				"xpath:xml:something/";
+		}
+		list listInList {
+			config "true";
+		}
+		max-elements "+2";
+		min-elements "+1";
+		must "ifType != 'ethernet'";
+		ordered-by "user";
+		reference "ref";
+		status "current";
+		typedef testerType {
+			default "2";
+			description desc;
+			reference ref;
+			status current;
+			type int8 {
+				range "1..7";
+			}
+			units "desc of unit";
+		}
+		unique "identifier identifier2";
+		uses namespace:testContainer {
+			augment "/if:interfaces/if:ifEntry" {
+				when "if:ifType=’ds0’";
+			}
+			description "desc";
+			if-feature 'feature';
+			refine "identifier:ofThis";
+			reference ref;
+
+			status "deprecated";
+			when "arg";
+		}
+		when 
+			"xpath:xml:something/";
+	}
+
+
+	notification mainTester {
+		anyxml "identifier" {
+			config "false";
+			description
+				'the description';
+			if-feature myFeature;
+			mandatory "true";
+			must "ifType != 'ethernet' or " 
+			     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+					 error-message "An ethernet MTU must be 1500";
+					 error-app-tag 'err app ta"g';
+					 reference 'ref';
+					 description " the description of this statement";
+			}
+			reference "the reference";
+			status current;
+			when 
+				"xpath:xml:something/";
+		}
+		choice tester { case case1; }
+		container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+		description desc;
+		grouping innerGrouping {container ethernet { leaf "name"{ type int8 { range "2..3"; } } }}
+		if-feature myFeature;
+		leaf "name"{ type int8 { range "2..3"; } }
+		leaf-list tester {
+			config "true";
+			description 'desc';
+			if-feature myFeature;
+			max-elements "+23";
+			min-elements '0';
+			must "ifType != 'ethernet'";
+			ordered-by user;
+			reference 'ref';
+			status "current";
+			type int32 {
+				range "2..10";
+			}
+			units 
+				"desc of unit";
+			when 
+				"xpath:xml:something/";
+		}
+		list listInList {
+			config "true";
+		}
+		reference ref;
+		status current;
+		typedef testerType {
+			default "2";
+			description desc;
+			reference ref;
+			status current;
+			type int8 {
+				range "1..7";
+			}
+			units "desc of unit";
+		}
+		uses namespace:testContainer {
+			augment "/if:interfaces/if:ifEntry" {
+				when "if:ifType=’ds0’";
+			}
+			description "desc";
+			if-feature 'feature';
+			refine "identifier:ofThis";
+			reference ref;
+			status "deprecated";
+			when "arg";
+		}
+	}
+
+
+	rpc mainTester {
+		description desc;
+		grouping innerGrouping {container ethernet { leaf "name"{ type int8 { range "2..3"; } } }}
+		if-feature myFeature;
+		input {
+			anyxml "identifier" {
+				config "false";
+				description
+					'the description';
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+				     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+						 error-message "An ethernet MTU must be 1500";
+						 error-app-tag 'err app ta"g';
+						 reference 'ref';
+						 description " the description of this statement";
+				}
+				reference "the reference";
+				status current;
+				when 
+					"xpath:xml:something/";
+			}
+			choice ch1 {
+				case case1;
+			}
+			container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+			grouping innerGrouping {container ethernet { leaf "name"{ type int8 { range "2..3"; } } }}
+			
+			leaf zip-code {
+				type string;
+			}
+			leaf-list tester {
+				config "true";
+				description 'desc';
+				if-feature myFeature;
+				max-elements "+23";
+				min-elements '0';
+				must "ifType != 'ethernet'";
+				ordered-by user;
+				reference 'ref';
+				status "current";
+				type int32 {
+					range "2..10";
+				}
+				units 
+					"desc of unit";
+				when 
+					"xpath:xml:something/";
+			}
+			list listInList {
+				config "true";
+			}
+			typedef testerType {
+				default "2";
+				description desc;
+				reference ref;
+				status current;
+				type int8 {
+					range "1..7";
+				}
+				units "desc of unit";
+			}
+			uses namespace:testContainer {
+				augment "/if:interfaces/if:ifEntry" {
+					when "if:ifType=’ds0’";
+				}
+				description "desc";
+				if-feature 'feature';
+				refine "identifier:ofThis";
+				reference ref;
+				status "deprecated";
+				when "arg";
+			}
+		}
+		output {
+			anyxml "identifier" {
+				config "false";
+				description
+					'the description';
+				if-feature myFeature;
+				mandatory "true";
+				must "ifType != 'ethernet' or " 
+				     + "(ifType = 'ethernet' and ifMTU = 1500)" {
+						 error-message "An ethernet MTU must be 1500";
+						 error-app-tag 'err app ta"g';
+						 reference 'ref';
+						 description " the description of this statement";
+				}
+				reference "the reference";
+				status current;
+				when 
+					"xpath:xml:something/";
+			}
+			choice ch1 {
+				case case1;
+			}
+			container ethernet { leaf "name"{ type int8 { range "2..3"; } } }
+			grouping innerGrouping {container ethernet { leaf "name"{ type int8 { range "2..3"; } } }}
+			
+			leaf zip-code {
+				type string;
+			}
+			leaf-list tester {
+				config "true";
+				description 'desc';
+				if-feature myFeature;
+				max-elements "+23";
+				min-elements '0';
+				must "ifType != 'ethernet'";
+				ordered-by user;
+				reference 'ref';
+				status "current";
+				type int32 {
+					range "2..10";
+				}
+				units 
+					"desc of unit";
+				when 
+					"xpath:xml:something/";
+			}
+			list listInList {
+				config "true";
+			}
+			typedef testerType {
+				default "2";
+				description desc;
+				reference ref;
+				status current;
+				type int8 {
+					range "1..7";
+				}
+				units "desc of unit";
+			}
+			uses namespace:testContainer {
+				augment "/if:interfaces/if:ifEntry" {
+					when "if:ifType=’ds0’";
+				}
+				description "desc";
+				if-feature 'feature';
+				refine "identifier:ofThis";
+				reference ref;
+				status "deprecated";
+				when "arg";
+			}
+		}
+		reference ref;
+		status 'current';
+		typedef testerType {
+			default "2";
+			description desc;
+			reference ref;
+			status current;
+			type int8 {
+				range "1..7";
+			}
+			units "desc of unit";
+		}
+	}
+
+
+	typedef testerType {
+		default "2";
+		description desc;
+		reference ref;
+		status current;
+		type int8 {
+			range "1..7";
+		}
+		units "desc of unit";
+	}
+
+
+	uses namespace:testContainer {
+		augment "/if:interfaces/if:ifEntry" {
+			when "if:ifType=’ds0’";
+		}
+		description "desc";
+		if-feature 'feature';
+		refine "identifier:ofThis";
+		reference ref;
+		status "deprecated";
+		when "arg";
+	}
+}

@@ -55,8 +55,8 @@ namespace InterpreterNUnitTester
         public void BinaryTypeOverflowExceptionThrow()
         {
             var binary = new BinaryTypeStatement();
-            binary.AddStatement(new Length("3..4"));
-            Assert.Throws<ArgumentOutOfRangeException>(() => binary.AddStatement(new Length("3..4")));
+            binary.AddStatement(new LengthStatement("3..4"));
+            Assert.Throws<ArgumentOutOfRangeException>(() => binary.AddStatement(new LengthStatement("3..4")));
         }
     }
 }

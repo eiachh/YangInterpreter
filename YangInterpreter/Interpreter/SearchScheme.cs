@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
-using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Interpreter
 {
@@ -15,10 +12,6 @@ namespace YangInterpreter.Interpreter
         /// The regex that will match the selected TokenType.
         /// </summary>
         public Regex Reg { get; set; }
-        /// <summary>
-        /// The TokenType gives information of what row the regex will match.
-        /// </summary>
-        //public TokenTypes TokenType { get; set; }
 
         /// <summary>
         /// This links to the single line version of this token which is used after solving multiline tokens.
@@ -34,17 +27,9 @@ namespace YangInterpreter.Interpreter
         /// Defines if the matched container type is childless. e.g.: type string;
         /// </summary>
         public bool IsChildlessContainer { get; set; } = true;
-        /*public SearchScheme(Regex _Reg, Type _TokenAsType, TokenTypes _TokenType = TokenTypes.SameLineStart, bool _ChildlessContainer = false)
+        public SearchScheme(Regex _Reg, Type _TokenAsType, bool _ChildlessContainer = false, TokenTypes _TokenAsSingleLine = TokenTypes.Empty)
         {
             Reg = _Reg;
-            TokenType = _TokenType;
-            TokenAsType = _TokenAsType;
-            IsChildlessContainer = _ChildlessContainer;
-        }*/
-        public SearchScheme(Regex _Reg, Type _TokenAsType, bool _ChildlessContainer = false, TokenTypes _TokenAsSingleLine = TokenTypes.Empty) //: this(_Reg, _TokenAsType, _TokenType, _ChildlessContainer)
-        {
-            Reg = _Reg;
-            //TokenType = _TokenType;
             TokenAsType = _TokenAsType;
             IsChildlessContainer = _ChildlessContainer;
             TokenAsSingleLine = _TokenAsSingleLine;
@@ -53,7 +38,6 @@ namespace YangInterpreter.Interpreter
         public SearchScheme(Regex _Reg, Type _TokenAsType, TokenTypes _TokenAsSingleLine) : this(_Reg, _TokenAsType, false, _TokenAsSingleLine)
         {
             Reg = _Reg;
-            //TokenType = _TokenType;
             TokenAsType = _TokenAsType;
             TokenAsSingleLine = _TokenAsSingleLine;
         }

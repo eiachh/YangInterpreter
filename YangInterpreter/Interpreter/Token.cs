@@ -1,110 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Interpreter
 {
     public enum TokenTypes
     {
-        SameLineStart,
-        NextLineStart,
-        Multiline,
-
-
         Start,
-        YangVersion,
-        Skip,
-        Leaf,
-        LeafList,
-        Container,
-        List,
-        Grouping,
-        Uses,
-        Choice,
-        ChoiceCase,
-        Status,
-        Pattern,
-
-        TypeDecimal64,
-        TypeInt64,
-        TypeInt32,
-        TypeInt16,
-        TypeInt8,
-        TypeUInt64,
-        TypeUInt32,
-        TypeUInt16,
-        TypeUInt8,
-
-        TypeLeafRef,
-        TypeString,
-        TypeBits,
-        TypeEnum,
-        TypeEmpty,
-        Type,
-
-        SimpleEnum,
-        SimpleBit,
-
-        Key,
-        Position,
-
-        ErrorMessageSameLineStart,
-        ErrorMessageNextLineStart,
-        ErrorMessageMultiLine,
-
-        ErrorAppTagSameLineStart,
-        ErrorAppTagNextLineStart,
-        ErrorAppTagMultiLine,
-
-        PathSameLineStart,
-        PathNextLineStart,
-        PathMultiLine,
-
-        LengthSameLineStart,
-        LengthNextLineStart,
-        LengthMultiLine,
-
-        RangeSameLineStart,
-        RangeNextLineStart,
-        RangeMultiLine,
-
-        ContactSameLineStart,
-        ContactNextLineStart,
-        ContactMultiLine,
-
-        NamespaceSameLineStart,
-        NamespaceNextLineStart,
-        NamespaceMultiLine,
-
-        OrganizationSameLineStart,
-        OrganizationNextLineStart,
-        OrganizationMultiLine,
-
-        DescriptionSameLineStart,
-        DescriptionNextLineStart,
-        DescriptionMultiLine,
-
-        ReferenceSameLineStart,
-        ReferenceNextLineStart,
-        ReferenceMultiline,
-
-        ValueForPreviousLine,
-        ValueForPreviousLineMultiline,
         ValueForPreviousLineBeg,
         ValueForPreviousLineEnd,
-
-        ConfigStatement,
-        Typedef,
-        Range,
+        SameLineStart,
+        ValueForPreviousLineMultiline,
+        NextLineStart,
+        ValueForPreviousLine,
+        Skip,
         NodeEndingBracket,
-        //Module,
-        Prefix,
-        Revision,
-        Value,
-        Import,
-
-
         Empty
     }
     public class Token

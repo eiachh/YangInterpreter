@@ -8,7 +8,7 @@ namespace YangInterpreter.Statements
 {
     public class ValueStatement : ControlledValueChildlessStatement
     {
-        /// Revision Statement RFC 6020 9.6.4.2.
+        /// Value Statement RFC 6020 9.6.4.2.
         ///
         /// <summary>
         /// The "value" statement, which is optional, is used to associate an

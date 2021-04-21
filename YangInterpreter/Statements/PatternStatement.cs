@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
@@ -25,10 +24,10 @@ namespace YangInterpreter.Statements
     /// | reference     | 7.19.4  | 0..1        |
     /// +---------------+---------+-------------+
     ///
-    public class Pattern : StatementBase
+    public class PatternStatement : StatementBase
     {      
-        public Pattern() : base("Pattern") { }
-        public Pattern(string Value) : base("Pattern", Value) { }
+        public PatternStatement() : base("Pattern") { }
+        public PatternStatement(string Value) : base("Pattern", Value) { }
 
         internal override bool IsQuotedValue => true;
 

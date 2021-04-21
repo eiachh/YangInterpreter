@@ -46,8 +46,8 @@ namespace InterpreterNUnitTester
         public void ThrowsErrorAtWrongValueInLength()
         {
             Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Length/TypeStatementStringTypeIncorrectValue.yang"));
-            Assert.Throws<ImproperValue>(() => new Length("completly bad value"));
-            Assert.Throws<ImproperValue>(() => new Length("23.445"));
+            Assert.Throws<ImproperValue>(() => new LengthStatement("completly bad value"));
+            Assert.Throws<ImproperValue>(() => new LengthStatement("23.445"));
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ErrorAppTagOverFlowCheck()
         {
-            var lengthStatement1 = new Length("2323..5690");
+            var lengthStatement1 = new LengthStatement("2323..5690");
             lengthStatement1.AddStatement(new ErrorAppTagStatement("value"));
             Assert.Throws<ArgumentOutOfRangeException>(() => lengthStatement1.AddStatement(new ErrorAppTagStatement("value")));
         }

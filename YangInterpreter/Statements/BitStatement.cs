@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
-using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
@@ -18,10 +16,10 @@ namespace YangInterpreter.Statements
     /// | position     | 9.7.4.2 | 0..1        |
     /// +--------------+---------+-------------+
     /// </summary>
-    public class Bit : StatementBase
+    public class BitStatement : StatementBase
     {
-        public Bit() : base("Bit") { }
-        public Bit(string Value) : base("Bit", Value) { }
+        public BitStatement() : base("Bit") { }
+        public BitStatement(string Value) : base("Bit", Value) { }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {

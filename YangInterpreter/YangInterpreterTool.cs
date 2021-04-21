@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using YangInterpreter.Statements.BaseStatements;
-using YangInterpreter.Interpreter;
+﻿using System.IO;
 
 namespace YangInterpreter
 {
@@ -39,13 +36,13 @@ namespace YangInterpreter
         }
 
         /// <summary>
-        /// 
+        /// Runs the interpreter on the given string and sets the root variable of this class as expected
         /// </summary>
         /// <param name="InputStr"></param>
         /// <param name="IsPath"></param>
         private YangInterpreterTool(string InputStr, bool IsPath, InterpreterOption opt)
         {
-            string YangAsRawText = "";
+            string YangAsRawText;
 
             if (!IsPath)
             {
@@ -58,19 +55,5 @@ namespace YangInterpreter
             Interpreter.Interpreter interpreter = new Interpreter.Interpreter(opt);
             Root = interpreter.ConvertText(YangAsRawText) as ModuleStatement;
         }
-        /*private void ProcessYang(string InputStr, bool IsPath)
-        {
-            string YangForProcessing = "";
-            if (!IsPath)
-            {
-                YangForProcessing = InputStr;
-            }
-            else
-            {
-                YangForProcessing = File.ReadAllText(InputStr);
-            }
-
-            ConvertText(YangForProcessing);
-        }*/
     }
 }

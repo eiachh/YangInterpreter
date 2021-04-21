@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
-using YangInterpreter.Statements.BaseStatements;
 using YangInterpreter.Interpreter;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
@@ -25,10 +24,10 @@ namespace YangInterpreter.Statements
     /// | reference     | 7.19.4  | 0..1        |
     /// +---------------+---------+-------------+
     /// 
-    public class Length : ControlledValueStatement
+    public class LengthStatement : ControlledValueStatement
     {
-        public Length() : base("Length") { }
-        public Length(string Value) : base("Length",Value) { }
+        public LengthStatement() : base("Length") { }
+        public LengthStatement(string Value) : base("Length",Value) { }
 
         protected override string ImproperValueErrorMessage { get => "The given value: "+ Value + " is not valid for Length statement!"; }
 

@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Linq;
-using YangInterpreter.Statements.BaseStatements;
+using System.Text.RegularExpressions;
 using YangInterpreter.Statements;
-using YangInterpreter.Statements.Types;
+using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Interpreter
 {
     internal class Interpreter
     {
-        InterpreterOption Option = InterpreterOption.Normal;
-
-        public string YangAsRawText { get; private set; }
+        internal string YangAsRawText { get; private set; }
+        
+        private InterpreterOption Option = InterpreterOption.Normal;
 
         private Type InterpreterStatus = typeof(Interpreter);
-        Stack<Type> InterpreterStatusStack = new Stack<Type>();
+        private Stack<Type> InterpreterStatusStack = new Stack<Type>();
         private StatementBase InterpreterTracer;
         private StatementBase TracerCurrentNode;
-
         private Token PreviousToken;
 
-        int LineNumber = 0;
-        string CurrentRow = string.Empty;
-        private bool ModulEnded = false;
+        private int LineNumber = 0;
+        private string CurrentRow = string.Empty;
 
-        public Interpreter(InterpreterOption opt = InterpreterOption.Normal)
+        private bool ModulEnded = false;
+        internal Interpreter(InterpreterOption opt = InterpreterOption.Normal)
         {
             SubStatementAllowanceCollection.Init();
 
@@ -91,6 +88,12 @@ namespace YangInterpreter.Interpreter
             return TokenForCurrentRow.InnerBlock;
         }
 
+        /// <summary>
+        /// Returns true if the parsed token state of the interpreter is invalid related to the previous state.
+        /// </summary>
+        /// <param name="tokenForCurrentRow"></param>
+        /// <param name="previousState"></param>
+        /// <returns></returns>
         private bool IsInvalidState(Token tokenForCurrentRow, TokenTypes previousState)
         {
             if ((previousState == TokenTypes.Start && tokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineEnd)
@@ -101,6 +104,13 @@ namespace YangInterpreter.Interpreter
             return false;
         }
 
+        /// <summary>
+        /// Returns true if the parsed token state of the interpreter is invalid related to the previous state if we are in multiline mode.
+        /// </summary>
+        /// <param name="tokenForCurrentRow"></param>
+        /// <param name="previousState"></param>
+        /// <param name="multilineBegWasPresent"></param>
+        /// <returns></returns>
         private bool IsInvalidStateAfterMultilineToken(Token tokenForCurrentRow, TokenTypes previousState,bool multilineBegWasPresent)
         {
             return ((!(previousState == TokenTypes.ValueForPreviousLineBeg || previousState == TokenTypes.ValueForPreviousLineMultiline)
@@ -111,6 +121,12 @@ namespace YangInterpreter.Interpreter
                         || ( previousState == TokenTypes.NextLineStart && tokenForCurrentRow.TokenTypeSpecialInfo != TokenTypes.ValueForPreviousLine));
         }
 
+        /// <summary>
+        /// Processes a token when we are in multiline mode.
+        /// </summary>
+        /// <param name="tokenForCurrentRow"></param>
+        /// <param name="previousState"></param>
+        /// <returns></returns>
         private string HandleMultilineToken(Token tokenForCurrentRow, ref TokenTypes previousState)
         {
             if (IsInvalidState(tokenForCurrentRow, previousState))
@@ -121,6 +137,13 @@ namespace YangInterpreter.Interpreter
             return tokenForCurrentRow.InnerBlock;
         }
 
+        /// <summary>
+        /// Merges the last token of the multiline with the main part of the multiline token.
+        /// </summary>
+        /// <param name="tokenForCurrentRow"></param>
+        /// <param name="previousState"></param>
+        /// <param name="multilineBegPresent"></param>
+        /// <returns></returns>
         private Token MergeMultilineTokenEndingToken(Token tokenForCurrentRow, TokenTypes previousState, bool multilineBegPresent)
         {
             if (IsInvalidStateAfterMultilineToken(tokenForCurrentRow, previousState, multilineBegPresent))
@@ -325,6 +348,11 @@ namespace YangInterpreter.Interpreter
                 NodeProcessionFail(InputToken, LineNumber);
         }
 
+        /// <summary>
+        /// Starts generating the error output if token generating was successful.
+        /// </summary>
+        /// <param name="tokenAtError"></param>
+        /// <param name="rowNumber"></param>
         private void NodeProcessionFail(Token tokenAtError, int rowNumber)
         {
             ErrorLogger erLogger = new ErrorLogger(rowNumber, CurrentRow, LoggingOptions.TextLog);
@@ -337,7 +365,10 @@ namespace YangInterpreter.Interpreter
             throw new InterpreterParseFail("Interpreter failed to parse row: " + rowNumber + " " + ErrorExtraText);
         }
 
-
+        /// <summary>
+        /// Starts generat the error output if the token generation failed.
+        /// </summary>
+        /// <param name="rowNumber"></param>
         private void TokenCreationFail(int rowNumber)
         {
             ErrorLogger erLogger = new ErrorLogger(rowNumber, CurrentRow, LoggingOptions.TextLog);

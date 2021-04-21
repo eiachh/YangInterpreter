@@ -68,7 +68,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ErrorAppTagOverFlowCheck()
         {
-            var pattern = new Pattern("pattern");
+            var pattern = new PatternStatement("pattern");
             pattern.AddStatement(new ErrorAppTagStatement("value"));
             Assert.Throws<ArgumentOutOfRangeException>(() => pattern.AddStatement(new ErrorAppTagStatement("value")));
         }
@@ -79,7 +79,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ErrorMessageOverFlowCheck()
         {
-            var pattern = new Pattern("pattern");
+            var pattern = new PatternStatement("pattern");
             pattern.AddStatement(new ErrorMessageStatement("value"));
             Assert.Throws<ArgumentOutOfRangeException>(() => pattern.AddStatement(new ErrorMessageStatement("value")));
         }
@@ -90,7 +90,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ReferenceOverFlowCheck()
         {
-            var pattern = new Pattern("pattern");
+            var pattern = new PatternStatement("pattern");
             pattern.AddStatement(new ReferenceStatement("value"));
             Assert.Throws<ArgumentOutOfRangeException>(() => pattern.AddStatement(new ReferenceStatement("value")));
         }

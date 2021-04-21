@@ -7,7 +7,7 @@ using YangInterpreter.Statements.BaseStatements;
 
 namespace InterpreterNUnitTester
 {
-    public class OrganizationStatement
+    public class OrganizationStatementTest
     {
         YangInterpreterTool InterpreterOrganizationSingleLine;
         YangInterpreterTool InterpreterOrganizationSameLineStart;

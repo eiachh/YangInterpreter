@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using YangInterpreter.Statements.BaseStatements;
+﻿using YangInterpreter.Statements.BaseStatements;
 
 namespace YangInterpreter.Statements
 {
@@ -17,26 +14,5 @@ namespace YangInterpreter.Statements
     {
         public YangVersionStatement() : base("yang-version") { BuildIntoOutput = false; }
         public YangVersionStatement(string Value) : this() { base.Value = Value; }
-
-        public override XElement[] StatementAsXML()
-        {
-            return new XElement[]{ new XElement("yang-version", base.Value) };
-        }
-
-        public override string StatementAsYangString(int indentationlevel)
-        {
-            var indent = GetIndentation(indentationlevel);
-            return indent + Name + " " + base.Value + ";";
-        }
-
-        internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
-        {
-            return new Dictionary<Type, Tuple<int, int>>();
-        }
-
-        internal override bool IsValueStartAtSameLine()
-        {
-            return true;
-        }
     }
 }

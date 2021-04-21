@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using YangInterpreter.Statements;
-using YangInterpreter.Statements.Types;
 using YangInterpreter.Statements.BaseStatements;
+using YangInterpreter.Statements.Types;
 
 namespace YangInterpreter.Interpreter
 {
@@ -178,7 +177,7 @@ namespace YangInterpreter.Interpreter
             BitStatementAllowedSubstatements.Add(typeof(DescriptionStatement), new Tuple<int, int>(0, 1));
             BitStatementAllowedSubstatements.Add(typeof(ReferenceStatement), new Tuple<int, int>(0, 1));
             BitStatementAllowedSubstatements.Add(typeof(StatusStatement), new Tuple<int, int>(0, 1));
-            BitStatementAllowedSubstatements.Add(typeof(Position), new Tuple<int, int>(0, 1));
+            BitStatementAllowedSubstatements.Add(typeof(PositionStatement), new Tuple<int, int>(0, 1));
         }
         private static void FillChoiceCaseSntatementAllowanceList()
         {
@@ -280,19 +279,19 @@ namespace YangInterpreter.Interpreter
         private static void FillBinaryTypeStatementAllowanceList()
         {
             BinaryTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
-            BinaryTypeStatementAllowedSubstatements.Add(typeof(Length), new Tuple<int, int>(0, 1));
+            BinaryTypeStatementAllowedSubstatements.Add(typeof(LengthStatement), new Tuple<int, int>(0, 1));
         }
         private static void FillBitTypeStatementAllowanceList()
         {
             BitTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
-            BitTypeStatementAllowedSubstatements.Add(typeof(Bit), new Tuple<int, int>(0, -1));
+            BitTypeStatementAllowedSubstatements.Add(typeof(BitStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillStringTypeStatementAllowanceList()
         {
             StringTypeStatementAllowedSubstatements.Add(typeof(EmptyLineStatement), new Tuple<int, int>(0, -1));
-            StringTypeStatementAllowedSubstatements.Add(typeof(Length), new Tuple<int, int>(0, 1));
-            StringTypeStatementAllowedSubstatements.Add(typeof(Pattern), new Tuple<int, int>(0, -1));
+            StringTypeStatementAllowedSubstatements.Add(typeof(LengthStatement), new Tuple<int, int>(0, 1));
+            StringTypeStatementAllowedSubstatements.Add(typeof(PatternStatement), new Tuple<int, int>(0, -1));
         }
 
         private static void FillEnumTypeStatementAllowanceList()

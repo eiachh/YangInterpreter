@@ -41,7 +41,7 @@ namespace InterpreterNUnitTester
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
             var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits1").Single();
-            Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new Position("0")));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new PositionStatement("0")));
         }
 
         /// <summary>
