@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void ReferenceStatementIsParsedCorrectly()
         {
             var reference = InterpreterCorrect.Root.Descendants("reference").Single();
-            Assert.AreEqual("Reference1102-2323", reference.Value);
+            Assert.AreEqual("Reference1102-2323", reference.Argument);
         }
     }
 }

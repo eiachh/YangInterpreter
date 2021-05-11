@@ -23,7 +23,7 @@ namespace InterpreterNUnitTester
         public void ModuleIsParsedCorrectly()
         {
             var module = InterpreterCorrect.Root;
-            Assert.AreEqual("ModuleStatementCorrect", module.Value);
+            Assert.AreEqual("ModuleStatementCorrect", module.Argument);
             Assert.AreEqual(26, module.Elements().Count());
         }
 

@@ -160,7 +160,7 @@ namespace YangInterpreter.Interpreter
                     
                     MatchResultToken.TokenTypeSpecialInfo = scheme.TokenAsSingleLine;
                     MatchResultToken.TokenAsType = scheme.TokenAsType;
-                    MatchResultToken.IsChildlessContainer = scheme.IsChildlessContainer;
+                    MatchResultToken.IsChildlessContainer = false;
                     MatchResultToken.TokenArgument = GetArgumentFromMatch(match);
 
                     var EndingValue = match.Groups["ending"].Value.Trim();

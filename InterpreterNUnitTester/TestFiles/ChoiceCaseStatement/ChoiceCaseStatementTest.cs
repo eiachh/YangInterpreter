@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ChoiceCaseStatementIsParsedCorrectly()
         {
-            var choicesCase = InterpreterCorrect.Root.Descendants("case").Where(statement => statement.Value == "testCase").Single();
+            var choicesCase = InterpreterCorrect.Root.Descendants("case").Where(statement => statement.Argument == "testCase").Single();
             Assert.AreEqual(12, choicesCase.Elements().Count());
         }
 
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ChoiceCaseStatementWhitelistOverflowError()
         {
-            var choicesCase = InterpreterCorrect.Root.Descendants("case").Where(statement => statement.Value == "testCase").Single();
+            var choicesCase = InterpreterCorrect.Root.Descendants("case").Where(statement => statement.Argument == "testCase").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => choicesCase.AddStatement(new BooleanTypeStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => choicesCase.AddStatement(new DescriptionStatement("desc")));
             Assert.Throws<ArgumentOutOfRangeException>(() => choicesCase.AddStatement(new ReferenceStatement()));

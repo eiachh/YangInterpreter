@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void NotificationIsParsedCorrectly()
         {
-            var notification = InterpreterCorrect.Root.Descendants("notification").Single(statement => statement.Value == "mainTester");
+            var notification = InterpreterCorrect.Root.Descendants("notification").Single(statement => statement.Argument == "mainTester");
             Assert.AreEqual(13, notification.Elements().Count());
         }
 
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void NotificationStatementWhitelistOverflowError()
         {
-            var notification = InterpreterCorrect.Root.Descendants("notification").Single(statement => statement.Value == "mainTester");
+            var notification = InterpreterCorrect.Root.Descendants("notification").Single(statement => statement.Argument == "mainTester");
             Assert.Throws<ArgumentOutOfRangeException>(() => notification.AddStatement(new BooleanTypeStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => notification.AddStatement(new DescriptionStatement("desc")));
             Assert.Throws<ArgumentOutOfRangeException>(() => notification.AddStatement(new ReferenceStatement()));

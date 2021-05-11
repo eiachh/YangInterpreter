@@ -25,11 +25,11 @@ namespace InterpreterNUnitTester
         [Test]
         public void BinaryWithLengthRestrictionParsedCorrectly()
         {
-            var binaryTestLeaf = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "binaryTest1").Single();
+            var binaryTestLeaf = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "binaryTest1").Single();
             var binaryType = binaryTestLeaf.Elements().First();
             Assert.AreEqual(1, binaryType.Elements().Count());
             var elementOfBinary = binaryType.Elements().First();
-            Assert.AreEqual("5..78", elementOfBinary.Value);
+            Assert.AreEqual("5..78", elementOfBinary.Argument);
             //Assert.AreEqual("2019-09-11", InterpreterCorrect.Root.DescendantsNode("revision").Single().Value);
             //Assert.Throws<ImproperValue>(() => YangInterpreterTool.Load("TestFiles/Revision/RevisionStatementImproperValue.yang"));
         }
@@ -40,7 +40,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void BinaryWithoutLengthRestrictionParsedCorrectly()
         {
-            var binaryTestLeaf = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "binaryTest2").Single();
+            var binaryTestLeaf = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "binaryTest2").Single();
             var binaryType = binaryTestLeaf.Elements().First();
             Assert.AreEqual(0, binaryType.Elements().Count());
             Assert.AreEqual("type binary;", binaryType.ToString());

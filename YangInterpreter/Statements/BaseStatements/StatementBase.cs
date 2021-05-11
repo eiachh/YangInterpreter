@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
-    public enum YangAddingOption
+    internal enum YangAddingOption
     {
         ChildAndStatusless,
         ChildIncapable,
@@ -22,16 +22,16 @@ namespace YangInterpreter.Statements.BaseStatements
 
     public abstract class StatementBase
     {
-        private string _value;
+        private string _argument;
         internal TokenTypes GeneratedFrom;
-        public string Name { get; set; }
+        public string Name {  get; internal set; }
 
         /// <summary>
         /// Represents the Value of the Statement if it can have, otherwise null.
         /// </summary>
-        public virtual string Value { get => _value; set => _value = value; }
-        public virtual StatementBase Parent { get; set; }
-        public virtual StatementBase Root { get; set; }
+        public virtual string Argument { get => _argument; set => _argument = value; }
+        public virtual StatementBase Parent { get; internal set; }
+        public virtual StatementBase Root { get; internal set; }
 
         internal bool BuildIntoOutput = true;
         /// <summary>
@@ -47,8 +47,8 @@ namespace YangInterpreter.Statements.BaseStatements
         /// <returns></returns>
         public virtual XElement[] StatementAsXML()
         {
-            XElement ThisStatementAsXml = new XElement(Name, Value );
-            foreach (var desc in Descendants())
+            XElement ThisStatementAsXml = new XElement(Name, Argument );
+            foreach (var desc in Elements())
             {
                 ThisStatementAsXml.Add(desc.StatementAsXML());
             }
@@ -60,14 +60,14 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         /// <param name="indentationlevel"></param>
         /// <returns></returns>
-        public virtual string StatementAsYangString(int IndentationLevel)
+        internal virtual string StatementAsYangString(int IndentationLevel)
         {
             if (Elements().Count() > 0)
             {
                 if (!IsQuotedValue)
                 {
                     var indent = GetIndentation(IndentationLevel);
-                    var stringBuilder = indent + Name.ToLower() + " " + Value + " {" + Environment.NewLine;
+                    var stringBuilder = indent + Name.ToLower() + " " + Argument + " {" + Environment.NewLine;
                     stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
                     stringBuilder += indent + "}";
                     return stringBuilder;
@@ -77,7 +77,7 @@ namespace YangInterpreter.Statements.BaseStatements
                     if (IsValueStartAtSameLine())
                     {
                         var indent = GetIndentation(IndentationLevel);
-                        var stringBuilder = indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\"; {" + Environment.NewLine;
+                        var stringBuilder = indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Argument) + "\"; {" + Environment.NewLine;
                         stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
                         stringBuilder += indent + "}";
                         return stringBuilder;
@@ -85,7 +85,7 @@ namespace YangInterpreter.Statements.BaseStatements
                     else
                     {
                         var indent = GetIndentation(IndentationLevel);
-                        var stringBuilder = indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\"; {" + Environment.NewLine;
+                        var stringBuilder = indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Argument) + "\"; {" + Environment.NewLine;
                         stringBuilder += GetStatementsAsYangString(IndentationLevel + 1) + Environment.NewLine;
                         stringBuilder += indent + "}";
                         return stringBuilder;
@@ -98,19 +98,19 @@ namespace YangInterpreter.Statements.BaseStatements
                 if (!IsQuotedValue)
                 {
                     var indent = GetIndentation(IndentationLevel);
-                    return indent + Name.ToLower() + " " + Value.ToLower() + ";";
+                    return indent + Name.ToLower() + " " + Argument.ToLower() + ";";
                 }
                 else
                 {
                     if (IsValueStartAtSameLine())
                     {
                         var indent = GetIndentation(IndentationLevel);
-                        return indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
+                        return indent + Name.ToLower() + " \"" + MultilineIndentFixer(IndentationLevel + 1, Argument) + "\";";
                     }
                     else
                     {
                         var indent = GetIndentation(IndentationLevel);
-                        return indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Value) + "\";";
+                        return indent + Name.ToLower() + Environment.NewLine + "\t" + indent + "\"" + MultilineIndentFixer(IndentationLevel + 1, Argument) + "\";";
                     }
                 }
             }
@@ -179,7 +179,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         protected StatementBase() { }
         public StatementBase(string name) { Name = name; }
-        public StatementBase(string name,string argument) { Name = name; Value = argument; }
+        public StatementBase(string name,string argument) { Name = name; Argument = argument; }
 
         /// <summary>
         /// Adds the given Statement as child.
@@ -452,9 +452,9 @@ namespace YangInterpreter.Statements.BaseStatements
         {
             var indent = GetIndentation(indentationlevel);
             if (IsValueStartAtSameLine)
-                return indent + Name.ToLower() + " \"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";
+                return indent + Name.ToLower() + " \"" + MultilineIndentFixer(indentationlevel + 1, Argument) + "\";";
             else
-                return indent + Name.ToLower() + " " + Environment.NewLine + indent + "\t" + "\"" + MultilineIndentFixer(indentationlevel + 1, Value) + "\";";
+                return indent + Name.ToLower() + " " + Environment.NewLine + indent + "\t" + "\"" + MultilineIndentFixer(indentationlevel + 1, Argument) + "\";";
         }
 
     }

@@ -28,7 +28,7 @@ namespace InterpreterNUnitTester
             var leaf = InterpreterCorrect.Root.Elements("leaf").Single();
             Assert.AreEqual(2, leaf.Elements().Count());
             var def1 = leaf.Elements("default").First();
-            Assert.AreEqual("2", def1.Value);
+            Assert.AreEqual("2", def1.Argument);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace InterpreterNUnitTester
             var choice = InterpreterCorrect.Root.Descendants("choice").Single();
             Assert.AreEqual(2, choice.Elements().Count());
             var def2 = choice.Elements("default").First();
-            Assert.AreEqual("caseName", def2.Value);
+            Assert.AreEqual("caseName", def2.Argument);
         }
 
         /// <summary>

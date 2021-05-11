@@ -18,7 +18,7 @@ namespace YangInterpreter.Statements
         /// the XML encoding, but is carried as a convenience to implementors.
         /// </summary>
         public ValueStatement() : base("Value") { }
-        public ValueStatement(string Value) : base("Value", Value) { this.Value = Value; }
+        public ValueStatement(string Value) : base("Value", Value) { this.Argument = Value; }
 
         protected override string ImproperValueErrorMessage => "The given value for Value Statement was not a number!";
 

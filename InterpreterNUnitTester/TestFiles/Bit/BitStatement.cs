@@ -25,12 +25,12 @@ namespace InterpreterNUnitTester
         public void BitStatementParsedCorrectly()
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
-            var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits1").Single();
-            Assert.AreEqual("disable-nagle", Bit.Value);
+            var Bit = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits1").Single();
+            Assert.AreEqual("disable-nagle", Bit.Argument);
             Assert.AreEqual(4, Bit.Count());
-            Assert.AreEqual("0", Bit.Descendants("position").Single().Value);
-            Assert.AreEqual("Description of\r\nbit.", Bit.Descendants("description").Single().Value);
-            Assert.AreEqual("Reference of bit.", Bit.Descendants("reference").Single().Value);
+            Assert.AreEqual("0", Bit.Descendants("position").Single().Argument);
+            Assert.AreEqual("Description of\r\nbit.", Bit.Descendants("description").Single().Argument);
+            Assert.AreEqual("Reference of bit.", Bit.Descendants("reference").Single().Argument);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace InterpreterNUnitTester
         public void BitStatementArgumentOutOfRangeTestPosition()
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
-            var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits1").Single();
+            var Bit = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits1").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new PositionStatement("0")));
         }
 
@@ -51,7 +51,7 @@ namespace InterpreterNUnitTester
         public void BitStatementArgumentOutOfRangeTestDescription()
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
-            var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits1").Single();
+            var Bit = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits1").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new YangInterpreter.Statements.DescriptionStatement("some desc")));
         }
 
@@ -62,7 +62,7 @@ namespace InterpreterNUnitTester
         public void BitStatementArgumentOutOfRangeTestReference()
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
-            var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits1").Single();
+            var Bit = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits1").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new ReferenceStatement("some ref")));
         }
 
@@ -73,7 +73,7 @@ namespace InterpreterNUnitTester
         public void BitStatementArgumentOutOfRangeTestStatus()
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
-            var Bit = BitStatements.Where(x => x.Parent.Parent.Value == "mybits1").Single();
+            var Bit = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits1").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => Bit.AddStatement(new YangInterpreter.Statements.StatusStatement("current")));
         }
     }

@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void MustIsParsedCorrectly()
         {
             var mustStatement = InterpreterCorrect.Root.Descendants("must").SingleOrDefault();
-            Assert.AreEqual("ifType != 'ethernet' or (ifType = 'ethernet' and ifMTU = 1500)", mustStatement.Value);
+            Assert.AreEqual("ifType != 'ethernet' or (ifType = 'ethernet' and ifMTU = 1500)", mustStatement.Argument);
 
         }
 

@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void RefineIsParsedCorrectly()
         {
             var refine = InterpreterCorrect.Root.Descendants("refine").Single();
-            Assert.AreEqual("identifier:ofThis", refine.Value);
+            Assert.AreEqual("identifier:ofThis", refine.Argument);
         }
 
         /// <summary>

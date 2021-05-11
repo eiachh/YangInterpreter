@@ -28,7 +28,7 @@ namespace InterpreterNUnitTester
         public void OrganizationCorrectValueSingleLine()
         {
             var Org = InterpreterOrganizationSingleLine.Root.Descendants("organization").Single();
-            Assert.AreEqual("My diplomwork corp", Org.Value);
+            Assert.AreEqual("My diplomwork corp", Org.Argument);
             var OrgAsString = Org.ToString();
             Assert.AreEqual("organization \"My diplomwork corp\";",OrgAsString);
         }
@@ -40,7 +40,7 @@ namespace InterpreterNUnitTester
         public void OrganizationCorrectValueSameLineStart()
         {
             var Org = InterpreterOrganizationSameLineStart.Root.Descendants("organization").Single();
-            Assert.AreEqual("My diplomwork \r\nother line corp", Org.Value);
+            Assert.AreEqual("My diplomwork \r\nother line corp", Org.Argument);
             var OrgAsString = Org.ToString();
             Assert.AreEqual("organization \"My diplomwork \r\n\tother line corp\";",OrgAsString);
         }
@@ -52,7 +52,7 @@ namespace InterpreterNUnitTester
         public void OrganizationCorrectValueNextLineStart()
         {
             var Org = InterpreterOrganizationNextLineStart.Root.Descendants("organization").Single();
-            Assert.AreEqual("My diplomwork \r\nother line corp", Org.Value);
+            Assert.AreEqual("My diplomwork \r\nother line corp", Org.Argument);
             Assert.AreEqual("organization\r\n\t\"My diplomwork \r\n\tother line corp\";",Org.ToString());
         }
 

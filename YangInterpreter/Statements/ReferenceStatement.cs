@@ -16,7 +16,7 @@ namespace YangInterpreter.Statements
     public class ReferenceStatement : ChildlessStatement
     {
         public ReferenceStatement() : base("reference") { }
-        public ReferenceStatement(string Value) : this() { base.Value = Value; }
+        public ReferenceStatement(string Value) : this() { base.Argument = Value; }
 
         internal override bool IsQuotedValue => true;
     }

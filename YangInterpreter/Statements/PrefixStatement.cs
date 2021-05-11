@@ -16,32 +16,32 @@ namespace YangInterpreter.Statements
     {
         internal override bool IsQuotedValue => true;
         public PrefixStatement() : base("prefix") { }
-        public PrefixStatement(string Value) : base("prefix") { this.Value = Value; }
+        public PrefixStatement(string Value) : base("prefix") { this.Argument = Value; }
 
-        public override string Value
+        public override string Argument
         {
-            get => base.Value;
+            get => base.Argument;
             set
             {
-                HandleValueChange(Value, value);
-                base.Value = value;
+                HandleValueChange(Argument, value);
+                base.Argument = value;
             }
         }
 
         public override StatementBase Parent
         {
             get => base.Parent;
-            set
+            internal set
             {
                 base.Parent = value;
-                HandleValueChange(null, Value);
+                HandleValueChange(null, Argument);
             }
         }
 
-        public override string StatementAsYangString(int indentationlevel)
+        internal override string StatementAsYangString(int indentationlevel)
         {
             var indent = GetIndentation(indentationlevel);
-            return indent + "prefix " + Value + ";";
+            return indent + "prefix " + Argument + ";";
         }
 
         private void HandleValueChange(string originalValueOfPrefix, string newValueOfPrefix)
@@ -51,12 +51,12 @@ namespace YangInterpreter.Statements
             {
                 var oldValueForPrefixKey = module.NamespaceDictionary[originalValueOfPrefix];
                 module.NamespaceDictionary.Remove(originalValueOfPrefix);
-                module.NamespaceDictionary.Add(newValueOfPrefix, oldValueForPrefixKey);
+                module.AddNamespace(newValueOfPrefix, oldValueForPrefixKey);
             }
             else
             {
                 if (Parent != null)
-                    module.NamespaceDictionary.Add(newValueOfPrefix, Parent.Value);
+                    module.AddNamespace(newValueOfPrefix, Parent.Argument);
             }
         }
     }

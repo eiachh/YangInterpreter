@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         {
             var lengthToString = "length \"2323..5690\"; {\r\n\tdescription\r\n\t\t\"description of \r\n\t\tpattern.\";\r\n\terror-app-tag \"the error app tag\";\r\n\terror-message \"the error message\";\r\n\treference \"the reference\";\r\n}";
             var length = InterpreterCorrect.Root.Descendants("length").Single();
-            Assert.AreEqual("2323..5690", length.Value);
+            Assert.AreEqual("2323..5690", length.Argument);
             Assert.AreEqual(lengthToString, length.ToString());
         }
 
@@ -58,7 +58,7 @@ namespace InterpreterNUnitTester
         {
             var lengthStatement1 = InterpreterCorrect.Root.Descendants("length").First();
             var errorAppStatement = lengthStatement1.Elements("error-app-tag").Single();
-            Assert.AreEqual("the error app tag", errorAppStatement.Value);
+            Assert.AreEqual("the error app tag", errorAppStatement.Argument);
 
         }
 
@@ -70,7 +70,7 @@ namespace InterpreterNUnitTester
         {
             var lengthStatement1 = InterpreterCorrect.Root.Descendants("length").First();
             var errormessageStatement = lengthStatement1.Elements("error-message").Single();
-            Assert.AreEqual("the error message", errormessageStatement.Value);
+            Assert.AreEqual("the error message", errormessageStatement.Argument);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace InterpreterNUnitTester
         {
             var lengthStatement1 = InterpreterCorrect.Root.Descendants("length").First();
             var errormessageStatement = lengthStatement1.Elements("reference").Single();
-            Assert.AreEqual("the reference", errormessageStatement.Value);
+            Assert.AreEqual("the reference", errormessageStatement.Argument);
         }
 
         /// <summary>

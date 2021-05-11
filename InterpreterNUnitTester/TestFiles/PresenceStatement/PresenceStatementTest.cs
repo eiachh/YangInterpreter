@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void PresenceIsParsedCorrectly()
         {
             var presence = InterpreterCorrect.Root.Descendants("presence").Single();
-            Assert.AreEqual("desc of presence meaning", presence.Value);
+            Assert.AreEqual("desc of presence meaning", presence.Argument);
         }
 
         /// <summary>

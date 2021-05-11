@@ -22,7 +22,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void DeviateIsParsedCorrectly()
         {
-            var deviate = InterpreterCorrect.Root.Descendants("deviate").Where(statement => statement.Value == "mainTester").Single();
+            var deviate = InterpreterCorrect.Root.Descendants("deviate").Where(statement => statement.Argument == "mainTester").Single();
             Assert.AreEqual(9, deviate.Elements().Count());
         }
 
@@ -32,7 +32,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void DeviateStatementWhitelistOverflowError()
         {
-            var deviate = InterpreterCorrect.Root.Descendants("deviate").Where(statement => statement.Value == "mainTester").Single();
+            var deviate = InterpreterCorrect.Root.Descendants("deviate").Where(statement => statement.Argument == "mainTester").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => deviate.AddStatement(new ConfigStatement("true")));
             Assert.Throws<ArgumentOutOfRangeException>(() => deviate.AddStatement(new DefaultStatement("mainTester")));
             Assert.Throws<ArgumentOutOfRangeException>(() => deviate.AddStatement(new MandatoryStatement("true")));

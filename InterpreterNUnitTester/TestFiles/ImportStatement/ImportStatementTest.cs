@@ -58,7 +58,7 @@ namespace InterpreterNUnitTester
         {
             var import = InterpreterCorrect.Root.Descendants("import").Single();
             Assert.AreEqual("mainTester", InterpreterCorrect.Root.NamespaceDictionary["m-t"]);
-            import.Value = "newVal";
+            import.Argument = "newVal";
             Assert.AreEqual("newVal", InterpreterCorrect.Root.NamespaceDictionary["m-t"]);
         }
     }

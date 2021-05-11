@@ -24,7 +24,7 @@ namespace InterpreterNUnitTester
         {
             var ident = InterpreterCorrect.Root.Descendants("identity").Single();
             Assert.AreEqual(4, ident.Elements().Count());
-            Assert.AreEqual("mainTester", ident.Value);
+            Assert.AreEqual("mainTester", ident.Argument);
         }
 
         /// <summary>

@@ -28,10 +28,10 @@ namespace InterpreterNUnitTester
             var elementsOfEnumeration = enumerationType.Elements();
             var enumSubstatements = elementsOfEnumeration.Last().Descendants("").ToList();
 
-            Assert.AreEqual("current", enumSubstatements[0].Value);
-            Assert.AreEqual("7", enumSubstatements[1].Value);
-            Assert.AreEqual("Reference of enum seven.", enumSubstatements[2].Value);
-            Assert.AreEqual("Description of enum seven.", enumSubstatements[3].Value);
+            Assert.AreEqual("current", enumSubstatements[0].Argument);
+            Assert.AreEqual("7", enumSubstatements[1].Argument);
+            Assert.AreEqual("Reference of enum seven.", enumSubstatements[2].Argument);
+            Assert.AreEqual("Description of enum seven.", enumSubstatements[3].Argument);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void EnumStatementOverloadOfStatus()
         {
-            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First();
+            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Argument == "seven").First();
             Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new StatusStatement("current")));
         }
 
@@ -50,7 +50,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void EnumStatementOverloadOfValue()
         {
-            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First();
+            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Argument == "seven").First();
             Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new ValueStatement("2")));
         }
 
@@ -60,7 +60,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void EnumStatementOverloadOfReference()
         {
-            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First(); 
+            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Argument == "seven").First(); 
             Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new ReferenceStatement("some text in reference")));
         }
 
@@ -70,7 +70,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void EnumStatementOverloadOfDescription()
         {
-            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First();
+            var enumStatement = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Argument == "seven").First();
             Assert.Throws<ArgumentOutOfRangeException>(() => enumStatement.AddStatement(new YangInterpreter.Statements.DescriptionStatement("some text in description")));
         }
 
@@ -80,8 +80,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void EnumToStringFormatChecking()
         {
-            var enumStatementChildless = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "one").First();
-            var enumStatementWithChildren = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Value == "seven").First();
+            var enumStatementChildless = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Argument == "one").First();
+            var enumStatementWithChildren = InterpreterCorrect.Root.Descendants("type").Single().Descendants("enum").Where(statement => statement.Argument == "seven").First();
             Assert.AreEqual("enum one;", enumStatementChildless.ToString());
             Assert.AreEqual("enum seven {\r\n\tstatus current;\r\n\tvalue 7;\r\n\treference \"Reference of enum seven.\";\r\n\tdescription \"Description of enum seven.\";\r\n}", enumStatementWithChildren.ToString());
         }

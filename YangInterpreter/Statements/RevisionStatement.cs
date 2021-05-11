@@ -27,7 +27,7 @@ namespace YangInterpreter.Statements
     {
         protected override string ImproperValueErrorMessage => "The given value for reference was not a proper date format \"YYY-MM-DD\"";
 
-        public RevisionStatement(string Value) : base("revision") { this.Value = Value; }
+        public RevisionStatement(string Value) : base("revision") { this.Argument = Value; }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {

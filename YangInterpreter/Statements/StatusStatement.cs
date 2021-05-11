@@ -13,7 +13,7 @@ namespace YangInterpreter.Statements
         public StatusStatement() : base("status") { }
         public StatusStatement(string Argument) : base("status", Argument) { }
 
-        protected override string ImproperValueErrorMessage => "The value of status can be: current, deprecated, obsolete, but it was: " + Value;
+        protected override string ImproperValueErrorMessage => "The value of status can be: current, deprecated, obsolete, but it was: " + Argument;
 
 
         protected override bool IsValidValue(string value)

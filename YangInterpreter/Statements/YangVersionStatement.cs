@@ -13,6 +13,6 @@ namespace YangInterpreter.Statements
     public class YangVersionStatement : ChildlessStatement
     {
         public YangVersionStatement() : base("yang-version") { BuildIntoOutput = false; }
-        public YangVersionStatement(string Value) : this() { base.Value = Value; }
+        public YangVersionStatement(string Value) : this() { base.Argument = Value; }
     }
 }

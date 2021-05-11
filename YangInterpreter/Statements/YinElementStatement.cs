@@ -14,7 +14,7 @@ namespace YangInterpreter.Statements
     {
         public YinElementStatement() : base("yin-element") { }
         public YinElementStatement(string Argument) : base("yin-element", Argument) { }
-        protected override string ImproperValueErrorMessage => "The given value can be true/false but was: " + Value;
+        protected override string ImproperValueErrorMessage => "The given value can be true/false but was: " + Argument;
 
         protected override bool IsValidValue(string value)
         {

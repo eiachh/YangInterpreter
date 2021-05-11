@@ -24,7 +24,7 @@ namespace InterpreterNUnitTester
         {
             var include = InterpreterCorrect.Root.Descendants("include").Single();
             Assert.AreEqual(1, include.Elements().Count());
-            Assert.AreEqual("mainTester", include.Value);
+            Assert.AreEqual("mainTester", include.Argument);
         }
 
         /// <summary>

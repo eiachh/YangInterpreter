@@ -25,10 +25,10 @@ namespace InterpreterNUnitTester
         [Test]
         public void BaseStatementIsParsedCorrectly()
         {
-            var identityType = InterpreterCorrect.Root.Descendants("type").Where(stat => stat.Value == "identityref").Single();
+            var identityType = InterpreterCorrect.Root.Descendants("type").Where(stat => stat.Argument == "identityref").Single();
             Assert.AreEqual(1, identityType.Elements().Count());
             var baseStatement = identityType.Elements().First();
-            Assert.AreEqual("nameSpace:SomeReference", baseStatement.Value);
+            Assert.AreEqual("nameSpace:SomeReference", baseStatement.Argument);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void DescriptionValueParsedCorrectly()
         {
-            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Elements("description").Single().Value);
+            Assert.AreEqual("Description of correctly formatted\r\nmodule,\r\nwith multiline value.", InterpreterCorrect.Root.Elements("description").Single().Argument);
         }
 
         /// <summary>

@@ -21,20 +21,20 @@ namespace YangInterpreter.Statements
         public ImportStatement() : base("import") { }
         public ImportStatement(string Value) : base("import", Value) { }
 
-        public override string Value 
+        public override string Argument 
         { 
-            get => base.Value;
+            get => base.Argument;
             set
             {
                 HandleValueChange(value);
-                base.Value = value;
+                base.Argument = value;
             }
         }
 
-        public override string StatementAsYangString(int indentationlevel)
+        internal override string StatementAsYangString(int indentationlevel)
         {
             var indent = GetIndentation(indentationlevel);
-            return indent + Name.ToLower() + " " + Value + " { " + GetStatementsAsYangString(0) + " }";
+            return indent + Name.ToLower() + " " + Argument + " { " + GetStatementsAsYangString(0) + " }";
         }
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
@@ -54,7 +54,7 @@ namespace YangInterpreter.Statements
             if (childPrefix is null)
                 return;
 
-            string key = childPrefix.Single().Value;
+            string key = childPrefix.Single().Argument;
             module.NamespaceDictionary[key] = newValueOfPrefix;
         }
     }

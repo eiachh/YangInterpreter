@@ -29,7 +29,7 @@ namespace YangInterpreter.Statements
         public LengthStatement() : base("Length") { }
         public LengthStatement(string Value) : base("Length",Value) { }
 
-        protected override string ImproperValueErrorMessage { get => "The given value: "+ Value + " is not valid for Length statement!"; }
+        protected override string ImproperValueErrorMessage { get => "The given value: "+ Argument + " is not valid for Length statement!"; }
 
         internal override bool IsQuotedValue => true;
 

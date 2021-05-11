@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void ContactIsParsedCorrectly()
         {
             var contact = InterpreterCorrect.Root.Descendants("contact").Single();
-            Assert.AreEqual("Email: adam.sranko@gmail.com", contact.Value);
+            Assert.AreEqual("Email: adam.sranko@gmail.com", contact.Argument);
         }
 
         /// <summary>

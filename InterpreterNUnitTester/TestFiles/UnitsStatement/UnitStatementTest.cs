@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void UnitsStatementIsParsedCorrectly()
         {
             var unit = InterpreterCorrect.Root.Descendants("units").Single();
-            Assert.AreEqual("desc of unit", unit.Value);
+            Assert.AreEqual("desc of unit", unit.Argument);
         }
     }
 }

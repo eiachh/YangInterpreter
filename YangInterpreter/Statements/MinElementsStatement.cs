@@ -15,7 +15,7 @@ namespace YangInterpreter.Statements
     {
         public MinElementsStatement(string Argument = "0") : base("min-elements", Argument) { }
 
-        protected override string ImproperValueErrorMessage => "Min elements`s argument can only be positive numbers or the string \"unbounded\" but it was: " + Value;
+        protected override string ImproperValueErrorMessage => "Min elements`s argument can only be positive numbers or the string \"unbounded\" but it was: " + Argument;
 
         protected override bool IsValidValue(string value)
         {

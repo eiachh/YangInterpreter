@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         public void PatternIsParsedCorrectly()
         {
             var patternStatement = InterpreterCorrect.Root.Descendants("pattern").Single();
-            Assert.AreEqual("[0-9a-fA-F]*", patternStatement.Value);
+            Assert.AreEqual("[0-9a-fA-F]*", patternStatement.Argument);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace InterpreterNUnitTester
         {
             var patternStatement = InterpreterCorrect.Root.Descendants("pattern").Single();
             var errorAppStatement = patternStatement.Elements("error-app-tag").Single();
-            Assert.AreEqual("the error app tag", errorAppStatement.Value);
+            Assert.AreEqual("the error app tag", errorAppStatement.Argument);
 
         }
 
@@ -48,7 +48,7 @@ namespace InterpreterNUnitTester
         {
             var patternStatement = InterpreterCorrect.Root.Descendants("pattern").Single();
             var errormessageStatement = patternStatement.Elements("error-message").Single();
-            Assert.AreEqual("the error message", errormessageStatement.Value);
+            Assert.AreEqual("the error message", errormessageStatement.Argument);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace InterpreterNUnitTester
         {
             var patternStatement = InterpreterCorrect.Root.Descendants("pattern").Single();
             var errormessageStatement = patternStatement.Elements("reference").Single();
-            Assert.AreEqual("the reference", errormessageStatement.Value);
+            Assert.AreEqual("the reference", errormessageStatement.Argument);
         }
 
         /// <summary>

@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void UnionTypeIsParsedCorrectly()
         {
-            var unionType = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "unionTest").Single().Elements().First();
+            var unionType = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "unionTest").Single().Elements().First();
             Assert.AreEqual(17, unionType.Elements().Count());
         }
     }

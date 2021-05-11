@@ -12,8 +12,8 @@ namespace YangInterpreter.Statements
     public class RequireInstanceStatement : ControlledValueChildlessStatement
     {
         public RequireInstanceStatement() : base("RequireInstance") { }
-        public RequireInstanceStatement(string Argument) : base("RequireInstance") { Value = Argument; }
-        protected override string ImproperValueErrorMessage => "The given value can only be false/true but it was: " + Value;
+        public RequireInstanceStatement(string Argument) : base("RequireInstance") { base.Argument = Argument; }
+        protected override string ImproperValueErrorMessage => "The given value can only be false/true but it was: " + Argument;
 
         protected override bool IsValidValue(string value)
         {

@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         public void ValueParsedCorrectly()
         {
             var valueStatement = InterpreterCorrect.Root.Descendants("value").First();
-            Assert.AreEqual("7", valueStatement.Value);
+            Assert.AreEqual("7", valueStatement.Argument);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         public void ValueThrowsImproperValueAtChange()
         {
             var valueStatement = InterpreterCorrect.Root.Descendants("value").First();
-            Assert.Throws<ImproperValue>(() => valueStatement.Value = "asd");
+            Assert.Throws<ImproperValue>(() => valueStatement.Argument = "asd");
         }
 
         /// <summary>

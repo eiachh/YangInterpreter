@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void UniqueStatementIsParsedCorrectly()
         {
             var unique = InterpreterCorrect.Root.Descendants("unique").Single();
-            Assert.AreEqual("identifier identifier2", unique.Value);
+            Assert.AreEqual("identifier identifier2", unique.Argument);
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace YangInterpreter.Statements
     {
         public MandatoryStatement() : base("mandatory","false") { }
         public MandatoryStatement(string Argument) : base("mandatory", Argument) { }
-        protected override string ImproperValueErrorMessage => "The given value can be true/false but was: " + Value;
+        protected override string ImproperValueErrorMessage => "The given value can be true/false but was: " + Argument;
 
         protected override bool IsValidValue(string value)
         {

@@ -12,6 +12,7 @@ namespace YangInterpreter.Interpreter
         internal string YangAsRawText { get; private set; }
         
         private InterpreterOption Option = InterpreterOption.Normal;
+        internal LoggingOptions LoggerOption = LoggingOptions.TextLog;
 
         private Type InterpreterStatus = typeof(Interpreter);
         private Stack<Type> InterpreterStatusStack = new Stack<Type>();
@@ -59,14 +60,14 @@ namespace YangInterpreter.Interpreter
         /// <summary>
         /// Converts the given line into a interpreted token and processes it into the yang tree at the current state.
         /// </summary>
-        /// <param name="RowOfYangText">The given row of the yang file</param>
+        /// <param name="InputBlock">The given row of the yang file</param>
         /// <param name="MultilineBeginingWasPresent">Determines wether the given row is a part of a Multiline token</param>
         /// <param name="PreviousState">The previous state of the interpreter which is the state after the previously processed row.</param>
         /// <returns></returns>
-        internal string ConvertLine(string RowOfYangText,ref bool MultilineBeginingWasPresent, ref TokenTypes PreviousState)
+        internal string ConvertLine(string InputBlock,ref bool MultilineBeginingWasPresent, ref TokenTypes PreviousState)
         {
-            CurrentRow = RowOfYangText;
-            var TokenForCurrentRow = TokenCreator.GetTokenForRow(RowOfYangText,PreviousToken);
+            CurrentRow = InputBlock;
+            var TokenForCurrentRow = TokenCreator.GetTokenForRow(InputBlock,PreviousToken);
             if (TokenForCurrentRow != null)
             {
                 if (TokenForCurrentRow.TokenTypeSpecialInfo == TokenTypes.ValueForPreviousLineBeg)
@@ -77,7 +78,7 @@ namespace YangInterpreter.Interpreter
 
                 else if (PreviousToken != null)
                 {
-                    TokenForCurrentRow = MergeMultilineTokenEndingToken(TokenForCurrentRow, PreviousState, MultilineBeginingWasPresent);
+                    TokenForCurrentRow = MergeMultilineEndingToken(TokenForCurrentRow, PreviousState, MultilineBeginingWasPresent);
                     MultilineBeginingWasPresent = false;
                 }
                 ProcessToken(TokenForCurrentRow);
@@ -144,7 +145,7 @@ namespace YangInterpreter.Interpreter
         /// <param name="previousState"></param>
         /// <param name="multilineBegPresent"></param>
         /// <returns></returns>
-        private Token MergeMultilineTokenEndingToken(Token tokenForCurrentRow, TokenTypes previousState, bool multilineBegPresent)
+        private Token MergeMultilineEndingToken(Token tokenForCurrentRow, TokenTypes previousState, bool multilineBegPresent)
         {
             if (IsInvalidStateAfterMultilineToken(tokenForCurrentRow, previousState, multilineBegPresent))
             {
@@ -223,7 +224,7 @@ namespace YangInterpreter.Interpreter
             InterpreterStatus = type;
         }
 
-        private static bool ValidateYangVersionCompatibility(string VersionAsString)
+        private bool ValidateYangVersionCompatibility(string VersionAsString)
         {
             int ver = 0;
             int.TryParse(VersionAsString, out ver);
@@ -265,7 +266,7 @@ namespace YangInterpreter.Interpreter
         /// Falls back to the parent node from the current node.
         /// </summary>
         /// <returns></returns>
-        private Type FallbackToPreviousInterpreterStatus()
+        private void FallbackToPreviousInterpreterStatus()
         {
             if (ParentFallbackIsNeeded())
             {
@@ -280,8 +281,6 @@ namespace YangInterpreter.Interpreter
             }
             if (InterpreterStatus == typeof(Interpreter))
                 ModulEnded = true;
-
-            return InterpreterStatus;
         }
 
         /// <summary>
@@ -315,8 +314,8 @@ namespace YangInterpreter.Interpreter
             else if (InputToken.TokenAsType == typeof(YangVersionStatement))
             {
                 var InstantiatedNewStatement = AddNewStatement(InputToken.TokenAsType, InputToken, YangAddingOption.ChildAndStatusless);
-                InstantiatedNewStatement.Value = InputToken.TokenArgument;
-                if (!ValidateYangVersionCompatibility(InstantiatedNewStatement.Value) && Option == InterpreterOption.Normal)
+                InstantiatedNewStatement.Argument = InputToken.TokenArgument;
+                if (!ValidateYangVersionCompatibility(InstantiatedNewStatement.Argument) && Option == InterpreterOption.Normal)
                     throw new InvalidYangVersion("The version of this file is not 1 therefore not compatible with the interpreter. If you want to force run anyways use Interpreteroption force argument!");
             }
 
@@ -355,7 +354,7 @@ namespace YangInterpreter.Interpreter
         /// <param name="rowNumber"></param>
         private void NodeProcessionFail(Token tokenAtError, int rowNumber)
         {
-            ErrorLogger erLogger = new ErrorLogger(rowNumber, CurrentRow, LoggingOptions.TextLog);
+            ErrorLogger erLogger = new ErrorLogger(rowNumber, CurrentRow, LoggerOption);
             var LogResult = erLogger.CreateLog(TracerCurrentNode, InterpreterStatusStack, tokenAtError);
 
             string ErrorExtraText = string.Empty;
@@ -371,7 +370,7 @@ namespace YangInterpreter.Interpreter
         /// <param name="rowNumber"></param>
         private void TokenCreationFail(int rowNumber)
         {
-            ErrorLogger erLogger = new ErrorLogger(rowNumber, CurrentRow, LoggingOptions.TextLog);
+            ErrorLogger erLogger = new ErrorLogger(rowNumber, CurrentRow, LoggerOption);
             var LogResult = erLogger.CreateLog(TracerCurrentNode, InterpreterStatusStack);
 
             string ErrorExtraText = string.Empty;

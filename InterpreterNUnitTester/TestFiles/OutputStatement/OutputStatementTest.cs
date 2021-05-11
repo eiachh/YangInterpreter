@@ -23,7 +23,7 @@ namespace InterpreterNUnitTester
         {
             var output = InterpreterCorrect.Root.Descendants("output").Single();
             Assert.AreEqual(9, output.Elements().Count());
-            Assert.AreEqual(null, output.Value);
+            Assert.AreEqual(null, output.Argument);
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace YangInterpreter.Statements
     public class OrderedByStatement : ControlledValueChildlessStatement
     {
         public OrderedByStatement(string Argument = "system") : base("ordered-by", Argument) { }
-        protected override string ImproperValueErrorMessage => "The ordered-by statement can only have the values \"system, user\" but was: " + Value;
+        protected override string ImproperValueErrorMessage => "The ordered-by statement can only have the values \"system, user\" but was: " + Argument;
 
         protected override bool IsValidValue(string value)
         {

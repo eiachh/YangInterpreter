@@ -22,7 +22,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RpcIsParsedCorrectly()
         {
-            var rpc = InterpreterCorrect.Root.Descendants("rpc").Single(statement => statement.Value == "mainTester");
+            var rpc = InterpreterCorrect.Root.Descendants("rpc").Single(statement => statement.Argument == "mainTester");
             Assert.AreEqual(8, rpc.Elements().Count());
         }
 
@@ -32,7 +32,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RpcStatementWhitelistOverflowError()
         {
-            var rpc = InterpreterCorrect.Root.Descendants("rpc").Single(statement => statement.Value == "mainTester");
+            var rpc = InterpreterCorrect.Root.Descendants("rpc").Single(statement => statement.Argument == "mainTester");
             Assert.Throws<ArgumentOutOfRangeException>(() => rpc.AddStatement(new BooleanTypeStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => rpc.AddStatement(new DescriptionStatement("desc")));
             Assert.Throws<ArgumentOutOfRangeException>(() => rpc.AddStatement(new InputStatement()));

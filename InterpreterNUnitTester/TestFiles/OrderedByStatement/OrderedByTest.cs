@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void OrderedByStatementIsParsedCorrectly()
         {
             var ord = InterpreterCorrect.Root.Descendants("ordered-by").Single();
-            Assert.AreEqual("user", ord.Value);
+            Assert.AreEqual("user", ord.Argument);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace InterpreterNUnitTester
         {
             Assert.Throws<ImproperValue>(() => new OrderedByStatement("notAllowed"));
             var ord = new OrderedByStatement();
-            Assert.Throws<ImproperValue>(() => ord.Value = "invalid");
+            Assert.Throws<ImproperValue>(() => ord.Argument = "invalid");
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace InterpreterNUnitTester
         public void OrderedByStatementDefaultValue()
         {
             var ord = new OrderedByStatement();
-            Assert.AreEqual("system", ord.Value);
+            Assert.AreEqual("system", ord.Argument);
         }
 
         /// <summary>

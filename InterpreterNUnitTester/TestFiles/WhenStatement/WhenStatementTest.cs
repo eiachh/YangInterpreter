@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void WhenStatementIsParsedCorrectly()
         {
             var when = InterpreterCorrect.Root.Descendants("when").First();
-            Assert.AreEqual("xpath:xml:something/", when.Value);
+            Assert.AreEqual("xpath:xml:something/", when.Argument);
         }
 
         /// <summary>

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using YangInterpreter.Interpreter;
+﻿using YangInterpreter.Interpreter;
 
 namespace YangInterpreter.Statements.BaseStatements
 {
@@ -11,18 +8,18 @@ namespace YangInterpreter.Statements.BaseStatements
     public abstract class ControlledValueStatement : StatementBase
     {
         public ControlledValueStatement(string Name) : base(Name) { }
-        public ControlledValueStatement(string Name, string Value) : base(Name) { this.Value = Value; }
+        public ControlledValueStatement(string Name, string Value) : base(Name) { this.Argument = Value; }
         protected abstract string ImproperValueErrorMessage { get; }
-        public override string Value
+        public override string Argument
         {
-            get => base.Value;
+            get => base.Argument;
             set
             {
                 if (IsValidValue(value))
-                    base.Value = value;
+                    base.Argument = value;
                 else
                 {
-                    base.Value = value;
+                    base.Argument = value;
                     throw new ImproperValue(ImproperValueErrorMessage);
                 }
             }

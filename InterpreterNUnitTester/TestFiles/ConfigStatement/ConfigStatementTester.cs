@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void ConfigIsParsedCorrectly()
         {
             var configStatement = InterpreterCorrect.Root.Descendants("config").First();
-            Assert.AreEqual("false", configStatement.Value);
+            Assert.AreEqual("false", configStatement.Argument);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace InterpreterNUnitTester
         public void ConfigDefaultValue()
         {
             var configStatement = new ConfigStatement();
-            Assert.AreEqual("true", configStatement.Value);
+            Assert.AreEqual("true", configStatement.Argument);
         }
 
         /// <summary>

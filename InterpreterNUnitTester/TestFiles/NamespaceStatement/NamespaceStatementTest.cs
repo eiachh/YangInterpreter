@@ -22,7 +22,7 @@ namespace InterpreterNUnitTester
         public void NamespaceIsParsedCorrectly()
         {
             var nameSp = InterpreterCorrect.Root.Descendants("namespace").Single();
-            Assert.AreEqual("selfNamespace", nameSp.Value);
+            Assert.AreEqual("selfNamespace", nameSp.Argument);
         }
 
         /// <summary>

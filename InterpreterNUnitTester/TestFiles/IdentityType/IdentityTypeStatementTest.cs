@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void IdentityrefParsedCorrectly()
         {
-            var leafOfIdentityref = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "identityTest").Single();
+            var leafOfIdentityref = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "identityTest").Single();
             Assert.AreEqual(1, leafOfIdentityref.Elements().Count());
         }
     }

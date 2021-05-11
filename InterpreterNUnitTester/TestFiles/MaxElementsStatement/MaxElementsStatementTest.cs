@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void MaxElementsStatementIsParsedCorrectly()
         {
             var maxElem = InterpreterCorrect.Root.Descendants("max-elements").Single();
-            Assert.AreEqual("+2", maxElem.Value);
+            Assert.AreEqual("+2", maxElem.Argument);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace InterpreterNUnitTester
         public void MaxElementsStatementDefaultValue()
         {
             var maxElem = new MaxElementsStatement();
-            Assert.AreEqual("unbounded", maxElem.Value);
+            Assert.AreEqual("unbounded", maxElem.Argument);
         }
 
         /// <summary>

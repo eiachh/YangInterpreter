@@ -25,8 +25,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void UnquotedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "nonQuotedValid").Single().Elements().First();
-            Assert.AreEqual("desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "nonQuotedValid").Single().Elements().First();
+            Assert.AreEqual("desc", desc.Argument);
         }
 
         /// <summary>
@@ -35,8 +35,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SingleQuotedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "singleQuotedValid").Single().Elements().First();
-            Assert.AreEqual("desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "singleQuotedValid").Single().Elements().First();
+            Assert.AreEqual("desc", desc.Argument);
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NormalQuotedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "normalQuotedValid").Single().Elements().First();
-            Assert.AreEqual("desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "normalQuotedValid").Single().Elements().First();
+            Assert.AreEqual("desc", desc.Argument);
         }
 
         /// <summary>
@@ -55,8 +55,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NormalQuoteConcatNormalQuoteArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "NormalQuoteConcatNormalQuoteValid").Single().Elements().First();
-            Assert.AreEqual("ab", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "NormalQuoteConcatNormalQuoteValid").Single().Elements().First();
+            Assert.AreEqual("ab", desc.Argument);
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NormalQuoteConcatSingleQuoteArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "NormalQuoteConcatSingleQuoteValid").Single().Elements().First();
-            Assert.AreEqual("ab", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "NormalQuoteConcatSingleQuoteValid").Single().Elements().First();
+            Assert.AreEqual("ab", desc.Argument);
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SingleQuoteConcatNormalQuoteArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "SingleQuoteConcatNormalQuoteValid").Single().Elements().First();
-            Assert.AreEqual("ab", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "SingleQuoteConcatNormalQuoteValid").Single().Elements().First();
+            Assert.AreEqual("ab", desc.Argument);
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SingleQuoteConcatSingleQuoteArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "SingleQuoteConcatSingleQuoteValid").Single().Elements().First();
-            Assert.AreEqual("ab", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "SingleQuoteConcatSingleQuoteValid").Single().Elements().First();
+            Assert.AreEqual("ab", desc.Argument);
         }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void RecursiveLongRandomConcatArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "RecursiveLongRandomConcatValid").Single().Elements().First();
-            Assert.AreEqual("abcdefg", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "RecursiveLongRandomConcatValid").Single().Elements().First();
+            Assert.AreEqual("abcdefg", desc.Argument);
         }
 
         /// <summary>
@@ -105,8 +105,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NextLineStartNonQuotedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "nonQuotedNextLineStartValid").Single().Elements().First();
-            Assert.AreEqual("desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "nonQuotedNextLineStartValid").Single().Elements().First();
+            Assert.AreEqual("desc", desc.Argument);
         }
 
         /// <summary>
@@ -115,8 +115,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NextLineStartNormalQuotedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "normalQuotedNextLineStartValid").Single().Elements().First();
-            Assert.AreEqual("desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "normalQuotedNextLineStartValid").Single().Elements().First();
+            Assert.AreEqual("desc", desc.Argument);
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NextLineStartSingleQuotedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "singleQuotedNextLineStartValid").Single().Elements().First();
-            Assert.AreEqual("desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "singleQuotedNextLineStartValid").Single().Elements().First();
+            Assert.AreEqual("desc", desc.Argument);
         }
 
         /// <summary>
@@ -135,8 +135,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NextLineStartNormalQuotedMultilineArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "normalQuotedNextLineStartMultilineValid").Single().Elements().First();
-            Assert.AreEqual("desc\r\nmiddle\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "normalQuotedNextLineStartMultilineValid").Single().Elements().First();
+            Assert.AreEqual("desc\r\nmiddle\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -145,8 +145,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NextLineStartSingleQuotedMultilineArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "singleQuotedNextLineStartMultilineValid").Single().Elements().First();
-            Assert.AreEqual("desc\r\nmiddle\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "singleQuotedNextLineStartMultilineValid").Single().Elements().First();
+            Assert.AreEqual("desc\r\nmiddle\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -155,8 +155,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SameLineStartSingleQuotedMultilineArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "singleQuotedSameLineStartMultilineValid").Single().Elements().First();
-            Assert.AreEqual("desc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "singleQuotedSameLineStartMultilineValid").Single().Elements().First();
+            Assert.AreEqual("desc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -165,8 +165,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SameLineStartNormalQuotedMultilineArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "normalQuotedSameLineStartMultilineValid").Single().Elements().First();
-            Assert.AreEqual("desc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "normalQuotedSameLineStartMultilineValid").Single().Elements().First();
+            Assert.AreEqual("desc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -175,8 +175,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SameLineStartNormalQuotedMultilineConcattedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "normalQuotedSameLineStartMultilineConcattedValid").Single().Elements().First();
-            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "normalQuotedSameLineStartMultilineConcattedValid").Single().Elements().First();
+            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -185,8 +185,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SameLineStartSingleQuotedMultilineConcattedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "singleQuotedSameLineConcattedStartMultilineValid").Single().Elements().First();
-            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "singleQuotedSameLineConcattedStartMultilineValid").Single().Elements().First();
+            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -195,8 +195,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NextLineStartSingleQuotedMultilineConcattedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "singleQuotedNextLineStartMultilineConcattedValid").Single().Elements().First();
-            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "singleQuotedNextLineStartMultilineConcattedValid").Single().Elements().First();
+            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -205,8 +205,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void NextLineStartNormalQuotedMultilineConcattedArgParsedCorrectly()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "normalQuotedNextLineStartMultilineConcattedValid").Single().Elements().First();
-            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "normalQuotedNextLineStartMultilineConcattedValid").Single().Elements().First();
+            Assert.AreEqual("adesc\r\nmiddle\r\nmiddle2\r\nalso desc", desc.Argument);
         }
 
         /// <summary>
@@ -215,8 +215,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void SpecialCharacterIgnoreCheck()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "SpecialCharacterCheck").Single().Elements().First();
-            Assert.AreEqual("ade\\{s;'c\\\"\"", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "SpecialCharacterCheck").Single().Elements().First();
+            Assert.AreEqual("ade\\{s;'c\\\"\"", desc.Argument);
         }
 
         /// <summary>
@@ -225,8 +225,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void CompletedNormalQuoteConcattedMultiline()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "MultilineConcatWithCompletedNormalQuotes").Single().Elements().First();
-            Assert.AreEqual("abc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "MultilineConcatWithCompletedNormalQuotes").Single().Elements().First();
+            Assert.AreEqual("abc", desc.Argument);
         }
 
         /// <summary>
@@ -235,8 +235,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void CompletedSingleQuoteConcattedMultiline()
         {
-            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "MultilineConcatWithCompletedSingleQuotes").Single().Elements().First();
-            Assert.AreEqual("abc", desc.Value);
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "MultilineConcatWithCompletedSingleQuotes").Single().Elements().First();
+            Assert.AreEqual("abc", desc.Argument);
         }
 
         /// <summary>

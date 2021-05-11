@@ -22,7 +22,7 @@ namespace InterpreterNUnitTester
         public void RevisionDateIsParsedCorrectly()
         {
             var revDate = InterpreterCorrect.Root.Descendants("revision-date").Single();
-            Assert.AreEqual("2008-08-08", revDate.Value);
+            Assert.AreEqual("2008-08-08", revDate.Argument);
         }
 
         /// <summary>

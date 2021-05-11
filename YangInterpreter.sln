@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YangInterpreter", "YangInterpreter\YangInterpreter.csproj", "{6D875990-02D4-4B9A-AECD-2575C06B5C47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Runner", "Runner\Runner.csproj", "{EF8452EB-FB75-4E38-B1D7-689215494A97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Runner\Demo.csproj", "{EF8452EB-FB75-4E38-B1D7-689215494A97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterpreterNUnitTester", "InterpreterNUnitTester\InterpreterNUnitTester.csproj", "{A11D180A-ECA1-414F-A947-320E72169042}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterpreterNUnitTester", "InterpreterNUnitTester\InterpreterNUnitTester.csproj", "{A11D180A-ECA1-414F-A947-320E72169042}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

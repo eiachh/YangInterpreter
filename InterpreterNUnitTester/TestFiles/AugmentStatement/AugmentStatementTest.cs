@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void AugmentIsParsedCorrectly()
         {
-            var augment = InterpreterCorrect.Root.Descendants("augment").Where(statement => statement.Value == "mainTester").Single();
+            var augment = InterpreterCorrect.Root.Descendants("augment").Where(statement => statement.Argument == "mainTester").Single();
             Assert.AreEqual(13, augment.Elements().Count());
         }
 
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void AugmentStatementWhitelistOverflowError()
         {
-            var augment = InterpreterCorrect.Root.Descendants("augment").Where(statement => statement.Value == "mainTester").Single();
+            var augment = InterpreterCorrect.Root.Descendants("augment").Where(statement => statement.Argument == "mainTester").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => augment.AddStatement(new BooleanTypeStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => augment.AddStatement(new DescriptionStatement("desc")));
             Assert.Throws<ArgumentOutOfRangeException>(() => augment.AddStatement(new ReferenceStatement()));

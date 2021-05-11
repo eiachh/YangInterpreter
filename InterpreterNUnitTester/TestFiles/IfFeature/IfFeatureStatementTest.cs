@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void IfFeatureIsParsedCorrectly()
         {
             var ifFeature = InterpreterCorrect.Root.Descendants("if-feature").Single();
-            Assert.AreEqual("myFeature", ifFeature.Value);
+            Assert.AreEqual("myFeature", ifFeature.Argument);
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ namespace YangInterpreter.Statements.BaseStatements
     {
 
         public ChildlessStatement(string Name) : base(Name) { }
-        public ChildlessStatement(string Name, string Value) : base(Name) { base.Value = Value; }
+        public ChildlessStatement(string Name, string Value) : base(Name) { base.Argument = Value; }
 
         internal override bool IsQuotedValue => true;
 

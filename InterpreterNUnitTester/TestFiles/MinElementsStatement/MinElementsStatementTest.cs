@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void MinElementsStatementIsParsedCorrectly()
         {
             var minElem = InterpreterCorrect.Root.Descendants("min-elements").Single();
-            Assert.AreEqual("+2", minElem.Value);
+            Assert.AreEqual("+2", minElem.Argument);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace InterpreterNUnitTester
         public void MinElementsStatementDefaultValue()
         {
             var minElem = new MinElementsStatement();
-            Assert.AreEqual("0", minElem.Value);
+            Assert.AreEqual("0", minElem.Argument);
         }
 
         /// <summary>

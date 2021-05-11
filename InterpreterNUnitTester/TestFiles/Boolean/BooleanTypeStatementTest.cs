@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void RevisionIsParsedCorrectly()
         {
-            var leafWithBooleanType = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "booleanTest").Single();
+            var leafWithBooleanType = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "booleanTest").Single();
             Assert.AreEqual(1, leafWithBooleanType.Elements().Count());
             Assert.AreEqual("type boolean;",leafWithBooleanType.Elements().First().ToString());
         }

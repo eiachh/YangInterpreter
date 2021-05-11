@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void IsParsedCorrectly()
         {
-            var feature = InterpreterCorrect.Root.Descendants("feature").Single(statement => statement.Value == "mainTester");
+            var feature = InterpreterCorrect.Root.Descendants("feature").Single(statement => statement.Argument == "mainTester");
             Assert.AreEqual(4, feature.Elements().Count());
         }
     }

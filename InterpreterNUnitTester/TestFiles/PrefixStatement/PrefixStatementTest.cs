@@ -25,8 +25,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void PrefixIsParsedCorrectly()
         {
-            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Value == "someVal");
-            Assert.AreEqual("someVal", pref.Value);
+            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Argument == "someVal");
+            Assert.AreEqual("someVal", pref.Argument);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void PrefixIsChildless()
         {
-            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Value == "someVal");
+            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Argument == "someVal");
             Assert.Throws<ArgumentOutOfRangeException>(() => pref.AddStatement(new EmptyLineStatement()));
         }
 
@@ -45,7 +45,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void PrefixRootRegistrationTest()
         {
-            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Value == "someVal");
+            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Argument == "someVal");
             Assert.AreEqual("tester",InterpreterCorrect.Root.NamespaceDictionary["someVal"]);
         }
 
@@ -55,9 +55,9 @@ namespace InterpreterNUnitTester
         [Test]
         public void PrefixRootRegistrationRefreshOnChange()
         {
-            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Value == "someVal");
+            var pref = InterpreterCorrect.Root.Descendants("prefix").Single(statement => statement.Argument == "someVal");
             Assert.AreEqual("tester", InterpreterCorrect.Root.NamespaceDictionary["someVal"]);
-            pref.Value = "newVal";
+            pref.Argument = "newVal";
             Assert.AreEqual("tester", InterpreterCorrect.Root.NamespaceDictionary["newVal"]);
         }
     }

@@ -24,14 +24,14 @@ namespace InterpreterNUnitTester
         [Test]
         public void RequiredInstanceIsParsedCorrectly()
         {
-            var instanceIdentifierLeaf = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "requireInstanceTest");
+            var instanceIdentifierLeaf = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "requireInstanceTest");
             Assert.AreEqual(1, instanceIdentifierLeaf.Count());
 
             var instanceIdentifier = instanceIdentifierLeaf.First().Elements();
             Assert.AreEqual(1, instanceIdentifier.Count());
 
             var requiredInstance = instanceIdentifier.First().Elements().FirstOrDefault();
-            Assert.AreEqual("true", requiredInstance.Value);
+            Assert.AreEqual("true", requiredInstance.Argument);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace InterpreterNUnitTester
             Assert.Throws<ImproperValue>(() => new RequireInstanceStatement("notFalse"));
             Assert.Throws<ImproperValue>(() => new RequireInstanceStatement("2332332"));
             var RequiredInstanceCorrect = new RequireInstanceStatement("false");
-            Assert.Throws<ImproperValue>(() => RequiredInstanceCorrect.Value = "NotCorrectValue");
+            Assert.Throws<ImproperValue>(() => RequiredInstanceCorrect.Argument = "NotCorrectValue");
         }
     }
 }

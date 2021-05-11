@@ -24,7 +24,7 @@ namespace InterpreterNUnitTester
         public void YinElementIsParsedCorrectly()
         {
             var yinElement = InterpreterCorrect.Root.Descendants("yin-element").Single();
-            Assert.AreEqual("true", yinElement.Value);
+            Assert.AreEqual("true", yinElement.Argument);
         }
 
         /// <summary>
@@ -46,11 +46,11 @@ namespace InterpreterNUnitTester
             var yinElement1 = new YinElementStatement("true");
             var yinElement2 = new YinElementStatement("false");
             
-            Assert.AreEqual("true", yinElement1.Value);
-            Assert.AreEqual("false", yinElement2.Value);
+            Assert.AreEqual("true", yinElement1.Argument);
+            Assert.AreEqual("false", yinElement2.Argument);
 
             Assert.Throws<ImproperValue>(() => new YinElementStatement("error"));
-            Assert.Throws<ImproperValue>(() => yinElement1.Value = "error");
+            Assert.Throws<ImproperValue>(() => yinElement1.Argument = "error");
         }
     }
 }

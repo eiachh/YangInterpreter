@@ -28,9 +28,9 @@ namespace InterpreterNUnitTester
         {
             RevisipnStatementCorrect = YangInterpreterTool.Load("TestFiles/RevisionStatement/RevisionStatementCorrect.yang");
             var Revision = RevisipnStatementCorrect.Root.Descendants("revision").Single();
-            Assert.AreEqual("2019-09-11", Revision.Value);
-            Assert.AreEqual("Generic Session Control parameter file.", Revision.Descendants("description").Single().Value);
-            Assert.AreEqual("The Reference for Revision \r\n2019-09-11", Revision.Descendants("reference").Single().Value);
+            Assert.AreEqual("2019-09-11", Revision.Argument);
+            Assert.AreEqual("Generic Session Control parameter file.", Revision.Descendants("description").Single().Argument);
+            Assert.AreEqual("The Reference for Revision \r\n2019-09-11", Revision.Descendants("reference").Single().Argument);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace InterpreterNUnitTester
         {
             RevisipnStatementCorrectChildless = YangInterpreterTool.Load("TestFiles/RevisionStatement/RevisionStatementCorrectChildless.yang");
             var rev = RevisipnStatementCorrectChildless.Root.Descendants("revision").Single();
-            Assert.AreEqual("2019-09-11", rev.Value);
+            Assert.AreEqual("2019-09-11", rev.Argument);
             Assert.AreEqual("revision 2019-09-11;", rev.ToString());
         }
     }

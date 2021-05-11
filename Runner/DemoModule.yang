@@ -1,0 +1,36 @@
+module DemoModule {
+	yang-version 1;
+	namespace
+		"DemoModuleNamespace";
+
+	prefix dm;
+
+	import yang-interpreter { prefix "yani"; }
+	import interpreter-files { prefix "in-fi"; }
+	import profiles { prefix "profiles"; }
+
+	leaf OutterLeaf {
+		config "false";
+		type int8;
+		default "2";
+		description "desc";
+		if-feature myFeature;
+		mandatory "true";
+		must "ifType != 'ethernet' or " 
+		     + "(ifType = 'ethernet' and ifMTU = 1500)";
+		reference
+			"cc1fil_t - 0x0033A0000";
+		status current;
+		units "unit desc";
+
+		when 
+			"xpath:xml:something/";
+	}
+
+	container SomeContainer {
+		container ContainerDepth2 { container ContainerDepth3 {  container ContainerDepth4 { leaf LeafDepth5 { type int16; }}}}
+		leaf InnerLeaf {
+			type int8;
+		}
+	}
+}

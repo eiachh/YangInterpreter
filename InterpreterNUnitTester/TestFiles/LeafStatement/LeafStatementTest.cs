@@ -27,7 +27,7 @@ namespace InterpreterNUnitTester
         {
             var leaf = InterpreterCorrect.Root.Descendants("leaf").Single();
             Assert.AreEqual(11, leaf.Elements().Count());
-            Assert.AreEqual("tester", leaf.Value);
+            Assert.AreEqual("tester", leaf.Argument);
         }
 
         /// <summary>

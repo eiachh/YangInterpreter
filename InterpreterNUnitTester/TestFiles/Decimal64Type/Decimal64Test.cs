@@ -24,8 +24,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void Decimal64WithSubstatementIsParsedCorrectly()
         {
-            var decimal64Type = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "decimalTest1").Single().Elements().First();
-            Assert.AreEqual("decimal64", decimal64Type.Value);
+            var decimal64Type = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "decimalTest1").Single().Elements().First();
+            Assert.AreEqual("decimal64", decimal64Type.Argument);
             Assert.AreEqual(1, decimal64Type.Elements().Count());
         }
 
@@ -35,8 +35,8 @@ namespace InterpreterNUnitTester
         [Test]
         public void Decimal64WithoutSubstatementIsParsedCorrectly()
         {
-            var decimal64Type = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Value == "decimalTest2").Single().Elements().First();
-            Assert.AreEqual("decimal64", decimal64Type.Value);
+            var decimal64Type = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "decimalTest2").Single().Elements().First();
+            Assert.AreEqual("decimal64", decimal64Type.Argument);
             Assert.AreEqual(0, decimal64Type.Elements().Count());
             Assert.AreEqual("type decimal64;", decimal64Type.ToString());
         }

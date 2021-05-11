@@ -17,7 +17,7 @@ namespace YangInterpreter.Statements
     {
         public MaxElementsStatement(string Argument = "unbounded") : base("max-elements", Argument) { }
 
-        protected override string ImproperValueErrorMessage => "Max elements`s argument can only be positive numbers or the string \"unbounded\" but it was: " + Value;
+        protected override string ImproperValueErrorMessage => "Max elements`s argument can only be positive numbers or the string \"unbounded\" but it was: " + Argument;
 
         protected override bool IsValidValue(string value)
         {

@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void MandatoryIsParsedCorrectly()
         {
             var mandatoryStatement = InterpreterCorrect.Root.Descendants("mandatory").First();
-            Assert.AreEqual("true", mandatoryStatement.Value);
+            Assert.AreEqual("true", mandatoryStatement.Argument);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace InterpreterNUnitTester
         public void MandatoryDefaultValue()
         {
             var mandatoryStatement = new MandatoryStatement();
-            Assert.AreEqual("false", mandatoryStatement.Value);
+            Assert.AreEqual("false", mandatoryStatement.Argument);
         }
 
         /// <summary>

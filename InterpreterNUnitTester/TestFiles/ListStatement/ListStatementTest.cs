@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ListStatementIsParsedCorrectly()
         {
-            var list = InterpreterCorrect.Root.Descendants("list").Where(statement => statement.Value == "mainTester").Single();
+            var list = InterpreterCorrect.Root.Descendants("list").Where(statement => statement.Argument == "mainTester").Single();
             Assert.AreEqual(21, list.Elements().Count());
         }
 
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ListStatementWhitelistOverflowError()
         {
-            var list = InterpreterCorrect.Root.Descendants("list").Where(statement => statement.Value == "mainTester").Single();
+            var list = InterpreterCorrect.Root.Descendants("list").Where(statement => statement.Argument == "mainTester").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => list.AddStatement(new Int16TypeStatement("2")));
             Assert.Throws<ArgumentOutOfRangeException>(() => list.AddStatement(new ConfigStatement("true")));
             Assert.Throws<ArgumentOutOfRangeException>(() => list.AddStatement(new DescriptionStatement("desc")));

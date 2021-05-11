@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void GroupingIsParsedCorrectly()
         {
-            var grouping = InterpreterCorrect.Root.Descendants("grouping").Where(statement => statement.Value == "mainTester").Single();
+            var grouping = InterpreterCorrect.Root.Descendants("grouping").Where(statement => statement.Argument == "mainTester").Single();
             Assert.AreEqual(12, grouping.Elements().Count());
         }
 
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void GroupingWhitelistOverflowError()
         {
-            var grouping = InterpreterCorrect.Root.Descendants("grouping").Where(statement => statement.Value == "mainTester").Single();
+            var grouping = InterpreterCorrect.Root.Descendants("grouping").Where(statement => statement.Argument == "mainTester").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => grouping.AddStatement(new BooleanTypeStatement("true")));
 
             Assert.Throws<ArgumentOutOfRangeException>(() => grouping.AddStatement(new DescriptionStatement("desc")));

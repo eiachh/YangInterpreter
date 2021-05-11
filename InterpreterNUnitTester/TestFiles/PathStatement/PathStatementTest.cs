@@ -27,7 +27,7 @@ namespace InterpreterNUnitTester
             InterpreterCorrect = YangInterpreterTool.Load("TestFiles/PathStatement/LeafRefTypeStatementCorrect.yang");
             var typeStatement = InterpreterCorrect.Root.Descendants("type").Single();
             var pathStatement = typeStatement.Elements().Single();
-            Assert.AreEqual("/interface/name", pathStatement.Value);
+            Assert.AreEqual("/interface/name", pathStatement.Argument);
             Assert.AreEqual("path \"/interface/name\";", pathStatement.ToString());
         }
     }

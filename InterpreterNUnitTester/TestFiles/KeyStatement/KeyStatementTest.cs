@@ -26,7 +26,7 @@ namespace InterpreterNUnitTester
         public void KeyStatementIsParsedCorrectly()
         {
             var key = InterpreterCorrect.Root.Descendants("key").Single();
-            Assert.AreEqual("identifier identifier2", key.Value);
+            Assert.AreEqual("identifier identifier2", key.Argument);
         }
 
         /// <summary>

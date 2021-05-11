@@ -32,7 +32,7 @@ namespace YangInterpreter.Statements
 
         internal override bool IsQuotedValue => true;
 
-        protected override string ImproperValueErrorMessage => "The given value: " + Value + " is not valid for Range statement!";
+        protected override string ImproperValueErrorMessage => "The given value: " + Argument + " is not valid for Range statement!";
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {

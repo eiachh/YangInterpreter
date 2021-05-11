@@ -25,9 +25,9 @@ namespace InterpreterNUnitTester
         public void EmptyTypeStatementParsedCorrectly()
         {
             YangInterpreterTool interpreted = YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementCorrect.yang");
-            var leaf = interpreted.Root.Descendants("leaf").Where(statement => statement.Value == "emptyTest").FirstOrDefault();
+            var leaf = interpreted.Root.Descendants("leaf").Where(statement => statement.Argument == "emptyTest").FirstOrDefault();
             var typeEmpty = leaf.Elements().FirstOrDefault();
-            Assert.AreEqual("empty", typeEmpty.Value);
+            Assert.AreEqual("empty", typeEmpty.Argument);
             Assert.AreEqual(0, typeEmpty.Elements().Count());
             Assert.AreEqual("type empty;", typeEmpty.ToString());
         }
@@ -68,7 +68,7 @@ namespace InterpreterNUnitTester
         {
             YangInterpreterTool InterpreterCorrect = YangInterpreterTool.Load("TestFiles/TypeStatement/TypeStatementStringTypeCorrect.yang");
             var typeString = InterpreterCorrect.Root.Descendants("type").First();
-            Assert.AreEqual("string", typeString.Value);
+            Assert.AreEqual("string", typeString.Argument);
             Assert.AreEqual("Length", typeString.Elements().First().Name);
             Assert.AreEqual(1, typeString.Elements().Count());
         }
@@ -83,9 +83,9 @@ namespace InterpreterNUnitTester
             var enumerationType = EnumStatementParser.Root.Descendants("type").Single();
             var elementsOfEnumeration = enumerationType.Elements();
             Assert.AreEqual(3, elementsOfEnumeration.Count());
-            Assert.AreEqual("zero", elementsOfEnumeration.ToList()[0].Value);
-            Assert.AreEqual("one", elementsOfEnumeration.ToList()[1].Value);
-            Assert.AreEqual("seven", elementsOfEnumeration.ToList()[2].Value);
+            Assert.AreEqual("zero", elementsOfEnumeration.ToList()[0].Argument);
+            Assert.AreEqual("one", elementsOfEnumeration.ToList()[1].Argument);
+            Assert.AreEqual("seven", elementsOfEnumeration.ToList()[2].Argument);
         }
     }
 }

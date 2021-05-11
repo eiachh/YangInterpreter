@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         public void RangeIsParsedCorrectly()
         {
             var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").First();
-            Assert.AreEqual("2..10 \r\n| 51..343", rangeStatement1.Value);
+            Assert.AreEqual("2..10 \r\n| 51..343", rangeStatement1.Argument);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace InterpreterNUnitTester
             var rangeStatements = InterpreterCorrect.Root.Descendants("range");
             var rangeStatement1 = rangeStatements.First();
             var errorAppStatement = rangeStatement1.Elements("error-app-tag").Single();
-            Assert.AreEqual("the error app tag", errorAppStatement.Value);
+            Assert.AreEqual("the error app tag", errorAppStatement.Argument);
 
         }
 
@@ -49,7 +49,7 @@ namespace InterpreterNUnitTester
         {
             var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").First();
             var errormessageStatement = rangeStatement1.Elements("error-message").Single();
-            Assert.AreEqual("the error message", errormessageStatement.Value);
+            Assert.AreEqual("the error message", errormessageStatement.Argument);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace InterpreterNUnitTester
         {
             var rangeStatement1 = InterpreterCorrect.Root.Descendants("range").First();
             var errormessageStatement = rangeStatement1.Elements("reference").Single();
-            Assert.AreEqual("the reference", errormessageStatement.Value);
+            Assert.AreEqual("the reference", errormessageStatement.Argument);
         }
 
         /// <summary>

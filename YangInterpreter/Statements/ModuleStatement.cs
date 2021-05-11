@@ -54,9 +54,12 @@ namespace YangInterpreter
         /// The prefix for SELF namespace.faddchil
         /// </summary>
         public string Prefix { get; set; }
+        public string Namespace { get; set; }
+        public override StatementBase Parent { get => this;}
 
         public ModuleStatement() : base("module") { AddStatement(new YangVersionStatement("1")); }
         public ModuleStatement(string Value) : base("module",Value) { AddStatement(new YangVersionStatement("1")); }
+
 
         /// <summary>
         /// Namespace dictionary of imported modules. Keys are the prefixes, values are the full namespace.
@@ -68,7 +71,7 @@ namespace YangInterpreter
         /// </summary>
         /// <param name="_prefix"></param>
         /// <param name="_namespace"></param>
-        public void AddNamespace(string _prefix, string _namespace)
+        internal void AddNamespace(string _prefix, string _namespace)
         {
             if (!NamespaceDictionary.ContainsKey(_prefix))
                 NamespaceDictionary.Add(_prefix, _namespace);
@@ -98,7 +101,7 @@ namespace YangInterpreter
                 if (entry.Value == NameSpace)
                     return entry.Key;
             }
-            return null;
+            return "";
         }
 
         public override StatementBase AddStatement(StatementBase Node)
@@ -111,35 +114,17 @@ namespace YangInterpreter
                 if (version != null)
                     return version;
             }
+            else if(Node.GetType() == typeof(PrefixStatement))
+            {
+                Prefix = Node.Argument;
+            }
+            else if (Node.GetType() == typeof(NamespaceStatement))
+            {
+                Namespace = Node.Argument;
+            }
             base.AddStatement(Node);
             return Node;
         }
-
-        /*public override string StatementAsYangString(int indentationlevel)
-        {
-            var indent = GetIndentation(indentationlevel);
-            var strBuilder = indent + "module " + Name + " {" + Environment.NewLine;
-
-            StatementBase yangver = Descendants("yang-version").Single();
-            strBuilder += yangver.StatementAsYangString(indentationlevel + 1) + Environment.NewLine;
-
-            strBuilder += GetStatementsAsYangString(indentationlevel + 1) + Environment.NewLine;
-            strBuilder += indent + "}";
-            return strBuilder;
-        }
-
-        /*private string GetDictionaryAsYangString(int indentationLevel)
-        {
-            var indent = GetIndentation(indentationLevel);
-            var strBuilder = "";
-            if (NamespaceDictionary.Count == 0)
-                return "";
-            foreach (KeyValuePair<string, string> entry in NamespaceDictionary)
-            {
-                strBuilder += indent + "import " + entry.Value + " { prefix \"" + entry.Key + "\"; }" + Environment.NewLine;
-            }
-            return strBuilder + Environment.NewLine;
-        }*/
 
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {

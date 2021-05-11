@@ -25,17 +25,17 @@ namespace InterpreterNUnitTester
         public void StatusValuesParsedCorrectly()
         {
             var BitStatements = InterpreterCorrect.Root.Descendants("bit");
-            var Bit1 = BitStatements.Where(x => x.Parent.Parent.Value == "mybits1").Single();
+            var Bit1 = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits1").Single();
 
             var BitStatements2 = InterpreterCorrect.Root.Descendants("bit");
-            var Bit2 = BitStatements.Where(x => x.Parent.Parent.Value == "mybits2").Single();
+            var Bit2 = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits2").Single();
 
             var BitStatements3 = InterpreterCorrect.Root.Descendants("bit");
-            var Bit3 = BitStatements.Where(x => x.Parent.Parent.Value == "mybits3").Single();
+            var Bit3 = BitStatements.Where(x => x.Parent.Parent.Argument == "mybits3").Single();
 
-            Assert.AreEqual("current", Bit1.Descendants("status").First().Value);
-            Assert.AreEqual("obsolete", Bit2.Descendants("status").First().Value);
-            Assert.AreEqual("deprecated", Bit3.Descendants("status").First().Value);
+            Assert.AreEqual("current", Bit1.Descendants("status").First().Argument);
+            Assert.AreEqual("obsolete", Bit2.Descendants("status").First().Argument);
+            Assert.AreEqual("deprecated", Bit3.Descendants("status").First().Argument);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace InterpreterNUnitTester
         public void InvalidValueChangeThrowsError()
         {
             StatusStatement stat = new StatusStatement("current");
-            Assert.Throws<ImproperValue>(() => stat.Value = "notValid");
+            Assert.Throws<ImproperValue>(() => stat.Argument = "notValid");
         }
     }
 }

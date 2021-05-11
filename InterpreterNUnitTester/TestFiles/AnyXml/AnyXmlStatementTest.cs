@@ -27,7 +27,7 @@ namespace InterpreterNUnitTester
         {
             var anyxml = InterpreterCorrect.Root.Descendants("anyxml").First();
             Assert.AreEqual(8,anyxml.Elements().Count());
-            Assert.AreEqual("identifier", anyxml.Value);
+            Assert.AreEqual("identifier", anyxml.Argument);
         }
 
         /// <summary>

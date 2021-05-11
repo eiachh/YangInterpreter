@@ -25,7 +25,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ContainerStatementIsParsedCorrectly()
         {
-            var container = InterpreterCorrect.Root.Descendants("container").Where(statement => statement.Value == "mainTester").Single();
+            var container = InterpreterCorrect.Root.Descendants("container").Where(statement => statement.Argument == "mainTester").Single();
             Assert.AreEqual(17, container.Elements().Count());
         }
 
@@ -35,7 +35,7 @@ namespace InterpreterNUnitTester
         [Test]
         public void ContainerStatementWhitelistOverflowError()
         {
-            var container = InterpreterCorrect.Root.Descendants("container").Where(statement => statement.Value == "mainTester").Single();
+            var container = InterpreterCorrect.Root.Descendants("container").Where(statement => statement.Argument == "mainTester").Single();
             Assert.Throws<ArgumentOutOfRangeException>(() => container.AddStatement(new BooleanTypeStatement()));
             Assert.Throws<ArgumentOutOfRangeException>(() => container.AddStatement(new ConfigStatement("true")));
             Assert.Throws<ArgumentOutOfRangeException>(() => container.AddStatement(new DescriptionStatement("desc")));
