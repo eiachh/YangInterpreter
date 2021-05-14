@@ -238,6 +238,15 @@ namespace InterpreterNUnitTester
             var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "MultilineConcatWithCompletedSingleQuotes").Single().Elements().First();
             Assert.AreEqual("abc", desc.Argument);
         }
+        /// <summary>
+        /// Checks if argument contains a statement definition, it is still parsed as value.
+        /// </summary>
+        [Test]
+        public void StatementAsText()
+        {
+            var desc = InterpreterCorrect.Root.Descendants("leaf").Where(leaf => leaf.Argument == "statementAsText").Single().Elements().First();
+            Assert.AreEqual("module fakeStatement {", desc.Argument);
+        }
 
         /// <summary>
         /// Checks if the unquoted arg value is parsed correctly.

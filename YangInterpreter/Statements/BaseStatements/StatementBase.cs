@@ -14,11 +14,6 @@ namespace YangInterpreter.Statements.BaseStatements
         ChildIncapable,
         None
     }
-    internal enum ValueFormattingOption
-    {
-        SameLineStart,
-        NextLineStart,
-    }
 
     public abstract class StatementBase
     {
@@ -40,6 +35,10 @@ namespace YangInterpreter.Statements.BaseStatements
         internal virtual bool IsQuotedValue { get; } = false;
 
         protected List<StatementBase> StatementList = new List<StatementBase>();
+
+        protected StatementBase() { }
+        public StatementBase(string name) { Name = name; }
+        public StatementBase(string name, string argument) { Name = name; Argument = argument; }
 
         /// <summary>
         /// Returns the Statement as an XML example Array.
@@ -175,13 +174,6 @@ namespace YangInterpreter.Statements.BaseStatements
         internal abstract Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary();
 
         /// <summary>
-        /// This is here to force YangNode constructor with Name parameter.
-        /// </summary>
-        protected StatementBase() { }
-        public StatementBase(string name) { Name = name; }
-        public StatementBase(string name,string argument) { Name = name; Argument = argument; }
-
-        /// <summary>
         /// Adds the given Statement as child.
         /// </summary>
         /// <param name="StatementToAdd"></param>
@@ -255,16 +247,6 @@ namespace YangInterpreter.Statements.BaseStatements
         public override string ToString()
         {
             return StatementAsYangString();
-        }
-
-        /// <summary>
-        /// Returns the required amount of tabs as text.
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        protected string GetIdentation(int n)
-        {
-            return new String('\t', n);
         }
 
         /// <summary>

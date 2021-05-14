@@ -31,6 +31,7 @@ namespace YangInterpreter.Statements.BaseStatements
         uint64,
         union,
         none,
+        derived
     }
 
     /// Type Statement RFC 6020 7.4. 
@@ -62,6 +63,7 @@ namespace YangInterpreter.Statements.BaseStatements
         /// </summary>
         internal static List<Tuple<Type,int>> AllowedSubstatements = new List<Tuple<Type, int>>();
         public BuiltInTypes BuiltInTypeOfNode { get; set; } = BuiltInTypes.none;
+        public TypeStatement(string Argument) : base("type", Argument) { }
         public TypeStatement(BuiltInTypes BaseType) : base("type",BuiltInTypeToString(BaseType))
         {
             BuiltInTypeOfNode = BaseType;

@@ -126,4 +126,7 @@ module ArgumentParseTestInvalidCase {
 			+ 'b' +
 			'c';
 	}
+	leaf statementAsText {
+		description "module fakeStatement {";
+	}
 }

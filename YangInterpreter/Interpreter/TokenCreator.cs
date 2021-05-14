@@ -87,6 +87,7 @@ namespace YangInterpreter.Interpreter
                 new SearchScheme(new Regex(@"^\s*(?<statementName>type\s*uint8)\s*"+ArgumentParser),                typeof(UInt8TypeStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>type\s*decimal64)\s*"+ArgumentParser),            typeof(Decimal64TypeStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>type string)\s*"+ArgumentParser),                 typeof(StringTypeStatement)),
+                new SearchScheme(new Regex(@"^\s*(?<statementName>type)\s*"+ArgumentParser),                        typeof(DerivedTypeStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>bit)\s+"+ArgumentParser),                         typeof(BitStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>enum)\s+"+ArgumentParser),                        typeof(EnumStatement)),
                 new SearchScheme(new Regex(@"^\s*(?<statementName>typedef)\s+"+ArgumentParser),                     typeof(TypedefStatement)),

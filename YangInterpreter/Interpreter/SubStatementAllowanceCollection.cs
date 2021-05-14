@@ -257,6 +257,7 @@ namespace YangInterpreter.Interpreter
             LeafStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, 1));
             LeafStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, 1));
             LeafStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, 1));
+            LeafStatementAllowedSubstatements.Add(typeof(DerivedTypeStatement), new Tuple<int, int>(0, 1));
             #endregion
             LeafStatementAllowedSubstatements.Add(typeof(UnitsStatement), new Tuple<int, int>(0, 1));
             LeafStatementAllowedSubstatements.Add(typeof(WhenStatement), new Tuple<int, int>(0, 1));
@@ -409,6 +410,7 @@ namespace YangInterpreter.Interpreter
             UnionTypeStatementAllowedSubstatements.Add(typeof(UInt64TypeStatement), new Tuple<int, int>(0, -1));
             UnionTypeStatementAllowedSubstatements.Add(typeof(UInt8TypeStatement), new Tuple<int, int>(0, -1));
             UnionTypeStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, -1));
+            UnionTypeStatementAllowedSubstatements.Add(typeof(DerivedTypeStatement), new Tuple<int, int>(0, -1));
         }
         private static void FillAnyXmlStatementAllowanceList()
         {
@@ -525,6 +527,7 @@ namespace YangInterpreter.Interpreter
 
             LeafListStatementAllowedSubstatements.Add(typeof(UnitsStatement), new Tuple<int, int>(0, 1));
             LeafListStatementAllowedSubstatements.Add(typeof(WhenStatement), new Tuple<int, int>(0, 1));
+            LeafListStatementAllowedSubstatements.Add(typeof(DerivedTypeStatement), new Tuple<int, int>(0, 1));
         }
         private static void FillTypedefStatementAllowanceList()
         {
@@ -558,6 +561,7 @@ namespace YangInterpreter.Interpreter
             TypedefStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, 1));
             TypedefStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, 1));
             TypedefStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, 1));
+            TypedefStatementAllowedSubstatements.Add(typeof(DerivedTypeStatement), new Tuple<int, int>(0, 1));
             #endregion
 
             TypedefStatementAllowedSubstatements.Add(typeof(UnitsStatement), new Tuple<int, int>(0, 1));
@@ -639,6 +643,7 @@ namespace YangInterpreter.Interpreter
             DeviateStatementAllowedSubstatements.Add(typeof(BooleanTypeStatement), new Tuple<int, int>(0, 1));
             DeviateStatementAllowedSubstatements.Add(typeof(IdentityrefTypeStatement), new Tuple<int, int>(0, 1));
             DeviateStatementAllowedSubstatements.Add(typeof(UnionTypeStatement), new Tuple<int, int>(0, 1));
+            DeviateStatementAllowedSubstatements.Add(typeof(DerivedTypeStatement), new Tuple<int, int>(0, 1));
             #endregion
 
             DeviateStatementAllowedSubstatements.Add(typeof(UniqueStatement), new Tuple<int, int>(0, -1));

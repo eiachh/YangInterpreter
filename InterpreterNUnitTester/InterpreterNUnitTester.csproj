@@ -95,6 +95,9 @@
     <None Update="TestFiles\DefaultStatement\DefaultStatementCorrect.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestFiles\DerivedTypeStatement\DerivedTypeStatementCorrect.yang">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestFiles\Description\DescriptionMissingSemicolon.yang">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

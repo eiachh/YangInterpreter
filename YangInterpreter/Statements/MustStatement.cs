@@ -18,6 +18,9 @@ namespace YangInterpreter.Statements
     {
         public MustStatement() : base("must") { }
         public MustStatement(string Argument) : base("must",Argument) { }
+
+        internal override bool IsQuotedValue => true;
+
         internal override Dictionary<Type, Tuple<int, int>> GetAllowanceSubStatementDictionary()
         {
             return SubStatementAllowanceCollection.MustStatementAllowedSubstatements;
